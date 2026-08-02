@@ -1,0 +1,56 @@
+generated: '2026-08-01'
+method: searched
+source: openapi/immuta-marketplace-api-openapi.yml
+docs: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+summary:
+  types: [http, apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  note: 'Immuta''s APIs are key- and token-authenticated, not OAuth-scoped. There is
+    no authorization server, no scope surface and no /.well-known discovery; authorization
+    is enforced by Immuta permissions (for example CREATE_DATA_SOURCE, APPLICATION_ADMIN)
+    attached to the calling identity rather than by token scopes.'
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  surface: Immuta Data Marketplace / Request app API
+  sources: [openapi/immuta-marketplace-api-openapi.yml]
+  credential: personal access token (PAT)
+  issued_at: https://app.immutacloud.com/marketplace/personal-access-tokens
+  expiration: configurable at creation, including "No expiration"
+  visibility: shown once at creation and not retrievable afterwards
+  claims_note: the JWT claims carry tenant metadata used to build the Request app request
+    context
+  management_operations: [createToken, listTokens, getToken, deleteToken, user]
+- name: immutaApiKey
+  type: apiKey
+  in: header
+  parameter_name: Authorization
+  surface: Immuta Govern API (V1, V2, integrations, connections) and the Immuta CLI
+  sources: [https://documentation.immuta.com/saas/developer-guides/api-intro/authentication]
+  note: 'the API key is sent as the raw Authorization header value with no scheme prefix
+    — Authorization: <api-key>'
+  issued_at: the API Keys tab of the Immuta user profile page
+- name: immutaBearerExchange
+  type: http
+  scheme: bearer
+  surface: Immuta Govern API
+  sources: [https://documentation.immuta.com/saas/developer-guides/api-intro/authentication]
+  exchange:
+    endpoint: POST /bim/apikey/authenticate
+    request: '{"apikey": "<your-api-key>"}'
+    response: bearer token presented as Authorization Bearer on subsequent calls
+authorization_model:
+  mechanism: Immuta permissions and roles on the calling identity
+  examples: [CREATE_DATA_SOURCE, APPLICATION_ADMIN]
+  scopes: []
+  note: 'documented per endpoint as "Required Immuta permission"; scopes/ is intentionally
+    not emitted for this provider because there is no OAuth scope surface to record.'
+gaps:
+- The published OpenAPI applies no security requirement at the document level and none
+  at the operation level, so the declared bearer scheme is never bound to an operation
+  in the contract (see overlays/immuta-marketplace-api-overlay.yaml).
+- No 401 or 403 response is declared on any operation.
+- No token refresh, rotation or revocation policy is published for Govern API keys.

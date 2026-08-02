@@ -1,0 +1,573 @@
+# Documentation - SaaS
+
+## SaaS
+
+- [Immuta Documentation - SaaS](https://documentation.immuta.com/saas/readme.md): Use Immuta to provision governed access to data.
+- [Connect Integrations](https://documentation.immuta.com/saas/configuration/integrations.md): Learn how your data platform integrates with Immuta so you can register and manage access controls on your data
+- [Integrations Overview](https://documentation.immuta.com/saas/configuration/integrations/integrations-overview.md): Learn which integrations support subscription policies, data policies, identification, and query audit
+- [Amazon Redshift](https://documentation.immuta.com/saas/configuration/integrations/redshift.md): Learn about Immuta's integrations for Amazon Redshift
+- [Amazon Redshift Integration](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration.md): Learn about how you can register data from Amazon Redshift and govern access to that data
+- [Getting Started with the Amazon Redshift Integration](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/getting-started-with-the-amazon-redshift-integration.md): Learn how to best implement Immuta with Amazon Redshift in your data ecosystem
+- [Register an Amazon Redshift Connection](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/register-an-amazon-redshift-connection.md): Register your Amazon Redshift data and map your user accounts into Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/reference-guides.md)
+- [Amazon Redshift Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/reference-guides/amazon-redshift-integration-reference-guide.md): Learn about how the Amazon Redshift integration works and what Immuta creates in your environment to enforce access controls directly on objects in Amazon Redshift
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the Amazon Redshift integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/reference-guides/protecting-data.md): Learn how Immuta enforces policies directly on data in your Amazon Redshift environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-integration/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in Amazon Redshift
+- [Amazon Redshift Spectrum Integration](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-view-based-integration.md): Learn about how Immuta generates policy-enforced views in your Amazon Redshift Spectrum environment to govern your data
+- [Getting Started with the Amazon Redshift Spectrum Integration](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-view-based-integration/getting-started-with-the-amazon-redshift-spectrum-integration.md): Learn how to best implement Immuta with Amazon Redshift Spectrum in your data ecosystem
+- [Configure an Amazon Redshift Spectrum Integration](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-view-based-integration/configure-an-amazon-redshift-spectrum-integration.md): Create, manage, or remove your Amazon Redshift Spectrum integration
+- [Amazon Redshift Spectrum Integration Overview](https://documentation.immuta.com/saas/configuration/integrations/redshift/amazon-redshift-view-based-integration/redshift.md): Learn about how the Amazon Redshift Spectrum integration works to govern access to data
+- [Amazon S3](https://documentation.immuta.com/saas/configuration/integrations/amazon-s3-integration.md): Configure the Amazon S3 integration and learn about how the integration works to apply object-level access controls
+- [AWS Lake Formation](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation.md): Learn about how you can register data from the Glue Data Catalog and enforce object-level access controls on data queried by Amazon Athena, Amazon EMR Spark, and Amazon Redshift Spectrum
+- [Getting Started with AWS Lake Formation](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/getting-started-with-aws-lake-formation.md): Learn how to best implement Immuta with AWS Lake Formation in your data ecosystem
+- [Register an AWS Lake Formation Connection](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/register-an-aws-lake-formation-connection.md): Register your Glue Data Catalog data and map your user accounts into Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/reference-guides.md)
+- [AWS Lake Formation](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/reference-guides/aws-lake-formation.md): Learn about how the AWS Lake Formation integration works and what Immuta creates in your environment to enforce object-level access controls
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the AWS Lake Formation integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/reference-guides/protecting-data.md): Learn how Immuta enforces subscription policies on data registered in the Glue Data Catalog
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/aws-lake-formation/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data using Amazon Athena, Amazon EMR Spark, or Amazon Redshift Spectrum
+- [Azure Synapse Analytics](https://documentation.immuta.com/saas/configuration/integrations/azure-synapse-analytics.md): Learn about how Immuta generates policy-enforced views in your Azure Synapse Analytics Dedicated SQL pool to govern your data
+- [Getting Started with Azure Synapse Analytics](https://documentation.immuta.com/saas/configuration/integrations/azure-synapse-analytics/synapse.md): Learn how to best implement Immuta with Azure Synapse Analytics in your data ecosystem
+- [Configure Azure Synapse Analytics Integration](https://documentation.immuta.com/saas/configuration/integrations/azure-synapse-analytics/synapse-1.md): Create, manage, or remove your Azure Synapse Analytics integration
+- [Azure Synapse Analytics Overview](https://documentation.immuta.com/saas/configuration/integrations/azure-synapse-analytics/azure-synapse-analytics.md): Learn about how the Azure Synapse Analytics integration works to govern access to data
+- [Databricks](https://documentation.immuta.com/saas/configuration/integrations/databricks.md): Learn about Immuta's integrations for Databricks
+- [Databricks Unity Catalog](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog.md): Learn how Databricks can enforce Immuta policies automatically across data in your Unity Catalog metastore
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog/how-to-guides.md)
+- [Register a Databricks Unity Catalog Connection](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog/how-to-guides/register-a-databricks-unity-catalog-connection.md)
+- [Migrating to Unity Catalog](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog/how-to-guides/migrating.md): Move your data to Unity Catalog and re-register those securables in Immuta so Immuta can administer Unity Catalog access controls
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog/reference-guides.md)
+- [Databricks Unity Catalog Integration](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-unity-catalog/reference-guides/databricks-unity-catalog-integration.md)
+- [Databricks Lakebase](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase.md): Learn about how you can register data from Databricks Lakebase and govern access to that data
+- [Getting Started with Databricks Lakebase](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/getting-started-with-databricks-lakebase.md): Learn how to best implement Immuta with Databricks Lakebase in your data ecosystem
+- [Register a Databricks Lakebase Connection](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/register-a-databricks-lakebase-connection.md): Register your Databricks Lakebase data and map your user accounts into Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/reference-guides.md)
+- [Databricks Lakebase Integration](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/reference-guides/databricks-lakebase-integration.md): Learn about how the Databricks Lakebase integration works and what Immuta creates in your environment to enforce object-level access controls directly on those objects
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the Databricks Lakebase integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/reference-guides/protecting-data.md): Learn how Immuta enforces policies on data in your Databricks Lakebase environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-lakebase/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in Databricks Lakebase through PostgreSQL
+- [Databricks Spark](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark.md): Learn about how you can register data from the Databricks legacy Hive metastore and govern access to that data
+- [Getting Started with Databricks Spark](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/getting-started-with-databricks-spark.md): Learn how to best implement Immuta with Databricks Spark in your data ecosystem
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides.md)
+- [Configure a Databricks Spark Integration](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/simplified.md): Configure the Databricks Spark integration
+- [Manually Update Your Databricks Cluster](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/cluster-update.md): Manually update your Databricks cluster to reflect changes in cluster policies or the Immuta init script
+- [Install a Trusted Library](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/installation.md): Install a third-party library as trusted to enable that library's code to bypass the Immuta security manager
+- [Project UDFs Cache Settings](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/project-udfs.md): Lower the web service cache timeout settings of project UDFs
+- [Run R and Scala spark-submit Jobs on Databricks](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/spark-submit.md): Complete prerequisites and create R and Scala spark-submit jobs
+- [DBFS Access](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/access-dbfs.md): Enable DBFS access in Databricks for non-sensitive data
+- [Troubleshooting Databricks Spark](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/how-to-guides/troubleshooting.md): Troubleshoot common errors with the Databricks Spark integration
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides.md)
+- [Databricks Spark Integration Configuration](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks.md): Learn how the Databricks Spark integration works to govern data access
+- [Installation and Compliance](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks/installation-and-compliance.md): Learn about what Immuta creates in your Databricks environment to enforce access controls
+- [Customizing the Integration](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks/customizing-the-integration.md): Learn how to adjust settings for the Databricks Spark integration
+- [Setting Up Users](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks/setting-up-users.md): Learn about user impersonation and how to map your Databricks users into Immuta
+- [Spark Environment Variables](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks/configuration.md): Learn about the available Spark environment variables so that you can customize your Databricks Spark integration
+- [Ephemeral Overrides](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/databricks/ephemeral-overrides.md): Learn about how Immuta uses ephemeral overrides to determine which cluster compute to use when connecting to Databricks for maintenance operations
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/security-and-compliance.md): Understand the authentication methods, cluster security, and audit features supported by the Databricks Spark integration to ensure you are meeting your organization's security and compliance needs
+- [Registering and Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/registering-and-protecting-data.md): Learn how Immuta enforces policies on data in your Databricks Spark environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in Databricks Spark
+- [Delta Lake API](https://documentation.immuta.com/saas/configuration/integrations/databricks/databricks-spark/reference-guides/accessing-data/delta-lake-api.md): Learn how to use Spark SQL to achieve the same functionality as the Delta Lake API
+- [Google BigQuery](https://documentation.immuta.com/saas/configuration/integrations/google-bigquery.md): Learn about Immuta's integrations for Google BigQuery
+- [Google BigQuery Viewless Integration](https://documentation.immuta.com/saas/configuration/integrations/google-bigquery/google-bigquery-viewless-integration.md): Learn about how the Google BigQuery viewless integration works and what Immuta does in your environment to register your data and keep it in sync
+- [Register a Google BigQuery Connection](https://documentation.immuta.com/saas/configuration/integrations/google-bigquery/google-bigquery-viewless-integration/register-a-google-bigquery-connection.md)
+- [Google BigQuery View-Based Integration](https://documentation.immuta.com/saas/configuration/integrations/google-bigquery/google-bigquery-view-based-integration.md): Configure the Google BigQuery view-based integration and learn about how the integration works to apply access controls
+- [MariaDB](https://documentation.immuta.com/saas/configuration/integrations/mariadb.md): Learn about how you can register data from MariaDB
+- [Register a MariaDB Connection](https://documentation.immuta.com/saas/configuration/integrations/mariadb/register-a-mariadb-connection.md): Register your MariaDB data
+- [MariaDB Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/mariadb/mariadb-connection-reference-guide.md): Learn about how the MariaDB integration works and what Immuta does in your environment to register your data and keep it in sync
+- [Oracle](https://documentation.immuta.com/saas/configuration/integrations/oracle.md): Learn about how you can register data from Oracle
+- [Register an Oracle Connection](https://documentation.immuta.com/saas/configuration/integrations/oracle/register-an-oracle-connection.md): Register your Oracle data
+- [Oracle Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/oracle/oracle-connection-reference-guide.md): Learn about how the Oracle integration works and what Immuta does in your environment to register your data and keep it in sync
+- [MySQL](https://documentation.immuta.com/saas/configuration/integrations/mysql.md): Learn about how you can register data from MySQL
+- [Register a MySQL Connection](https://documentation.immuta.com/saas/configuration/integrations/mysql/register-a-mysql-connection.md): Register your MySQL data
+- [MySQL Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/mysql/mysql-integration-reference-guide.md): Learn about how the MySQL integration works and what Immuta does in your environment to register your data and keep it in sync
+- [PostgreSQL](https://documentation.immuta.com/saas/configuration/integrations/postgresql.md): Learn about how you can register data from PostgreSQL and enforce object-level access controls on that data
+- [Getting Started with PostgreSQL](https://documentation.immuta.com/saas/configuration/integrations/postgresql/getting-started-with-postgresql.md): Learn how to best implement Immuta with PostgreSQL in your data ecosystem
+- [Register a PostgreSQL Connection](https://documentation.immuta.com/saas/configuration/integrations/postgresql/register-a-postgresql-connection.md): Register your PostgreSQL data and map your user accounts into Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/postgresql/reference-guides.md)
+- [PostgreSQL Integration](https://documentation.immuta.com/saas/configuration/integrations/postgresql/reference-guides/postgresql-connection.md): Learn about how the PostgreSQL integration works and what Immuta creates in your environment to enforce object-level access controls
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/postgresql/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the PostgreSQL integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/postgresql/reference-guides/protecting-data.md): Learn how Immuta enforces policies on data in your PostgreSQL environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/postgresql/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in PostgreSQL
+- [Snowflake](https://documentation.immuta.com/saas/configuration/integrations/snowflake.md): Learn about how you can register data from Snowflake and govern access to that data
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/snowflake/how-to-guides.md)
+- [Register a Snowflake Connection](https://documentation.immuta.com/saas/configuration/integrations/snowflake/how-to-guides/register-a-snowflake-connection.md)
+- [Enable Snowflake Tag Ingestion](https://documentation.immuta.com/saas/configuration/integrations/snowflake/how-to-guides/enable-snowflake-tag-ingestion-1.md): Enable Snowflake tag ingestion to pull Snowflake tags and apply them to data sources
+- [Using Snowflake Data Sharing with Immuta](https://documentation.immuta.com/saas/configuration/integrations/snowflake/how-to-guides/use-data-sharing.md): Share Immuta-protected Snowflake data
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides.md)
+- [Snowflake Integration](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/snowflake-integration.md)
+- [Snowflake Low Row Access Policy Mode](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/snowflake-low-row-access-policy-mode.md)
+- [Snowflake Table Grants](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/snowflake-table-grants.md)
+- [Integration Settings](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/integration-settings.md)
+- [Snowflake Data Sharing with Immuta](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/integration-settings/data-sharing.md): Learn about the design of and benefits of using Snowflake Data Sharing with Immuta
+- [Warehouse Sizing Recommendations](https://documentation.immuta.com/saas/configuration/integrations/snowflake/reference-guides/integration-settings/warehouse-sizing-recommendations.md): Learn about how to adjust the size of your Snowflake warehouse to manage workloads and use compute resources cost effectively
+- [SQL Server](https://documentation.immuta.com/saas/configuration/integrations/sql-server.md): Learn about how you can register data from SQL Server
+- [Register a SQL Server Connection](https://documentation.immuta.com/saas/configuration/integrations/sql-server/register-a-sql-server-connection.md): Register your SQL Server data
+- [SQL Server Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/sql-server/sql-server-connection-reference-guide.md): Learn about how the SQL Server integration works and what Immuta does in your environment to register your data and keep it in sync
+- [Starburst (Trino)](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino.md): Learn about how you can register data from Starburst (Trino) and enforce access controls on that data
+- [Getting Started with Starburst (Trino)](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/trino.md): Learn how to best implement Immuta with Starburst (Trino) in your data ecosystem
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/how-to-guides.md)
+- [Register a Trino Connection](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/how-to-guides/register-a-trino-connection.md): Register your Trino data
+- [Customize the Immuta Trino Plugin](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/how-to-guides/register-a-trino-connection/customize-the-immuta-trino-plugin.md): Learn about the available Trino plugin properties so that you can customize your Trino integration
+- [Rotate the System API Key](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/how-to-guides/register-a-trino-connection/rotate-the-system-api-key.md): Rotate the system API key to mitigate potential security risks
+- [Customize Read and Write Access Policies for Starburst (Trino)](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/how-to-guides/write-access-mapping.md): Customize how read and write access policies will be enforced when authored
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/reference-guides.md)
+- [Trino Integration Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/reference-guides/trino-connection-reference-guide.md): Learn about how the Trino integration works and what Immuta creates in your environment to administer Trino access controls directly on objects in Trino
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the Trino integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/reference-guides/protecting-data.md): Learn how Immuta enforces policies on data in your Trino environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/starburst-trino/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in Trino
+- [Teradata](https://documentation.immuta.com/saas/configuration/integrations/teradata.md): Learn about how you can register data from Teradata and govern access to that data
+- [Getting Started with Teradata](https://documentation.immuta.com/saas/configuration/integrations/teradata/getting-started-with-teradata.md): Learn how to best implement Immuta with Teradata in your data ecosystem
+- [Register a Teradata Connection](https://documentation.immuta.com/saas/configuration/integrations/teradata/register-a-teradata-connection.md): Register your Teradata data and map your user accounts into Immuta
+- [Remove a Teradata Connection](https://documentation.immuta.com/saas/configuration/integrations/teradata/register-a-teradata-connection/remove-a-teradata-connection.md): Delete your Teradata integration
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/teradata/reference-guides.md)
+- [Teradata Integration](https://documentation.immuta.com/saas/configuration/integrations/teradata/reference-guides/teradata-reference-guide.md): Learn about how the Teradata integration works and what Immuta creates in your environment to enforce access controls on objects in Teradata
+- [Security and Compliance](https://documentation.immuta.com/saas/configuration/integrations/teradata/reference-guides/security-and-compliance.md): Understand the authentication methods and audit features supported by the Teradata integration to ensure you are meeting your organization's security and compliance needs
+- [Protecting Data](https://documentation.immuta.com/saas/configuration/integrations/teradata/reference-guides/protecting-data.md): Learn how Immuta enforces policies directly on data in your Teradata environment
+- [Accessing Data](https://documentation.immuta.com/saas/configuration/integrations/teradata/reference-guides/accessing-data.md): Learn how end users can access policy-enforced data in Teradata
+- [Queries Immuta Runs in Your Data Platform](https://documentation.immuta.com/saas/configuration/integrations/queries-immuta-runs-in-your-data-platform.md): Understand the queries Immuta runs in your data platform and why
+- [Connect Your Data](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations.md): Learn about registering your data in Immuta
+- [Registering a Connection](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection.md): Learn how connections registers data objects in Immuta and keeps them in sync with the data in your data platform
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides.md)
+- [Manage Connection Settings and Objects](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides/manage-connection-settings.md): Change the status of data objects and assign data object permissions
+- [Deregister a Connection](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides/deregister-a-connection.md): Delete a connection
+- [Run Object Sync](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides/crawl-a-connection.md): Manually run object sync on a connection, a database, schema, or a data source
+- [Use the Connection Upgrade Manager](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides/use-the-connection-upgrade-manager.md): Migrate legacy integrations to connections
+- [Troubleshooting](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/how-to-guides/use-the-connection-upgrade-manager/troubleshooting.md): Troubleshoot common issues with the upgrade manager
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides.md)
+- [Upgrading to Connections](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/upgrading-to-connections.md): Learn about how to migrate from legacy integrations to using connections
+- [Before You Begin](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/upgrading-to-connections/before-you-begin.md): Understand the differences between the legacy integration and onboarding method and connections
+- [API Changes](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/upgrading-to-connections/api-changes.md): Understand the API endpoints that are deprecated after moving to connections and what endpoints to use instead
+- [FAQ](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/upgrading-to-connections/faq.md): Consult frequently asked questions to understand how you will be affected by upgrading to connections
+- [Connections Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/connections-overview.md): Learn how connections work and about feature limitations
+- [New Connections Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-a-connection/reference-guides/new-connections-reference-guide.md): Learn how connections work and about feature limitations
+- [Registering Metadata](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata.md): Learn about how to register and manage your data sources in Immuta
+- [Data Sources in Immuta](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-overview.md): Learn about what a data source is and which registration method to use for your data platform
+- [Register Data Sources](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources.md): Register data sources for select integrations that still support this method
+- [Amazon Redshift Spectrum Data Source](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources/redshift-tutorial.md): Register data from Amazon Redshift Spectrum
+- [Amazon S3 Data Source](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources/s3-tutorial.md): Register data from Amazon S3
+- [Azure Synapse Analytics Data Source](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources/synapse-tutorial.md): Register data from Azure Synapse Analytics
+- [Databricks Data Source](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources/databricks-tutorial.md): Register data from Databricks Spark
+- [Google BigQuery Data Source](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/register-data-sources/bigquery-tutorial.md): Register data from Google BigQuery
+- [Data Source Settings](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings.md): Learn about managing data source settings
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides.md)
+- [Manage Data Sources](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides/manage-data-sources.md): Edit data source information; resync policies; and disable, enable, or delete data sources
+- [Manage Data Source Members](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides/manage-members.md): Manage users' roles and access to a data source
+- [Manage Access Requests and Tasks](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides/manage-requests.md): Approve or deny data source access requests and validate updated columns
+- [Manage Column Descriptions and Tags](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides/manage-column-descriptions-and-tags.md): Edit column descriptions and column tags
+- [Disable Immuta from Sampling Raw Data](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/how-to-guides/disable-data-sampling.md): Prevent Immuta from sampling raw data
+- [Data Source Health Checks Reference Guide](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/data-source-settings/data-source-health-checks.md): Learn about the health checks Immuta runs on your data
+- [Schema Monitoring](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring.md): Learn how Immuta reflects changes to tables or columns in your data platform
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/how-to-guides.md)
+- [Manage Schema Monitoring](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/how-to-guides/manage-schema-monitoring.md): Enable or disable schema monitoring and edit the format of data source or SQL table names
+- [Run Schema Monitoring and Column Detection Jobs](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/how-to-guides/run-schema-monitoring.md): Manually run schema monitoring or column detection
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/reference-guides.md)
+- [Schema Monitoring](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/reference-guides/schema-monitoring.md): Learn about how schema monitoring works in Immuta to keep your data sources up to date
+- [Schema Projects](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/reference-guides/schema-projects.md): Learn about how schema projects organize data sources within a schema
+- [Why Use Schema Monitoring Concept Guide](https://documentation.immuta.com/saas/configuration/integrations/data-and-integrations/registering-metadata/schema-monitoring/schema-monitoring-explained.md): Learn about the benefits of using schema monitoring
+- [Manage Data Metadata](https://documentation.immuta.com/saas/configuration/tags.md): Learn about how to manage tags, external catalogs, data identification tags, or data classification tags
+- [Connect External Catalogs](https://documentation.immuta.com/saas/configuration/tags/catalogs.md): Learn about connecting external catalogs
+- [Configure an External Catalog](https://documentation.immuta.com/saas/configuration/tags/catalogs/configure.md): Connect your external catalog to pull data metadata into Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/tags/catalogs/reference-guides.md)
+- [External Catalog Introduction](https://documentation.immuta.com/saas/configuration/tags/catalogs/reference-guides/pre-configuration.md): Learn about supported external catalogs and how they interact with Immuta
+- [Custom REST Catalog Interface Endpoints](https://documentation.immuta.com/saas/configuration/tags/catalogs/reference-guides/interface.md): Learn about the custom REST catalog integration and its endpoints
+- [Data Identification](https://documentation.immuta.com/saas/configuration/tags/data-discovery.md): Learn about how data identification discovers and tags your data
+- [Introduction](https://documentation.immuta.com/saas/configuration/tags/data-discovery/discover-introduction.md): Learn about the challenges of traditional data discovery tools and how Immuta's solution differs
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/tags/data-discovery/how-to-guides.md)
+- [Set Up Identification](https://documentation.immuta.com/saas/configuration/tags/data-discovery/how-to-guides/enable-sdd.md): Enable identification to automatically tag your data
+- [Manage Individual Identifiers](https://documentation.immuta.com/saas/configuration/tags/data-discovery/how-to-guides/manage-rules.md): Create, edit, or delete an identifier
+- [Run Identification and Manage Settings](https://documentation.immuta.com/saas/configuration/tags/data-discovery/how-to-guides/manage-sdd-tags.md): Run identification in a domain or on a data source to automatically tag your data
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/tags/data-discovery/reference-guide.md)
+- [How Competitive Pattern Analysis Works](https://documentation.immuta.com/saas/configuration/tags/data-discovery/reference-guide/sdd-scoring.md): Learn how competitive pattern analysis assesses your data to apply column tags
+- [Built-in Identifier Reference](https://documentation.immuta.com/saas/configuration/tags/data-discovery/reference-guide/improved-pack-built-in-identifier-reference.md): Understand the common data types built-in identifiers detect and tag
+- [Built-in Identifier Changelog](https://documentation.immuta.com/saas/configuration/tags/data-discovery/reference-guide/improved-pack-built-in-identifier-reference/built-in-identifier-changelog.md): Keep track of the updates made to the built-in identifiers
+- [Data Classification](https://documentation.immuta.com/saas/configuration/tags/data-classification.md): Learn about how data classification categorizes the risk level associated with your data
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/tags/data-classification/how-to-guides.md)
+- [Activate Classification Frameworks](https://documentation.immuta.com/saas/configuration/tags/data-classification/how-to-guides/activate-framework.md): Activate a classification framework to categorize the sensitivity of your data
+- [Adjust Identification and Classification Framework Tags](https://documentation.immuta.com/saas/configuration/tags/data-classification/how-to-guides/adjust-classification-tags.md): Tune identification and classification frameworks to adjust where tags are applied based on your own security and compliance needs
+- [How to Use a Classification Framework with Your Own Tags](https://documentation.immuta.com/saas/configuration/tags/data-classification/how-to-guides/how-to-use-a-built-in-classification-framework-with-your-own-tags.md): Customize a classification framework to use your own catalog tags
+- [Classification Frameworks Reference Guide](https://documentation.immuta.com/saas/configuration/tags/data-classification/classification-frameworks.md): Learn about how classification frameworks categorize the risk level of your data
+- [Immuta Tags](https://documentation.immuta.com/saas/configuration/tags/manage-tags.md): Learn about how tags are used and what actions associated with tags are audited in Immuta
+- [Create and Manage Tags](https://documentation.immuta.com/saas/configuration/tags/manage-tags/managing-tags.md): Create, view, or import tags
+- [Add Tags to Data Sources and Projects](https://documentation.immuta.com/saas/configuration/tags/manage-tags/data-source-tags.md): Add tags to data sources and projects so that data can be targeted by policies that use those tags
+- [Manage Users](https://documentation.immuta.com/saas/configuration/people.md): Learn about managing users in Immuta
+- [Identity Managers (IAMs)](https://documentation.immuta.com/saas/configuration/people/section-contents.md): Learn how your identity manager integrates with Immuta
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides.md)
+- [LDAP](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/ldap.md): Learn how to best set up the LDAP protocol in Immuta
+- [LDAP Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/ldap/ldap-protocol.md): Connect an identity provider that uses the LDAP protocol
+- [Okta LDAP Interface](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/ldap/okta-ldap.md): Connect Okta LDAP Interface to Immuta
+- [OpenID Connect](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/openid-connect.md): Learn how to best set up the OpenID Connect protocol in Immuta
+- [OpenID Connect Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/openid-connect/openid-connect-protocol.md): Connect an identity provider that uses the OpenID Connect protocol
+- [Okta with OpenID Connect](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/openid-connect/okta-openid-connect.md): Connect Okta with OpenID Connect
+- [OneLogin with OpenID Connect](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/openid-connect/onelogin.md): Connect OneLogin with OpenID Connect
+- [SAML](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/saml.md): Learn how to best set up the SAML protocol in Immuta
+- [SAML Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/saml/enable-saml.md): Connect an identity provider that uses the SAML protocol
+- [Microsoft Entra ID](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/saml/microsoft-entra-id.md): Connect Microsoft Entra ID with SAML
+- [Troubleshoot Microsoft Entra ID](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/saml/microsoft-entra-id/troubleshoot-microsoft-entra-id.md): Troubleshoot issues with the Microsoft Entra ID integration
+- [Okta with SAML and SCIM](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/saml/okta-saml-scim.md): Connect Okta with SAML and SCIM
+- [Configure an External User Info Endpoint](https://documentation.immuta.com/saas/configuration/people/section-contents/how-to-guides/configure-an-external-user-info-endpoint.md): Set up an external user info endpoint to ingest user metadata from an external HTTP endpoint
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides.md)
+- [Identity Management Overview](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/index.md): Learn about the IAM protocols, identity providers, and IAM features supported by Immuta
+- [LDAP Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/ldap-protocol.md): Learn how the LDAP protocol works with Immuta
+- [OpenID Connect Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/openid-connect-protocol.md): Learn how the OpenID Connect protocol works with Immuta
+- [SAML Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/saml-protocol.md): Learn how the SAML protocol works with Immuta
+- [SCIM Protocol](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/scim-protocol.md): Learn about the features and behavior of Immuta's SCIM implementation
+- [Troubleshoot SCIM](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/scim-protocol/troubleshoot-scim.md): Troubleshoot common errors with SCIM provisioning
+- [External User Info Endpoint](https://documentation.immuta.com/saas/configuration/people/section-contents/reference-guides/custom-external.md): Learn how Immuta can pull in user attributes from an external HTTP endpoint
+- [Immuta Users](https://documentation.immuta.com/saas/configuration/people/users-index.md): Learn about user permissions and personas in Immuta
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/people/users-index/how-to-guides.md)
+- [Managing Users and Permissions](https://documentation.immuta.com/saas/configuration/people/users-index/how-to-guides/managing-personas-and-permissions.md): Create, manage, and delete users
+- [Manage Attributes and Groups](https://documentation.immuta.com/saas/configuration/people/users-index/how-to-guides/managing-attribute-and-group.md): Assign groups and attributes to users
+- [External User ID Mapping](https://documentation.immuta.com/saas/configuration/people/users-index/how-to-guides/external-user-mapping.md): Link external user accounts to corresponding Immuta user accounts
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/people/users-index/reference-guides.md)
+- [Immuta Users and Permissions](https://documentation.immuta.com/saas/configuration/people/users-index/reference-guides/personas-and-permissions.md): Learn about Immuta users, permissions, and license consumption
+- [Attributes and Groups in Immuta](https://documentation.immuta.com/saas/configuration/people/users-index/reference-guides/attribute-and-group-overview.md): Learn about how attributes and groups are used in Immuta
+- [Organize Data into Domains](https://documentation.immuta.com/saas/configuration/domains.md): Learn about managing domains to delegate access management and data ownership
+- [Create and Manage Domains](https://documentation.immuta.com/saas/configuration/domains/configure-domains.md): Create a domain and assign data sources and domain permissions
+- [Domains Reference Guide](https://documentation.immuta.com/saas/configuration/domains/domains.md): Learn about how domains allow you to delegate access management and how Immuta enforces domain policies
+- [Setting Up Domains for Data Product Management](https://documentation.immuta.com/saas/configuration/domains/setting-up-domains-for-marketplace.md): Learn about adding data sources to domains manually or dynamically using tags
+- [Application Settings](https://documentation.immuta.com/saas/configuration/application-configuration.md): Learn how to manage application-wide settings for your tenant
+- [How-to Guides](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides.md)
+- [App Settings](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/config-builder-guide.md): Use the app settings page to configure your tenant
+- [Private Networking Support](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support.md): Learn about the private networking options Immuta supports
+- [Data Connection Private Networking](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking.md): Learn about the private connectivity options for data platforms and APIs
+- [AWS PrivateLink for API Gateway](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/aws-privatelink-for-api-gateway.md): Set up private connectivity between Immuta SaaS and AWS API Gateway endpoints
+- [AWS PrivateLink for Redshift](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/redshift-privatelink.md): Set up private connectivity between Immuta SaaS and Redshift clusters hosted on AWS
+- [AWS PrivateLink for PostgreSQL](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/aws-privatelink-for-postgresql.md): Set up private connectivity between Immuta SaaS and PostgreSQL database engines on Amazon Aurora and Amazon RDS
+- [AWS PrivateLink for S3](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/aws-privatelink-for-s3.md): Understand how Immuta uses S3 Gateway VPC endpoints to establish private connectivity for all S3 services in AWS
+- [Databricks Private Connectivity](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index.md): Understand the private connectivity options for Databricks integrations
+- [AWS PrivateLink for Databricks](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index/aws-privatelink.md): Set up private connectivity between Immuta SaaS and Databricks accounts hosted on AWS
+- [Azure Private Link for Databricks](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index/azure-privatelink.md): Set up private connectivity between Immuta SaaS and Azure Databricks accounts
+- [GCP Private Service Connect for Databricks](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index/gcp-private-service-connect-for-databricks.md): Set up private connectivity between Immuta SaaS and Databricks accounts hosted on Google Cloud Platform
+- [GCP BigQuery Private Service Connect](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/gcp-bigquery-private-service-connect.md): Understand how Immuta uses Private Service Connect to establish private connectivity to Google APIs
+- [Snowflake Private Connectivity](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-1.md): Understand the private connectivity options for Snowflake integrations
+- [AWS PrivateLink for Snowflake](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-1/aws-privatelink.md): Set up private connectivity between Immuta SaaS and Snowflake accounts hosted on AWS
+- [Azure Private Link for Snowflake](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-1/azure-privatelink.md): Set up private connectivity between Immuta SaaS and Snowflake accounts on Azure
+- [Starburst (Trino) Private Connectivity](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-2.md): Understand the private connectivity options for Starburst (Trino) integrations
+- [AWS PrivateLink for Starburst (Trino)](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-2/aws-privatelink.md): Set up private connectivity between Immuta SaaS and Starburst (Trino) clusters hosted on AWS
+- [Azure Private Link for Starburst (Trino)](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/index-2/azure-privatelink.md): Set up private connectivity between Immuta SaaS and Starburst (Trino) clusters on Azure
+- [Azure Private Link for Azure Synapse Dedicated SQL Pools](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/data-connection-private-networking/azure-privatelink.md): Set up private connectivity between Immuta SaaS and Azure Synapse workspaces
+- [Immuta SaaS Private Networking](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/governance-private-networking.md): Understand the private connectivity options for Immuta SaaS applications
+- [Immuta SaaS Private Networking Over AWS PrivateLink](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/private-networking-support/governance-private-networking/governance-private-networking-over-aws-privatelink.md): Set up Amazon VPC endpoint connections to Immuta applications from your organization's network
+- [BI Tools](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/bi-tools.md)
+- [BI Tool Configuration Recommendations](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/bi-tools/index.md): Understand how to effectively configure Immuta with your BI tools
+- [Power BI Configuration Example](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/bi-tools/power-bi.md): Understand how to configure Power BI with Immuta
+- [Tableau Configuration Example](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/bi-tools/tableau.md): Understand how to configure Tableau with Immuta
+- [System Status Bundle](https://documentation.immuta.com/saas/configuration/application-configuration/how-to-guides/system-status-bundle.md): Export the Immuta status bundle to help assess and resolve issues with your tenant
+- [Reference Guides](https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides.md)
+- [Deployment Options](https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides/deployment-options.md): View the AWS regions in Immuta SaaS global segments and IP addresses that can be authorized so Immuta can connect to databases in a closed network
+- [Data Processing](https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides/index.md): Understand what data Immuta processes
+- [Immuta AI FAQ](https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides/immuta-ai-faq.md): Find answers to questions about Immuta AI
+- [Immuta's AI Features](https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides/immuta-ai-faq/immutas-ai-features.md): Understand what Immuta features are powered by AI
+- [Consuming the Documentation with LLMs](https://documentation.immuta.com/saas/configuration/work-with-llms.md): Understand how LLMs can ingest the content of the Immuta documentation site
+- [Introduction](https://documentation.immuta.com/saas/agentic-data-access/introduction.md): Understand the benefits of using agentic data access to govern how AI agents and LLMs interact with sensitive data
+- [Agentic Data Access Reference Guide](https://documentation.immuta.com/saas/agentic-data-access/agentic-data-access-reference-guide.md): Learn about the design of agentic data access and how agents are governed
+- [Manage Agents](https://documentation.immuta.com/saas/agentic-data-access/manage-agents.md): Manage your agents and view agent activity
+- [Connecting the Agent to the Data Platform](https://documentation.immuta.com/saas/agentic-data-access/manage-agents/connecting-the-agent-to-the-data-platform.md): Connect the agent you registered in Immuta to your data platform so the agent can run queries on behalf of users
+- [Introduction](https://documentation.immuta.com/saas/request/introduction.md): Learn how to manage access requests to data products and assets in Immuta
+- [Use Cases](https://documentation.immuta.com/saas/request/introduction/use-cases.md)
+- [User Types](https://documentation.immuta.com/saas/request/introduction/user-types.md): Understand the roles of data stewards, data consumers, and data product managers in the Request app
+- [Permissions Matrix](https://documentation.immuta.com/saas/request/introduction/user-types/marketplace-permissions-matrix.md): Understand the Request app permissions
+- [Walkthrough](https://documentation.immuta.com/saas/request/introduction/walkthrough.md): Learn how the Request app works with your existing data catalog
+- [Configure](https://documentation.immuta.com/saas/request/configure.md): Learn how to configure the Request app to suit your organization's needs
+- [How-to Guides](https://documentation.immuta.com/saas/request/configure/how-to-guides.md)
+- [Configure Access Request Links](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links.md): Add access request links to your data catalogs
+- [Alation](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links/alation.md): Set up access request links in Alation
+- [Atlan](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links/atlan.md): Set up access request links in Atlan
+- [Collibra](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links/collibra.md): Set up access request links in Collibra
+- [Databricks Unity Catalog](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links/databricks-unity-catalog.md): Set up access request links in Databricks Unity Catalog
+- [Snowflake Horizon](https://documentation.immuta.com/saas/request/configure/how-to-guides/configure-access-request-links/snowflake-horizon.md): Set up access request links in Snowflake Horizon
+- [Manage Assets](https://documentation.immuta.com/saas/request/configure/how-to-guides/manage-assets.md): Attach a request form to or configure a review flow for an asset
+- [Manage Data Products](https://documentation.immuta.com/saas/request/configure/how-to-guides/manage-data-products.md): Publish, remove, edit, or hide data products
+- [Customize the Request App Branding](https://documentation.immuta.com/saas/request/configure/how-to-guides/customize-the-marketplace-branding.md): Apply your company brand to the Request app
+- [Reference Guides](https://documentation.immuta.com/saas/request/configure/reference-guides.md)
+- [Prerequisites](https://documentation.immuta.com/saas/request/configure/reference-guides/marketplace-app-requirements.md): Understand the requirements for implementing the Request app for various use cases
+- [Start from Your Data Catalog](https://documentation.immuta.com/saas/request/configure/reference-guides/start-from-your-data-catalog.md)
+- [Use Immuta as a Marketplace](https://documentation.immuta.com/saas/request/configure/reference-guides/walkthrough.md): Understand how Immuta can be used as a marketplace for your data products
+- [Understanding Access Provisioning and Underlying Policies](https://documentation.immuta.com/saas/request/configure/reference-guides/understanding-access-provisioning-and-underlying-policies-in-immuta.md): Learn how automatic access provisioning works
+- [Understanding Masking Exceptions and Underlying Policies](https://documentation.immuta.com/saas/request/configure/reference-guides/understanding-masking-exceptions-and-underlying-policies.md): Learn how automatic masking exceptions work
+- [Review Access Requests](https://documentation.immuta.com/saas/request/review-access-requests.md): Understand how to use the Request app as a data steward
+- [How-to Guides](https://documentation.immuta.com/saas/request/review-access-requests/how-to-guides.md)
+- [View and Respond to Access Requests](https://documentation.immuta.com/saas/request/review-access-requests/how-to-guides/view-and-respond-to-access-requests.md): Respond to data product, asset, and masking exception requests
+- [Manage Request Forms](https://documentation.immuta.com/saas/request/review-access-requests/how-to-guides/manage-request-forms.md): Create, edit, or delete request forms
+- [Reference Guides](https://documentation.immuta.com/saas/request/review-access-requests/reference-guides.md)
+- [Request Forms](https://documentation.immuta.com/saas/request/review-access-requests/reference-guides/request-forms.md): Learn about data product and asset request forms
+- [Review Flows](https://documentation.immuta.com/saas/request/review-access-requests/reference-guides/request-forms/review-flows.md)
+- [Understanding Review Assist](https://documentation.immuta.com/saas/request/review-access-requests/reference-guides/understanding-review-assist.md): Learn how review assist can help you make decisions about access requests
+- [Requesting Access](https://documentation.immuta.com/saas/request/access-data-products.md): Understand how to use the Request app as a data consumer
+- [How-to Guides](https://documentation.immuta.com/saas/request/access-data-products/how-to-guides.md)
+- [Requesting Access from Your Catalog](https://documentation.immuta.com/saas/request/access-data-products/how-to-guides/requesting-access-from-your-catalog.md): Request access to data from your catalog
+- [Requesting Access to a Data Product](https://documentation.immuta.com/saas/request/access-data-products/how-to-guides/requesting-access-to-a-data-product.md): Request access to a data product or request a masking exception
+- [Logging in to the Request App](https://documentation.immuta.com/saas/request/access-data-products/how-to-guides/logging-into-marketplace.md): Learn how to log in to the Request app
+- [Reference Guides](https://documentation.immuta.com/saas/request/access-data-products/reference-guide.md)
+- [Data Products and Assets](https://documentation.immuta.com/saas/request/access-data-products/reference-guide/data-products-and-assets.md): Understand the differences between data products and assets
+- [Access to Data Products and Assets](https://documentation.immuta.com/saas/request/access-data-products/reference-guide/data-product-access.md): Learn about the status of your access requests and temporary approvals
+- [Notifications](https://documentation.immuta.com/saas/request/notifications.md): Learn how Request app notifications help you keep track of events from data consumers and data stewards
+- [How-to Guides](https://documentation.immuta.com/saas/request/notifications/how-to-guides.md)
+- [Manage Slack Notifications](https://documentation.immuta.com/saas/request/notifications/how-to-guides/manage-slack-notifications.md): Set up your Request app notifications to go to Slack
+- [Manage Microsoft Teams Notifications](https://documentation.immuta.com/saas/request/notifications/how-to-guides/manage-microsoft-teams-notifications.md): Set up your Request app notifications to go to Microsoft Teams
+- [Manage Email Notifications](https://documentation.immuta.com/saas/request/notifications/how-to-guides/manage-email-notifications.md): Set up your Request app notifications to go to your email
+- [Manage Webhooks](https://documentation.immuta.com/saas/request/notifications/how-to-guides/manage-webhooks.md): Set up, test, or delete a webhook
+- [Reference Guides](https://documentation.immuta.com/saas/request/notifications/reference-guides.md)
+- [Notifications Reference Guide](https://documentation.immuta.com/saas/request/notifications/reference-guides/notifications-reference-guide.md): Learn about the notification options available for the Request app
+- [Notification Types](https://documentation.immuta.com/saas/request/notifications/reference-guides/notifications-reference-guide/notifications.md): Learn about what events create notifications in the Request app
+- [Webhooks](https://documentation.immuta.com/saas/request/notifications/reference-guides/webhooks.md): Learn about webhooks you can use to automate real-time notifications about events in the Request app
+- [Use Cases](https://documentation.immuta.com/saas/govern/getting-started-with-secure.md): Select your Govern use case to help you build access controls for your organization
+- [Automate Data Access Control Decisions](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions.md): Learn how Immuta automates access decisions based on user and data metadata
+- [Managing User Metadata](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/managing-user-metadata.md): Understand how to organize your user metadata for subscription policies
+- [Manage User Metadata How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/managing-user-metadata/manage-user-metadata-how-to-guide.md): Organize your user metadata for use in subscription policies
+- [Managing Data Metadata](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/managing-data-metadata.md): Understand how to organize your data metadata for subscription policies
+- [Manage Data Metadata How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/managing-data-metadata/manage-data-metadata-how-to-guide.md): Organize your data metadata for use in subscription policies
+- [Author Policy](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/author-policy.md): Understand how to use metadata in Immuta subscription policies
+- [Author Policy How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/automate-data-access-control-decisions/author-policy/author-policy-how-to-guide.md): Build a subscription policy using user and data metadata to automate access control decisions
+- [Compliantly Open More Sensitive Data for ML and Analytics](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics.md): Learn how Immuta uses granular access controls to safely open more data to support machine learning and analytics needs
+- [Managing User Metadata](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-managing-user-metadata.md): Understand how to organize your user metadata for data policies
+- [Manage User Metadata How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-managing-user-metadata/manage-user-metadata-how-to-guide.md): Organize your user metadata for use in data policies
+- [Managing Data Metadata](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-managing-data-metadata.md): Understand how to organize your data metadata for data policies
+- [Manage Data Metadata How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-managing-data-metadata/manage-data-metadata-how-to-guide.md): Organize your data metadata for use in data policies
+- [Author Policy](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-author-policy.md): Understand how to use metadata in Immuta data policies
+- [Author Policy How-to Guide](https://documentation.immuta.com/saas/govern/getting-started-with-secure/compliantly-open-more-sensitive-data-for-ml-and-analytics/open-author-policy/author-policy-how-to-guide.md): Build a data policy using user and data metadata to automate access control decisions
+- [Test and Deploy Policy](https://documentation.immuta.com/saas/govern/getting-started-with-secure/test-and-deploy-policy.md): Test policies on data in a cloned test database before deploying policies to production data
+- [Author Policies for Data Access Control](https://documentation.immuta.com/saas/govern/secure-your-data.md): Learn how Immuta enforces access controls for your users
+- [Introduction](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction.md): Understand the governance principles behind the design of Immuta
+- [Scalability and Evolvability](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction/scalability-and-evolvability.md): Understand how attribute-based access control compares to role-based access control
+- [Understandability](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction/understandability.md): Understand the importance of clear, comprehensible policy enforcement
+- [Distributed Stewardship](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction/distributed-stewardship.md): Understand the importance of separation of duties
+- [Consistency](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction/consistency.md): Understand the importance of consistent policy enforcement across platforms
+- [Availability of Data](https://documentation.immuta.com/saas/govern/secure-your-data/secure-introduction/availability-of-data.md): Understand how anonymization techniques can safely make more data available for users
+- [Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure.md): Learn about the policy types available in Immuta to enforce access controls
+- [Subscription Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents.md): Learn how to manage table-level access with subscription policies
+- [How-to Guides](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/how-to-guides.md)
+- [Author a Subscription Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/how-to-guides/subscription-policy-tutorial.md): Build a subscription policy to grant table-level access to users
+- [Author an ABAC Subscription Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/how-to-guides/abac-subscription-policy.md): Build a subscription policy that enforces access controls based on users' groups or attributes
+- [Subscription Policies Advanced DSL Guide](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/how-to-guides/advanced-dsl-policies.md)
+- [Author a Restricted Subscription Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/how-to-guides/restricted-subscription-policies.md): Build a subscription policy that applies only to data sources you own
+- [Reference Guides](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/reference-guides.md)
+- [Subscription Policies Reference Guide](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/reference-guides/subscription-policies.md): Learn how grant and guardrail subscription policies protect and grant access to data
+- [Subscription Policy Access Types](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/reference-guides/subscription-access-types.md): Learn what data platforms support read and write access subscription policies
+- [Advanced DSL Policy Builder Functions and Variables](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/section-contents/reference-guides/advanced-special-functions.md): Learn about the definitions and behavior of the variables and functions supported in the advanced DSL policy builder
+- [Data Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies.md): Learn how to manage row-, column, and cell-level access with data policies
+- [How-to Guides](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides.md)
+- [Author a Masking Data Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/data-policy-tutorial.md): Build a policy that masks columns for users
+- [Author a Minimization Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/minimization-tutorial.md): Build a policy that limits the amount of data returned for users
+- [Author a Purpose-Based Restriction Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/purpose-tutorial.md): Build a policy that limits access to a specific purpose
+- [Author a Restricted Data Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/restricted-data-policies.md): Build a data policy that only applies to data sources you own
+- [Author a Reveal Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/author-a-reveal-policy.md): Build a policy that automatically grants exceptions to masking policies
+- [Author a Row-Level Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/row-redaction-tutorial.md): Build a policy that limits rows visible to users
+- [Author a Time-Based Restriction Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/time-based-tutorial.md): Build a policy that returns data from a specified period of time
+- [Policy Certifications and Diffs](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/how-to-guides/manage-policies-per-data-source.md): Create certifications for global policies, certify a policy, and view changes made to a data source's policy
+- [Reference Guides](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides.md)
+- [Data Policies Reference Guide](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/data-policies.md): Learn how protect policies and reveal policies enforce access controls
+- [Masking Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/masking-matrix-functions.md): Learn about the types of masking policies Immuta supports
+- [Orchestrated Masking Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/masking-matrix-functions/orchestrated-masking-policies.md)
+- [Row-Level Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/row-redaction-explained.md): Learn how row-level policies limit what data users are allowed to see once they are granted access to a data source
+- [Limit to Purpose Policies](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/limit-to-purpose-policies.md): Learn how purpose policies limit users' access to data
+- [Custom WHERE Clause Functions](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/custom-where-clause-functions.md): Learn about the custom WHERE clause functions Immuta supports
+- [Lookup Tables](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/data-policies/reference-guides/lookup-tables.md): Learn how lookup tables can be used to reference user metadata
+- [Clone, Activate, or Stage a Policy](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/clone-activate-stage.md): Clone and manage the status of existing global policies
+- [Data Engineering with Limited Policy Downtime](https://documentation.immuta.com/saas/govern/secure-your-data/authoring-policies-in-secure/dbt-transform-workflow.md): Minimize policy downtime as you execute transforms using dbt or other transform tools
+- [Projects and Purpose-Based Access Control](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control.md)
+- [Projects and Purpose Controls](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index.md)
+- [Getting Started](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/getting-started.md): Purpose-based access control
+- [How-to Guides](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides.md)
+- [Create a Project](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/create-project-tutorial.md)
+- [Create and Manage Purposes](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/purposes-tutorial.md)
+- [Project Management](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/project-management.md)
+- [Manage Projects and Project Settings](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/project-management/manage-projects.md)
+- [Manage Project Data Sources](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/project-management/manage-data-sources.md)
+- [Manage Project Members](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/how-to-guides/project-management/manage-members.md)
+- [Reference Guides](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/reference-guides.md)
+- [Projects and Purposes](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/reference-guides/projects.md)
+- [Concept Guide](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/concept-guide.md)
+- [Why Use Purposes?](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/purpose-index/concept-guide/purposes-explained.md)
+- [Equalized Access](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/equalized-access.md)
+- [Manage Project Equalization How-to Guide](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/equalized-access/manage-equalization.md)
+- [Equalized Access Reference Guide](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/equalized-access/equalization.md): Project equalization
+- [Why Use Project Equalization?](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/equalized-access/equalization-explained.md)
+- [Writing to Projects](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/write-index.md)
+- [How-to Guides](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/write-index/how-to-guides.md)
+- [Reference Guides](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/write-index/reference-guides.md)
+- [Project UDFs (Databricks)](https://documentation.immuta.com/saas/govern/secure-your-data/projects-and-purpose-based-access-control/write-index/reference-guides/project-udfs.md)
+- [Data Consumers](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers.md): Learn how to subscribe to data sources, query data, and impersonate Immuta users
+- [Subscribe to a Data Source](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/subscribe-to-data-source.md): Subscribe, view, and search for data sources
+- [Query Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data.md)
+- [Querying Snowflake Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/snowflake.md): Query Immuta-protected data in Snowflake
+- [Querying Databricks Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/databricks.md): Query Immuta-protected data in Databricks
+- [Querying Starburst (Trino) Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/trino.md): Query Immuta-protected data in Starburst or Trino
+- [Querying Databricks SQL Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/databricks-sql.md): Query Immuta-protected data in Databricks SQL
+- [Querying Redshift Spectrum Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/querying-redshift-spectrum-data.md): Query Immuta-protected data in Redshift Spectrum
+- [Querying Azure Synapse Analytics Data](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/query-data/synapse.md): Query Immuta-protected data in Azure Synapse Analytics
+- [Subscribe to Projects](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/project-member-guide.md): Subscribe to a project, add data sources to a project, or switch project contexts
+- [Impersonate a User](https://documentation.immuta.com/saas/govern/secure-your-data/data-consumers/user-impersonation.md): Impersonate another Immuta user
+- [Observe Access and Activity](https://documentation.immuta.com/saas/govern/detect-your-data.md): Learn how Immuta monitors your environment
+- [Introduction](https://documentation.immuta.com/saas/govern/detect-your-data/detect-introduction.md): Understand the challenges involved in detecting internal data security risks
+- [Audit](https://documentation.immuta.com/saas/govern/detect-your-data/audit.md): Learn about the audit capabilities Immuta provides
+- [How-to Guides](https://documentation.immuta.com/saas/govern/detect-your-data/audit/how-to-guides.md)
+- [Export Audit Logs to Amazon S3](https://documentation.immuta.com/saas/govern/detect-your-data/audit/how-to-guides/enable-uam.md): Export your Immuta audit logs to an Amazon S3 bucket
+- [Export Audit Logs to ADLS](https://documentation.immuta.com/saas/govern/detect-your-data/audit/how-to-guides/export-adls.md): Export your Immuta audit logs to your ADLS Gen2 storage account
+- [Use Immuta Audit](https://documentation.immuta.com/saas/govern/detect-your-data/audit/how-to-guides/use-immuta-audit.md): Filter and manually ingest audit events
+- [Run Governance Reports](https://documentation.immuta.com/saas/govern/detect-your-data/audit/how-to-guides/governor-guide.md): Build Immuta governance reports to view user activity across Immuta
+- [Reference Guides](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides.md)
+- [Universal Audit Model (UAM)](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/index.md): Learn about the components of the universal audit model and what platforms support query audit
+- [UAM Schema Reference Guide](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/index/uam-schema.md): Understand audit event schemas
+- [Query Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/query-audit-logs.md)
+- [Snowflake Query Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/query-audit-logs/snowflake.md): Learn about the audit schema for Snowflake queries
+- [Databricks Unity Catalog Query Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/query-audit-logs/databricks-uc.md): Learn about the audit schema for Databricks Unity Catalog queries
+- [Databricks Spark Query Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/query-audit-logs/databricks.md): Learn about the audit schema for Databricks Spark queries
+- [Starburst (Trino) Query Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/query-audit-logs/trino.md): Learn about the audit schema for Starburst and Trino queries
+- [Audit Export GraphQL Reference Guide](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/immuta-audit-export-to-s3-and-adls-gen2-graphql-reference-guide.md): Use GraphQL to manage exporting your audit logs to Amazon S3 and ADLS Gen2
+- [Unknown Users in Audit Logs](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/unknown-user.md): Identify unknown users in query audit logs for Databricks Unity Catalog
+- [Governance Report Types](https://documentation.immuta.com/saas/govern/detect-your-data/audit/reference-guides/reports.md): Understand the report types available for viewing user activity across Immuta
+- [Dashboards](https://documentation.immuta.com/saas/govern/detect-your-data/detection.md): Learn about audit dashboards
+- [Use the Audit Dashboards How-To Guide](https://documentation.immuta.com/saas/govern/detect-your-data/detection/use-dashboards.md): Visualize the data being queried by your users with audit dashboards
+- [Audit Dashboards Reference Guide](https://documentation.immuta.com/saas/govern/detect-your-data/detection/detect-concept.md): Learn about the design and capabilities of audit dashboards
+- [Notifications](https://documentation.immuta.com/saas/govern/detect-your-data/notifications.md)
+- [How-to Guides](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/how-to-guides.md)
+- [Enable Email Notifications](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/how-to-guides/enable-email-notifications.md)
+- [Create a Webhook](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/how-to-guides/create-a-webhook.md)
+- [Manage Monitors and Observations](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/how-to-guides/create-monitor.md)
+- [Reference Guides](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/reference-guides.md)
+- [Monitors Reference Guide](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/reference-guides/index.md)
+- [Notification Events](https://documentation.immuta.com/saas/govern/detect-your-data/notifications/reference-guides/notification-events.md)
+- [Introduction](https://documentation.immuta.com/saas/comply/introduction.md)
+- [Using Comply](https://documentation.immuta.com/saas/comply/using-comply.md)
+- [Access Summary Export](https://documentation.immuta.com/saas/comply/access-summary-export.md)
+- [Set Up Access Summary Export](https://documentation.immuta.com/saas/comply/access-summary-export/set-up-access-summary-export.md)
+- [Latest Access Summary Export Schema Reference Guide](https://documentation.immuta.com/saas/comply/access-summary-export/latest-access-summary-export-schema-reference-guide.md)
+- [PrPr 1 - Access Summary Export Schema](https://documentation.immuta.com/saas/comply/access-summary-export/latest-access-summary-export-schema-reference-guide/access-summary-export-schema-reference-guide.md)
+- [Early Access Data Model Changes](https://documentation.immuta.com/saas/comply/access-summary-export/early-access-data-model-changes.md)
+- [Getting Started](https://documentation.immuta.com/saas/knowledge-base/getting-started.md)
+- [Governance Fundamentals](https://documentation.immuta.com/saas/knowledge-base/governance-fundamentals.md)
+- [Governance Models](https://documentation.immuta.com/saas/knowledge-base/governance-fundamentals/governance-models.md)
+- [Data Security and Governance Maturity](https://documentation.immuta.com/saas/knowledge-base/governance-fundamentals/data-security-and-governance-maturity.md)
+- [A Deeper Look into the Maturity Scale](https://documentation.immuta.com/saas/knowledge-base/governance-fundamentals/a-deeper-look-into-the-maturity-scale.md)
+- [Leveraging Metadata for Dynamic Access Control](https://documentation.immuta.com/saas/knowledge-base/governance-fundamentals/leveraging-metadata-for-dynamic-access-control.md)
+- [Rollout Strategy](https://documentation.immuta.com/saas/knowledge-base/rollout-strategy.md)
+- [Prioritizing Use Cases for Immuta Deployment](https://documentation.immuta.com/saas/knowledge-base/rollout-strategy/prioritizing-use-cases-for-immuta-deployment.md)
+- [Onboarding Recommendation: Start with Par Value](https://documentation.immuta.com/saas/knowledge-base/rollout-strategy/onboarding-recommendation-start-with-par-value.md)
+- [The Value of Recertification When Migrating to Immuta](https://documentation.immuta.com/saas/knowledge-base/rollout-strategy/the-value-of-recertification-when-migrating-to-immuta.md)
+- [Operational Considerations & Change Management](https://documentation.immuta.com/saas/knowledge-base/rollout-strategy/operational-considerations-and-change-management.md)
+- [Implementation](https://documentation.immuta.com/saas/knowledge-base/implementation.md)
+- [Domains](https://documentation.immuta.com/saas/knowledge-base/implementation/domains.md)
+- [Implementing Domains: A Strategic Guide](https://documentation.immuta.com/saas/knowledge-base/implementation/domains/implementing-domains-a-strategic-guide.md)
+- [Designing a Scalable Domain Taxonomy](https://documentation.immuta.com/saas/knowledge-base/implementation/domains/designing-a-scalable-domain-taxonomy.md)
+- [Data Metadata](https://documentation.immuta.com/saas/knowledge-base/implementation/data-metadata.md)
+- [Understanding Data Metadata Management in Immuta](https://documentation.immuta.com/saas/knowledge-base/implementation/data-metadata/understanding-data-metadata-management-in-immuta.md)
+- [Implementing Identification: A Strategic Guide](https://documentation.immuta.com/saas/knowledge-base/implementation/data-metadata/implementing-identification-a-strategic-guide.md)
+- [Audit and Monitor](https://documentation.immuta.com/saas/knowledge-base/implementation/audit-and-monitor.md)
+- [Understanding Immuta Audit Logs](https://documentation.immuta.com/saas/knowledge-base/implementation/audit-and-monitor/understanding-immuta-audit-logs.md)
+- [Extracting Insights from Immuta Audit Logs](https://documentation.immuta.com/saas/knowledge-base/implementation/audit-and-monitor/extracting-insights-from-immuta-audit-logs.md)
+- [Policy](https://documentation.immuta.com/saas/knowledge-base/implementation/policy.md)
+- [Implementing Guardrail Policies: A Strategic Guide](https://documentation.immuta.com/saas/knowledge-base/implementation/policy/implementing-guardrail-policies-a-strategic-guide.md)
+- [Deployment Notes](https://documentation.immuta.com/saas/releases/index.md): Release notes for the latest Immuta features, product improvements, and changes
+- [2025](https://documentation.immuta.com/saas/releases/index/2025.md): Release notes for the Immuta features, product improvements, and changes deployed in 2025
+- [2024](https://documentation.immuta.com/saas/releases/index/2024.md): Release notes for the Immuta features, product improvements, and changes deployed in 2024
+- [2023](https://documentation.immuta.com/saas/releases/index/2023.md): Release notes for the Immuta features, product improvements, and changes deployed in 2023
+- [2022](https://documentation.immuta.com/saas/releases/index/2022.md): Release notes for the Immuta features, product improvements, and changes deployed in 2022
+- [Behavior Change Release Process](https://documentation.immuta.com/saas/releases/behavior-change-release-process.md): Learn about Immuta’s behavior change release process so you can plan feature adoption
+- [Behavior Change Release Features](https://documentation.immuta.com/saas/releases/behavior-change-release-process/behavior-change-release-features.md): Keep track of the features rolled out through the behavior change release process
+- [Scheduled Maintenance Windows](https://documentation.immuta.com/saas/releases/scheduled-maintenance-windows.md): Learn about Immuta's scheduled maintenance windows
+- [Immuta Support Matrix Overview](https://documentation.immuta.com/saas/releases/support-matrix.md): Ensure that your data platforms, external catalogs, and identity providers are supported by Immuta
+- [Immuta CLI Release Notes](https://documentation.immuta.com/saas/releases/immuta-cli-release-notes.md): Learn about the changes and updates released for the Immuta CLI
+- [Preview Features](https://documentation.immuta.com/saas/releases/preview-levels.md): Learn about the preview levels Immuta offers to determine which features to adopt
+- [Features in Preview](https://documentation.immuta.com/saas/releases/preview-levels/features.md): Keep track of all features currently in preview
+- [Deprecations](https://documentation.immuta.com/saas/releases/deprecations.md): Keep track of features that have been deprecated or have reached end of life
+- [The Immuta CLI](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli.md): Learn how to use the Immuta CLI
+- [Install and Configure the Immuta CLI](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/installation.md): Install the Immuta CLI
+- [Manage Your Immuta Tenant](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/immuta.md): Use the CLI to clone your tenant or make an authenticated API request
+- [Manage Data Sources](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/datasources.md): Use the CLI to create, edit, or delete data sources
+- [Manage Policies](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/policies.md): Use the CLI to create, clone, or delete global policies
+- [Manage Projects](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/projects.md): Use the CLI to create, edit, or delete projects
+- [Manage Purposes](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/purposes.md): Use the CLI to create, view, or delete purposes
+- [Manage Audit Export](https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/cli-reference-guide.md): Use the CLI to export your audit logs to an Amazon S3 bucket or ADLS Gen2
+- [API Guides](https://documentation.immuta.com/saas/developer-guides/api-intro.md): Learn how to interact with the Immuta API
+- [Authentication](https://documentation.immuta.com/saas/developer-guides/api-intro/authentication.md): Authenticate to the Govern app or Request app API
+- [Integrations API](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api.md): Connect your data platform to Immuta using the integrations API
+- [Getting Started](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/getting-started.md): Configure your data platform, protect your data, and register your metadata via the API
+- [How-to Guides](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides.md)
+- [Configure an Amazon Redshift Spectrum Integration](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides/configure-an-amazon-redshift-spectrum-integration.md): Use the API to set up your Amazon Redshift Spectrum integration
+- [Configure an Amazon S3 Integration](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides/s3-api.md): Use the API to set up your Amazon S3 integration
+- [Configure an Azure Synapse Analytics Integration](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides/synapse-api.md): Use the API to set up your Azure Synapse Analytics integration
+- [Configure a Google BigQuery View-Based Integration](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides/bigquery-api.md): Use the API to set up your Google BigQuery view-based integration
+- [Configure a Starburst (Trino) Integration](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/how-to-guides/trino-api.md)
+- [Reference Guides](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides.md)
+- [Integrations API Endpoints](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/integrations-api.md): Understand the parameters and response schema of the integrations API endpoints
+- [Integration Configuration Payload](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/integration-configuration-payload.md): Understand the payloads and parameters for configuring an integration via the API
+- [Response Schema](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/response-schema.md): Understand the response schema, integration statuses, and validation tests for the integrations API
+- [HTTP Status Codes and Error Messages](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/status-codes.md): Understand status codes and error messages for the integrations API
+- [Connections API](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api.md): Connect your data platform and register your data in a single step using the connections API
+- [How-to Guides](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides.md)
+- [Register a Connection](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides/register-a-connection.md): Learn about registering connections via the API
+- [Register an AWS Lake Formation Connection](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides/register-a-connection/register-an-aws-lake-formation-connection.md): Register an AWS Lake Formation connection via the API
+- [Manage Connection Settings](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides/manage-connection-settings.md)
+- [Manage Connection Objects](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides/manage-a-connection.md): Manage your connection settings via the API
+- [Deregister a Connection](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/how-to-guides/deregister-a-connection.md): Remove a connection via the API
+- [Connection Registration Payloads Reference Guide](https://documentation.immuta.com/saas/developer-guides/api-intro/connections-api/connection-registration-payloads-reference-guide.md): Understand the parameters and payloads for registering a connection via the API
+- [Request App API](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api.md): Learn about interacting with the Request app via the API
+- [Data Product](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/data-product.md)
+- [Access Request](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/access-request.md)
+- [Request Form](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/request-form.md)
+- [Data Use Agreement](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/data-use-agreement.md)
+- [Health](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/health.md)
+- [Metadata](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/metadata.md)
+- [Notification](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/notification.md)
+- [Settings](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/settings.md)
+- [Asset](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/asset.md)
+- [Source Controlling Data Products](https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/source-controlling-data-products.md)
+- [Immuta V2 API](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api.md): Learn about managing data sources and policies using the V2 API
+- [Create a Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api/data-source.md): Register a data source using the V2 API
+- [Create a Data Policy](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api/policies.md): Author a data policy using the V2 API
+- [Create a Subscription Policy](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api/subscription-policy.md): Author a subscription policy using the V2 API
+- [Create a Project](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api/projects.md)
+- [Create a Purpose](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api/purposes.md)
+- [Immuta V1 API](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api.md): Learn about configuring and managing the Govern app using the V1 API
+- [Configure Your Instance of Immuta](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta.md): Learn about setting up notifications, identity providers, licenses, identification, tags, and webhooks using the API
+- [Get Job Status](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/jobs.md): Understand the parameters and response schema of the jobs endpoints
+- [Manage Agent Identities](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/manage-agent-identities.md): Understand the parameters and response schema of the agent endpoints
+- [Manage Frameworks](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/frameworks.md): Understand the parameters and response schema of the frameworks endpoints
+- [Manage IAMs](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/bim.md): Understand the parameters and response schema of the bim endpoints
+- [Manage Identification](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/manage-identifiers-in-domains.md): Understand the parameters and response schema of the sdd endpoints
+- [Manage Licenses](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/admin.md): Understand the parameters and response schema of the admin endpoints
+- [Manage Notifications](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/activity.md): Understand the parameters and response schema of the activity endpoints
+- [Manage Tags](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/tagging.md): Understand the parameters and response schema of the tag endpoints
+- [Manage Webhooks](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/webhooks.md): Understand the parameters and response schema of the webhooks endpoints
+- [Search Filters](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/searchfilter.md): Understand the parameters and response schema of the searchFilter endpoints
+- [Connect Your Data](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data.md): Learn about registering data sources using the V1 API
+- [Create an Amazon Redshift Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/redshift.md): Understand the parameters and response schema for the redshift endpoints
+- [Create and Manage an Amazon S3 Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/s3.md): Understand the parameters and response schema for the native-s3 endpoints
+- [Create an Azure Synapse Analytics Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/asa.md): Understand the parameters and response schema for the asa endpoints
+- [Create a Databricks Spark Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/databricks.md)
+- [Create a Starburst (Trino) Data Source](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/trino.md)
+- [Manage Data Source Columns](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/connect-your-data/manage-data-source-columns.md): Understand the parameters and response schema for the dictionary endpoints
+- [Use Domains](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/domains-api.md): Understand the parameters and response schema for the domain endpoints
+- [Manage Data Access](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access.md): Search for data and manage policies and access requests using the V1 API
+- [Manage Subscription Requests](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/manage-subscription-requests.md): Understand the parameters and response schema for the subscription endpoints
+- [Manage Data and Subscription Policies](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/policy.md): Understand the parameters and response schema for the policy endpoints
+- [Manage Write Policies](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/write-policies-api.md): Understand the endpoints and parameters for managing write policies
+- [Write Policies Payloads and Response Schema Reference Guide](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/write-policies-api/payload-reference.md): Understand the payloads and response schema for managing write policies
+- [Search Connection Strings](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/connection-string.md): Understand the parameters and response schema for the connectionStrings endpoint
+- [Search for Organizations](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/organizations.md): Understand the parameters and response schema for the organizations endpoint
+- [Search Schemas](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-data-access/schemas.md): Understand the parameters and response schema for the schemas endpoint
+- [Subscribe to and Manage Data Sources](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/data-sources.md): Understand the parameters and response schema for the dataSource endpoints
+- [Search Data Sources](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/data-sources/get-data-sources.md): Understand the parameters and response schema for the dataSource endpoints that search data sources and details
+- [Access Data Sources and Manage Requests](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/data-sources/access-data-sources.md): Understand the parameters and response schema for the dataSource endpoints that request for access and manage requests for data sources
+- [Manage Data Sources](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/data-sources/manage-data-sources.md): Understand the parameters and response schema for the dataSource endpoints that manage data sources
+- [Manage Projects and Purposes](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-projects-and-purposes.md)
+- [Manage Projects](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-projects-and-purposes/project.md): Projects API reference guide
+- [Manage Purposes](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/manage-projects-and-purposes/governance.md): Governance API reference guide
+- [Generate Governance Reports](https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/generate-governance-reports.md): Understand the parameters and response schema for the governance endpoints
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://documentation.immuta.com/saas/readme.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

@@ -1,0 +1,80 @@
+generated: '2026-08-01'
+method: searched
+source: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli
+name: Immuta CLI
+binary: immuta
+docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli
+release_notes: https://documentation.immuta.com/saas/releases/immuta-cli-release-notes
+install:
+  method: direct-binary
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/installation
+  platforms: [linux/amd64, linux/arm64, darwin/amd64, darwin/arm64, windows/amd64]
+  example: curl -Lo immuta https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_darwin_arm64
+    && chmod +x immuta
+  checksums: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_SHA256SUMS
+  notes: 'macOS binaries are unsigned — the docs warn that macOS reports "could not
+    verify that this app is free from malware" and the binary must be allowed in Security
+    & Privacy.'
+configuration:
+  command: immuta configure
+  config_file: ~/.immutacfg.yaml
+  profiles: true
+  fields: [host, api_key]
+  required_permission: CREATE_DATA_SOURCE
+  auth: Immuta API key generated on the API Keys tab of the user profile page
+commands:
+- command: immuta configure
+  group: setup
+  summary: Interactively configure the CLI with an Immuta tenant URL and API key, written
+    to ~/.immutacfg.yaml
+- command: immuta api
+  group: raw
+  summary: Make an authenticated raw request against any Immuta API endpoint, with
+    Go-template response formatting
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/immuta
+- command: immuta clone
+  group: tenant
+  summary: Clone the configuration of an Immuta tenant
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/immuta
+- command: immuta datasource
+  group: data
+  summary: Create, edit, list, rename and delete data sources as code
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/datasources
+  subcommands: [save, list, 'list keys', rename, delete]
+- command: immuta policy
+  group: policy
+  summary: Create, clone, list, rename and delete global policies as code
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/policies
+  subcommands: [save, clone, list, rename, delete]
+- command: immuta project
+  group: policy
+  summary: Create, edit, list, rename and delete projects
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/projects
+  subcommands: [save, list, rename, delete]
+- command: immuta purpose
+  group: policy
+  summary: Create, list and delete purposes
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/purposes
+  subcommands: [save, list, delete]
+- command: immuta audit exportConfig
+  group: audit
+  summary: Manage audit export configurations that ship Immuta audit logs to an Amazon
+    S3 bucket or ADLS Gen2
+  docs: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/cli-reference-guide
+- command: immuta completion
+  group: setup
+  summary: Generate shell tab-completion scripts
+key_flows:
+- name: policy-as-code
+  summary: Define data sources, policies, projects and purposes in JSON or YAML files
+    tracked in Git, then push them with `immuta <resource> save` — the same file and
+    the same command both create and update the object.
+  commands: [immuta datasource save, immuta policy save, immuta project save, immuta
+      purpose save]
+- name: audit-export
+  summary: Configure and manage export of Immuta audit logs to object storage.
+  commands: [immuta audit exportConfig]
+- name: escape-hatch
+  summary: Reach any endpoint the CLI does not wrap using `immuta api`, with Go templates
+    to shape the response.
+  commands: [immuta api]

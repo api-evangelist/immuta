@@ -1,0 +1,127 @@
+generated: '2026-08-01'
+method: searched
+source: 'openapi/immuta-marketplace-api-openapi.yml (derived) + https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/status-codes
+  (searched)'
+format: json
+envelope:
+  media_type: application/json
+  rfc9457: false
+  note: 'Immuta does not use RFC 9457 application/problem+json. The integrations API
+    returns "HTTP status codes, error codes, and messages in JSON format"; the Data
+    Marketplace OpenAPI declares its 4xx responses with a description string and no
+    response body schema, so the error envelope is not machine-described in the spec.'
+surfaces:
+- name: Data Marketplace API
+  source: openapi/immuta-marketplace-api-openapi.yml
+  documented_error_codes: [409, 503]
+  note: 'Of 83 operations the spec declares only 4 conflict responses and 3 health
+    503s; 401/403/404/422/429/500 are not declared on any operation, so authentication,
+    authorization and validation failures are undocumented in the contract.'
+- name: Integrations API
+  source: https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/status-codes
+  documented_error_codes: [400, 404, 409, 422]
+problems:
+- status: 409
+  title: Data Product name in use
+  surface: Data Marketplace API
+  source_operation: openapi/immuta-marketplace-api-openapi.yml#createDataProduct
+  remediation: Choose a data product name that is not already taken, or update the
+    existing data product with updateDataProduct.
+- status: 409
+  title: There is already a data use agreement with this name
+  surface: Data Marketplace API
+  source_operation: openapi/immuta-marketplace-api-openapi.yml#createDataUseAgreement
+  remediation: Rename the agreement, or update the existing one with updateDataUseAgreement.
+- status: 409
+  title: There is already a data use agreement with this name
+  surface: Data Marketplace API
+  source_operation: openapi/immuta-marketplace-api-openapi.yml#updateDataUseAgreement
+  remediation: Rename the agreement so it does not collide with an existing data use
+    agreement.
+- status: 409
+  title: Request form with name already exists
+  surface: Data Marketplace API
+  source_operation: openapi/immuta-marketplace-api-openapi.yml#createRequestForm
+  remediation: Choose a unique request-form name, or update the existing form with
+    updateRequestForm.
+- status: 503
+  title: The health check is not successful
+  surface: Data Marketplace API
+  source_operation: 'openapi/immuta-marketplace-api-openapi.yml#liveness[0]'
+  also:
+  - 'openapi/immuta-marketplace-api-openapi.yml#liveness[1]'
+  - openapi/immuta-marketplace-api-openapi.yml#readiness
+  remediation: The segment is degraded — check https://status.immuta.com/ and retry.
+- status: 400
+  title: Bad request — credentials supplied for a manually bootstrapped integration
+  surface: Integrations API
+  method: DELETE
+  example: 'Credentials are not required for disable unless the integration was configured
+    automatically. If you need to update your integration credentials, use PUT to update
+    the integration before disabling.'
+  remediation: Remove the authentication credentials from the payload.
+- status: 400
+  title: Bad request — privileged credentials required to disable an auto-bootstrapped
+    integration
+  surface: Integrations API
+  method: DELETE
+  example: Integrations that are automatically configured require privileged credentials
+    to disable. Please provide them in your payload.
+  remediation: Supply the credentials used when the integration was created with autoBootstrap
+    set to true.
+- status: 400
+  title: Bad request — integration previously failed to create
+  surface: Integrations API
+  method: POST
+  example: 'Use PUT /integrations/1 endpoint to update connection information for Azure
+    Synapse Analytics integration on host organization.azure.com (id = 1) that previously
+    failed to create.'
+  remediation: Use PUT /integrations/{id} to repair the failed integration rather than
+    re-POSTing it.
+- status: 400
+  title: Bad request — non-editable attribute changed
+  surface: Integrations API
+  method: PUT
+  example: Unable to edit integration due to changes of non-editable attribute(s).
+  remediation: The message lists the attributes that cannot change; revert them.
+- status: 404
+  title: Not found — no integration with the given ID
+  surface: Integrations API
+  methods: [GET, PUT, DELETE]
+  example: No integration found with ID 5.
+  remediation: List configurations with GET /integrations to find the correct ID.
+- status: 409
+  title: Conflict — integration already exists on this host
+  surface: Integrations API
+  method: POST
+  example: Azure Synapse Analytics integration already exists on organization.azure.com
+    (id = 1).
+  remediation: Delete or modify the existing integration; ensure name and config do
+    not collide.
+- status: 409
+  title: Conflict — integration is currently being modified or deleted
+  surface: Integrations API
+  methods: [PUT, DELETE]
+  example: Unable to edit integration with ID 10 in current state editing.
+  remediation: Poll GET /integrations/{id}/status until the integration finishes updating,
+    then retry.
+- status: 422
+  title: Unprocessable entity — validation test failed
+  surface: Integrations API
+  methods: [POST, PUT, DELETE]
+  example: Validation of prerequisite setup failed. Unable to create integration.
+  remediation: Read the validation results object for the failing test and fix the
+    prerequisite.
+  reference: https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/reference-guides/response-schema
+- status: 422
+  title: Unprocessable entity — processing error retrieving metastore info
+  surface: Integrations API
+  method: POST
+  example: 'Processing Error: Error trying to get the current metastore info.'
+  remediation: Immuta could not reach the Databricks metastore; verify the connection
+    credentials and network path.
+gaps:
+- 'No 401/403 response is declared on any of the 83 Data Marketplace operations, even
+  though every operation requires a bearer JWT.'
+- No 429 / rate-limit response is declared or documented on any Immuta API surface.
+- No machine-readable error schema exists in components.schemas for any error shape.

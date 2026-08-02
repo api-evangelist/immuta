@@ -1,0 +1,102 @@
+generated: '2026-08-01'
+method: searched
+source: 'https://documentation.immuta.com/saas/developer-guides/api-intro (searched)
+  + openapi/immuta-marketplace-api-openapi.yml (derived)'
+authentication:
+  styles:
+  - surface: Govern API (V1, V2, integrations, connections)
+    scheme: API key in the Authorization header, sent raw with no scheme prefix
+    example: 'Authorization: 846e9e43c86a4ct1be14290d95127d13f'
+    docs: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - surface: Govern API (V1, V2, integrations, connections)
+    scheme: bearer token exchanged for the API key
+    exchange: 'POST /bim/apikey/authenticate with {"apikey": "..."}'
+    example: 'Authorization: Bearer <token>'
+  - surface: Data Marketplace / Request app API
+    scheme: bearer JWT personal access token
+    issued_at: https://app.immutacloud.com/marketplace/personal-access-tokens
+    note: The JWT claims carry the tenant metadata the Request app needs for request
+      context; tokens may be created with or without an expiration and are shown once.
+  artifact: authentication/immuta-authentication.yml
+idempotency:
+  supported: true
+  mechanism: declarative-upsert
+  header: null
+  scope: Govern V2 API and the Immuta CLI (data sources, policies, projects, purposes)
+  docs: https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v2-api
+  evidence: 'Immuta documents the V2 API as stateless policy-as-code: "Maintains less
+    state: Whether updating or creating, the same endpoint is used, and the same data
+    is passed. No ids are required, so no additional state is required." Re-sending
+    the same declarative document to the same endpoint converges on the same object
+    rather than creating a duplicate, which is what makes the Git-tracked workflow
+    safe to replay.'
+  caveats:
+  - There is no Idempotency-Key request header on any Immuta surface.
+  - The imperative Data Marketplace API is NOT idempotent — createDataProduct, createDataUseAgreement
+    and createRequestForm return 409 on a repeated name rather than converging.
+  - Immuta publishes no retry-safety guidance and no request-replay window.
+pagination:
+  primary_style: offset
+  parameters:
+    limit: {in: query, type: number, default: 10, minimum: 1, maximum: 100, note: 'a
+        few operations use default 100 or a maximum of 200'}
+    offset: {in: query, type: number, default: 0, minimum: 0}
+    sortBy: {in: query, type: string}
+    sortOrder: {in: query, type: string, enum: [asc, desc], default: 'asc (desc on
+        some listings)'}
+    searchText: {in: query, type: string}
+  cursor_style:
+    parameter: nextToken
+    used_by: [getInboxMessages, searchAppliedTags]
+    note: two operations use an opaque nextToken cursor instead of offset
+  response_envelope:
+    shape: '{ data: [...], meta: {...} }'
+    schemas: [PaginatedDataProduct, PaginatedAccessRequest, PaginatedDataUseAgreement,
+      PaginatedRequestForm, PaginatedInboxMessages, PaginatedWebhookHistory, PaginatedDataSourceWithStatus,
+      PaginatedImmutaDataSource, PaginatedImmutaDataSourceColumns, PaginatedMaskingExceptionColumns,
+      PaginatedDataObject, PaginatedImmutaColumnsByQualifiedName]
+field_expansion:
+  supported: false
+  note: no expand/fields/include parameter; some read operations return pre-hydrated
+    objects instead (HydratedAccessRequest).
+metadata:
+  supported: true
+  note: DataProduct and AccessRequest both carry a free-form `metadata` object; Immuta
+    tags are the governance-side metadata mechanism.
+request_tracing:
+  request_id_header: null
+  note: Immuta documents no request-id or correlation header on any API surface. A
+    `trackingId` field appears inside some payloads but is not a transport-level trace
+    id.
+versioning:
+  scheme: uri-path
+  surfaces:
+    govern: /api/v2/* (current) alongside the unversioned V1 endpoint set
+    marketplace: /api/* with an OpenAPI info.version of '1.0'
+  breaking_change_process: 'behavior change releases run an opt-in period, then an
+    on-by-default period, announced in the deployment notes'
+  docs: https://documentation.immuta.com/saas/releases/index
+  artifact: lifecycle/immuta-lifecycle.yml
+errors:
+  media_type: application/json
+  rfc9457: false
+  note: status code + error code + message in JSON; no problem+json, no error schema
+    in the spec
+  artifact: errors/immuta-problem-types.yml
+rate_limits:
+  documented: false
+  headers: null
+  note: Immuta publishes no rate-limit policy and declares no 429 response on any operation;
+    the only documented timing constraint is the 10-second response deadline imposed
+    on webhook receivers.
+content_negotiation:
+  request_formats: [application/json, application/x-yaml]
+  note: the V2 API and the CLI accept both JSON and YAML payloads for the same endpoint,
+    so policy-as-code files can carry comments.
+  response_formats: [application/json]
+cross_links:
+  authentication: authentication/immuta-authentication.yml
+  errors: errors/immuta-problem-types.yml
+  lifecycle: lifecycle/immuta-lifecycle.yml
+  webhooks: asyncapi/immuta-webhooks.yml
+  data_model: data-model/immuta-data-model.yml

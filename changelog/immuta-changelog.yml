@@ -1,0 +1,106 @@
+generated: '2026-08-01'
+method: searched
+source: https://documentation.immuta.com/saas/releases/index
+also: https://changelog.immuta.com/en
+scheme: dated deployment notes (calendar-dated entries grouped by month), plus a
+  separate marketing changelog site with category filters (announcement, breaking
+  change, coming soon, deprecations, fix, improvement, new feature, preview feature)
+current_version:
+  govern_api: v2
+  marketplace_api: '1.0'
+  product: continuously deployed SaaS
+window: 'recent window captured 2026-08-01 — entries from 2026-06-01 through 2026-07-29'
+entries:
+- date: '2026-07-29'
+  type: improvement
+  title: New controls for administrators in Connections
+  breaking: false
+  highlights:
+  - Integration settings now live inside connections, with ACTIVE / INACTIVE / UNHEALTHY
+    health states
+  - Per-object policy sync setting controls whether Immuta pushes policy down for a
+    given data object
+  - Detail pages for leaf data objects, linking to the corresponding data source
+  - Tag inheritance assignable in bulk at database or schema level
+  - Configurable New tag behavior in App Settings
+  - Unhealthy connections can be force-deleted
+  scope: [Databricks Unity Catalog, Snowflake]
+- date: '2026-07-22'
+  type: new feature
+  title: Separate access and masking exception request forms for data products
+  breaking: false
+  highlights:
+  - Data products can now carry two distinct request forms — one for data access requests,
+    one for masking exception requests
+  - Independent questions and separate data use agreements per form type
+  - Brings data products in line with data assets, which already supported separate
+    forms
+  api_impact: 'Request app API: getRequestForms, dataAccessRequestFormId and maskingExceptionRequestFormId'
+- date: '2026-07-16'
+  type: announcement
+  title: Snowflake integration architecture updates
+  breaking: false
+  behavior_change: true
+  rollout_start: '2026-07-23'
+  highlights:
+  - Immuta policy role names change (metadata-only); user role names unchanged
+  - No downtime and no end-user impact during migration
+  - Manual data policy resync now resyncs both data and subscription policies
+  - Integration error banners removed in favour of the new connections experience
+  opt_out: contact your Immuta representative before 2026-07-23
+- date: '2026-07-15'
+  type: improvement
+  title: Improved query performance for Snowflake policies with advanced masking exceptions
+  breaking: false
+- date: '2026-07-09'
+  type: new feature
+  title: Automated data discovery for Immuta's Amazon Redshift viewless integration
+  breaking: false
+- date: '2026-07-06'
+  type: new feature
+  title: New Immuta managed groups for writing policies
+  breaking: false
+  highlights:
+  - 'Three built-in system-managed groups that cannot be edited or removed: All Agents,
+    All Users, All Identities'
+- date: '2026-07-01'
+  type: breaking change
+  title: 'Behavior change release on by default period: case-insensitive Starburst
+    (Trino) principal name matching'
+  breaking: true
+  stage: on-by-default
+- date: '2026-06-30'
+  type: breaking change
+  title: 'Behavior change release opt-in period: remove owner grants when disabling
+    a data source'
+  breaking: true
+  stage: opt-in
+- date: '2026-06-23'
+  type: fix
+  title: Unity Catalog tag ingestion now supports foreign catalogs created via Lakehouse
+    Federation
+  breaking: false
+- date: '2026-06-11'
+  type: breaking change
+  title: 'Behavior change release opt-in period: Starburst (Trino) principal name matching
+    is now case insensitive'
+  breaking: true
+  stage: opt-in
+- date: '2026-06-08'
+  type: improvement
+  title: Immuta documentation embedded directly in the Immuta UI
+  breaking: false
+- date: '2026-06-02'
+  type: new feature
+  title: OAuth 2.0 authentication for Immuta's Alation integration
+  breaking: false
+  highlights:
+  - OAuth 2.0 available alongside the existing API key authentication for the Alation
+    catalog link
+- date: '2026-06-01'
+  type: new feature
+  title: Immuta row filtering and column masking in Databricks Delta Sharing
+  breaking: false
+related:
+  deprecations: https://documentation.immuta.com/saas/releases/deprecations
+  cli_release_notes: https://documentation.immuta.com/saas/releases/immuta-cli-release-notes

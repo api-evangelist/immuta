@@ -1,0 +1,84 @@
+generated: '2026-08-01'
+method: searched
+source: 'https://documentation.immuta.com/saas/releases/index ; https://documentation.immuta.com/saas/releases/deprecations
+  ; https://status.immuta.com/ ; https://www.immuta.com/wp-content/uploads/2025/01/Immuta-Support-Policy-SLA-February-2025.pdf'
+versioning:
+  scheme: uri-path
+  current:
+    govern_api: v2 (/api/v2/*), with the unversioned V1 endpoint set still documented
+      and supported
+    marketplace_api: '1.0'
+  docs: https://documentation.immuta.com/saas/developer-guides/api-intro
+release_cadence:
+  channel: continuous SaaS deployment
+  notes_url: https://documentation.immuta.com/saas/releases/index
+  changelog_url: https://changelog.immuta.com/en
+  cadence: dated deployment notes published several times per month; zero-downtime
+    deployments for SaaS tenants
+  deployment_options: SaaS (recommended) and self-managed
+behavior_change_process:
+  description: 'Immuta stages breaking behavior changes through two named windows before
+    they become mandatory: an "opt-in period" during which customers can enable the
+    new behavior, followed by an "on by default period" during which it is enabled
+    unless the customer opts out. Both windows are announced in the dated deployment
+    notes.'
+  examples:
+  - {date: '2026-07-01', change: 'Case-insensitive Starburst (Trino) principal name
+      matching', stage: on-by-default period}
+  - {date: '2026-06-30', change: Remove owner grants when disabling a data source,
+    stage: opt-in period}
+  - {date: '2026-05-01', change: Immuta row filtering and column masking in Databricks
+      Delta Sharing, stage: on-by-default period}
+deprecation:
+  policy_url: https://documentation.immuta.com/saas/releases/deprecations
+  sunset_header: false
+  deprecation_header: false
+  model: 'a published deprecations table listing each deprecated feature, the replacement
+    feature, and a tentative EOL date, plus a separate end-of-life table of features
+    already removed, grouped by year'
+  currently_deprecated:
+  - {feature: Anyone subscription policy type, replacement: subscription policy targeting
+      a group that contains all users}
+  - {feature: Anyone who asks and is approved subscription policy type, replacement: Request
+      app}
+  - {feature: IP filtering feature for SaaS tenants, replacement: Immuta SaaS private
+      networking}
+  - {feature: Legacy onboarding for Snowflake and Databricks Unity Catalog integrations,
+    replacement: Connections}
+  - {feature: 'Legacy onboarding for Starburst (Trino) integration', replacement: Connections
+      for Starburst (Trino)}
+  - {feature: Masking with a non-global regex on Redshift data sources, replacement: use
+      the global flag}
+  - {feature: Monitors, replacement: none}
+  - {feature: Reversible masking on Redshift data sources, replacement: none}
+  removed_2026:
+  - Snowflake lineage tag propagation
+  - Snowflake project workspaces
+  - Snowflake without low row access policy mode enabled
+  - Snowflake without table grants
+  - Approve to promote
+  - Derived data sources (and CREATE_DATA_SOURCE_IN_PROJECT permission)
+  - Unmask requests
+  - External policy handler
+  - CREATE_FILTER global permission
+  deprecated_operations: []
+  deprecated_operations_note: no operation in openapi/immuta-marketplace-api-openapi.yml
+    carries deprecated true
+status_page:
+  url: https://status.immuta.com/
+  platform: Atlassian Statuspage
+  api: https://status.immuta.com/api/v2/summary.json
+  verified: {fetched: '2026-08-01', http_status: 200, page_id: gr4yqh91hszl}
+sla:
+  url: https://www.immuta.com/wp-content/uploads/2025/01/Immuta-Support-Policy-SLA-February-2025.pdf
+  title: Immuta Support Policy & SLA (February 2025)
+  uptime_target: null
+  note: support policy and SLA published as a PDF; no numeric uptime commitment is
+    published on the public web
+support:
+  portal: https://support.immuta.com/en/customer-portal
+  contact: support@immuta.com
+regions:
+  model: SaaS global segments
+  segments: [na, eu, ap]
+  docs: https://documentation.immuta.com/saas/configuration/application-configuration/reference-guides/deployment-options

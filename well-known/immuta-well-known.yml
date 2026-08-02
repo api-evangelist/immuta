@@ -1,0 +1,68 @@
+generated: '2026-08-01'
+method: probed
+source: live GET probes of /.well-known/* on every Immuta host in apis.yml and the
+  OpenAPI servers[] block
+summary:
+  documents_found: 0
+  note: 'Immuta publishes no /.well-known/ discovery surface on any host. Note the
+    false positive: app.immutacloud.com is a single-page app whose catch-all route
+    answers HTTP 200 with the application HTML shell for every /.well-known/* path,
+    including agent-card.json and security.txt. Those are recorded as html-catch-all,
+    not as documents.'
+hosts:
+- host: https://www.immuta.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://documentation.immuta.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://na.api.immutacloud.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/oauth-protected-resource, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://app.immutacloud.com
+  note: SPA catch-all — every path below returned 200 with text/html (the app shell),
+    not a discovery document
+  documents:
+  - {path: /.well-known/security.txt, status: 200, result: html-catch-all}
+  - {path: /.well-known/openid-configuration, status: 200, result: html-catch-all}
+  - {path: /.well-known/oauth-authorization-server, status: 200, result: html-catch-all}
+  - {path: /.well-known/api-catalog, status: 200, result: html-catch-all}
+  - {path: /.well-known/agent-card.json, status: 200, result: html-catch-all}
+  - {path: /.well-known/agent.json, status: 200, result: html-catch-all}
+- host: https://eu.api.immutacloud.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://ap.api.immutacloud.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://support.immuta.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://status.immuta.com
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}

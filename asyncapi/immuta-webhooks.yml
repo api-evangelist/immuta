@@ -1,0 +1,205 @@
+generated: '2026-08-01'
+method: searched
+source: https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/webhooks
+spec_type: Webhooks
+asyncapi_published: false
+asyncapi_note: 'Immuta publishes no AsyncAPI document. Probed 2026-08-01: /asyncapi.yaml returned 404
+  on documentation.immuta.com, documentation.immuta.com/saas, na.api.immutacloud.com and www.immuta.com,
+  and no AsyncAPI or event-catalog page appears anywhere in the documentation index (llms/immuta-llms.txt)
+  or the public github.com/immuta org listing. The event surface below is captured from the provider
+  webhook reference rather than fabricated as a spec.'
+surfaces:
+- name: Govern app webhooks
+  docs: https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api/configure-your-instance-of-immuta/webhooks
+  management_api:
+    create: POST /webhooks
+    search: GET /webhooks
+    get_by_id: GET /webhooks/{id}
+    notification_actions: GET /webhooks/actions
+    delivery_history: GET /webhooks/history
+    retry: POST /webhooks/history/retry/{id}
+    delete: DELETE /webhooks/{id}
+  summary: Every action in Immuta that generates a notification is also available as a webhook. Application
+    Admins can register webhooks for system events; any user can register webhooks for access-request
+    and activity notifications.
+- name: Request app webhooks
+  docs: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api/notification
+  management_api:
+    list: getWebhooks
+    create: createWebhook
+    get: getWebhook
+    update: updateWebhook
+    delete: deleteWebhook
+    history: getWebhookHistory
+    test: testWebhook
+    test_config: testWebhookConfig
+  spec: openapi/immuta-marketplace-api-openapi.yml
+  payload_fields:
+  - id
+  - url
+  - verifyTls
+  - signingKey
+  - suppressed
+  summary: The Data Marketplace API exposes first-class webhook CRUD, delivery history and test operations
+    under the Notification tag, alongside Slack and Microsoft Teams notification channels.
+delivery:
+  transport: HTTP POST to a subscriber-supplied URL
+  response_deadline_seconds: 10
+  timeout_behavior: requests that do not get a response within 10 seconds time out
+  retry: manual retry by webhook id (retry endpoint documented in the Govern API)
+  signing: Request app webhooks carry a signingKey; TLS verification is toggled per webhook with verifyTls
+  subscription_model: a webhook registration lists the notificationType values it wants, plus actionType
+    (triggered or received) and a global flag to receive events that do not pertain to the registering
+    user
+event_count: 73
+events:
+- event: ALL_NOTIFICATIONS
+  description: Configures the webhook to be triggered by any event type.
+- event: acknowledgedAccess
+  description: A project member acknowledges the purposes on a project.
+- event: addedToProject
+  description: A data source is added to a project.
+- event: apiKeyRevoked
+  description: A user's API key is revoked.
+- event: attributeAdded
+  description: An attribute is added to a group or user.
+- event: attributeRemoved
+  description: An attribute is removed from a group or user.
+- event: attributeUpdated
+  description: Attributes for a group or user are updated.
+- event: automaticDomainAssignmentFailure
+  description: Automatically assigning a data source to a domain using a tag has failed.
+- event: bulkJobStatus
+  description: A bulk action is completed (whether success/failure).
+- event: certificationRequired
+  description: A Global Policy that requires certification by the data source owner is applied to a
+    data source.
+- event: collectionCreated
+  description: A domain is created.
+- event: collectionDataSourceAdded
+  description: A data source is added to a domain.
+- event: collectionDataSourceRemoved
+  description: A data source is removed from a domain.
+- event: collectionDeleted
+  description: A domain is deleted.
+- event: collectionPermissionGranted
+  description: A domain permission has been assigned to a user.
+- event: collectionPermissionRevoked
+  description: A domain permission has been removed from a user.
+- event: collectionUpdated
+  description: A domain was updated.
+- event: conflictingGlobalPolicies
+  description: Global Policies are applied to the same column on a data source.
+- event: dataSourceExpired
+  description: A data source that was configured to expire has expired.
+- event: dataSourceExpiring
+  description: A data source that was configured to expire expires tomorrow.
+- event: dataSourceUpdated
+  description: A data source is updated.
+- event: deletedDatasourceRemovedFromProject
+  description: A data source has been deleted and then removed from a project.
+- event: expiredDatasourceRemovedFromProject
+  description: A data source that has expired and been deleted is removed from a project.
+- event: firstQuery
+  description: A data source is queried for the first time through Immuta.
+- event: frameworkCreated
+  description: A classification framework was created.
+- event: frameworkDeleted
+  description: A classification framework was deleted.
+- event: frameworkUpdated
+  description: A classification framework was updated.
+- event: globalPolicyCreated
+  description: A global policy is created.
+- event: globalPolicyDeleted
+  description: A global policy is deleted.
+- event: globalPolicyDisabled
+  description: A global policy is disabled.
+- event: globalPolicyUpdated
+  description: A global policy is updated.
+- event: groupUserAdded
+  description: A user is added to a group.
+- event: groupUserDeleted
+  description: A user is removed from a group.
+- event: healthCheckFailed
+  description: A health check runs and returns not healthy.
+- event: healthCheckResolved
+  description: A health check runs and returns healthy.
+- event: modelAccessApproved
+  description: A user's access request is approved for a data source or project.
+- event: modelAccessDenied
+  description: A user's access request is denied for a data source or project.
+- event: modelAccessRequested
+  description: A user requests access to a data source or project.
+- event: modelAccessRevoked
+  description: A user's access request is revoked for a data source or project.
+- event: modelAccessUpdated
+  description: A user's access level is updated for a data source or project.
+- event: modelCopied
+  description: A data source or project is copied.
+- event: modelCreated
+  description: A data source or project is created.
+- event: modelDeleted
+  description: A data source or project is deleted.
+- event: modelTagAdded
+  description: A tag is added to a data source or a data source column.
+- event: modelTagRemoved
+  description: A tag is removed from a data source or a data source column.
+- event: modelUserAdded
+  description: A user is added to a data source.
+- event: modelUserDeleted
+  description: A user is removed from a data source.
+- event: modelUserJoined
+  description: A user joins a data source that they are already allowed to join.
+- event: nativeIntegrationValidationFailed
+  description: A validation test for an enabled integration has failed.
+- event: permissionsUpdated
+  description: A user's permissions are updated.
+- event: policyCertificationExpired
+  description: A policy certification on a data source has expired.
+- event: policyUpdated
+  description: A data source's policies have been updated by a user or Global Policy. Policy updates
+    are triggered for many reasons, including when a data source is created, a user updates them, a
+    Global Policy changed, tags are added to a data source or column, the columns changed, a fingerprint
+    is recomputed (only available for Snowflake data sources), an external
+- event: projectDisabled
+  description: A project is disabled.
+- event: projectEqualizationMemberNotInCompliance
+  description: A member of an equalized project is out of compliance.
+- event: projectEqualizationToggled
+  description: Project equalization is toggled on or off.
+- event: projectUpdated
+  description: A project is updated.
+- event: purposeCreated
+  description: A purpose is created.
+- event: purposeDeleted
+  description: A purpose is deleted.
+- event: purposeUpdated
+  description: A purpose is updated.
+- event: queryCanceled
+  description: A running query is canceled due to a change on a data source.
+- event: removedFromProject
+  description: A data source is removed from a project.
+- event: switchedCurrentProject
+  description: A user switches their current project.
+- event: tagCreated
+  description: A tag is created.
+- event: tagDeleted
+  description: A tag is deleted.
+- event: tagUpdated
+  description: A tag is updated.
+- event: taskDeleted
+  description: An outstanding data source task is deleted without validation.
+- event: taskValidated
+  description: An outstanding data source task is validated.
+- event: userCloned
+  description: A user is cloned.
+- event: userCreated
+  description: A user or group is created.
+- event: userDeleted
+  description: A user or group is deleted.
+- event: userDisabled
+  description: A user is disabled.
+- event: userEnabled
+  description: A user is enabled.
+- event: userMigrated
+  description: A user is migrated from an old IAM to a new IAM.

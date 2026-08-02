@@ -1,0 +1,83 @@
+generated: '2026-08-01'
+method: derived
+source: 'mcp/immuta-mcp.yml (live tools/list, 2026-08-01) + openapi/immuta-marketplace-api-openapi.yml'
+summary: 'Immuta''s two machine-readable surfaces do not overlap. The published MCP
+  server is a documentation server (GitBook, served from documentation.immuta.com)
+  whose four tools read and query the docs corpus; the published OpenAPI is the Data
+  Marketplace / Request app REST API with 83 operations. No MCP tool is backed by a
+  REST operation, and no REST operation has an MCP tool. This is a clean surface divergence,
+  recorded rather than papered over: an agent that mounts Immuta''s MCP server can
+  read Immuta''s documentation but cannot request access to a data product, and an
+  agent that holds a Marketplace PAT can do the reverse.'
+surfaces:
+  openapi:
+    file: openapi/immuta-marketplace-api-openapi.yml
+    title: Immuta Data Marketplace 1.0
+    servers: ['https://{global-segment}.api.immutacloud.com/marketplace']
+    operations: 83
+    auth: bearer JWT personal access token
+    gated: true
+  mcp:
+    url: https://documentation.immuta.com/saas/~gitbook/mcp
+    tools: 4
+    auth: none
+    gated: false
+    scope: documentation-only
+  graphql:
+    present: false
+    note: no GraphQL endpoint found on any Immuta host
+crosswalk: []
+mcp_only:
+- tool: searchDocumentation
+  reason: documentation-corpus search; no REST operation in any published Immuta API
+    exposes documentation search
+- tool: getPage
+  reason: fetches a documentation page as markdown; the equivalent affordance outside
+    MCP is GET <docs-page>.md, not an API operation
+- tool: askQuestion
+  reason: retrieval-augmented answer over the docs corpus; the equivalent affordance
+    outside MCP is GET <docs-page>.md?ask=<question>, not an API operation
+- tool: sendFeedback
+  reason: writes a docs feedback report into GitBook, not into Immuta
+rest_only:
+- capability: Data products
+  operations: [searchDataProducts, createDataProduct, getDataProductById, updateDataProduct,
+    deleteDataProduct, getDataProductByName, updateDataSources, searchDataSources,
+    getAllDataSources, searchDataProductColumns, searchDataProductMembers, getRequestForms,
+    recentDeterminations]
+- capability: Access requests
+  operations: [requestAccess, requestMaskingException, revokeAccess, searchDataProductAccessRequests,
+    searchAccessRequests, getAccessRequestById, cancelAccessRequest, getAccessRequestRecords,
+    getRiskAssessment, getApprovedMaskingExceptionColumns, searchAccessRequestMaskingExceptionColumns,
+    updateApprovalRecord]
+- capability: Assets
+  operations: [getAssetByMetadata, getAssetById, updateAsset, patchAsset, getAssetRequestForms,
+    getAssetReviewFlows, requestAsset, revokeAssetRequest, RecentAssetDeterminations]
+- capability: Request forms
+  operations: [createRequestForm, searchRequestForms, getRequestFormById, getRequestFormByVersion,
+    updateRequestForm, deleteRequestFormById, getDataProducts, getAssets]
+- capability: Data use agreements
+  operations: [createDataUseAgreement, searchDataUseAgreements, getDataUseAgreementById,
+    updateDataUseAgreement, deleteDataUseAgreement, getAssociatedRequestForms]
+- capability: Notifications and webhooks
+  operations: [getUserPreferences, updateUserPreferences, updateUserProviderConfigs,
+    getInboxMessages, getInboxMessage, setInboxMessageReadStatus, batchUpdateInboxMessage,
+    getWebhooks, createWebhook, getWebhook, updateWebhook, deleteWebhook, getWebhookHistory,
+    testWebhook, testWebhookConfig, getSlackConfiguration, deleteSlackConfiguration,
+    testSlackConnection]
+- capability: Metadata
+  operations: [getAvailableDomains, getDomainDataSources, getDomain, getImmutaUsers,
+    getImmutaGroups, getImmutaAttributes, getImmutaTags, searchAppliedTags]
+- capability: Auth and tokens
+  operations: [user, getToken, createToken, listTokens, deleteToken]
+- capability: Health
+  operations: ['liveness[0]', 'liveness[1]', readiness]
+- capability: Settings
+  operations: [getFrontendSettings]
+coverage:
+  tools_named: 4
+  tools_bound_to_rest: 0
+  mcp_only: 4
+  rest_operations_total: 83
+  rest_operations_with_tool: 0
+  overlap_percent: 0

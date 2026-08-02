@@ -1,0 +1,110 @@
+generated: '2026-08-01'
+method: derived
+source: openapi/immuta-marketplace-api-openapi.yml
+scope: Immuta Data Marketplace (Request app) API — 89 component schemas, 83 operations
+notes: 'Derived from schema $ref links and id-reference fields in the published OpenAPI.
+  The Govern (V1/V2) API surface — data sources, global policies, projects, purposes,
+  domains, tags, frameworks — is documented in prose tables rather than a spec, so
+  its objects are named here only where the Marketplace API references them.'
+entities:
+- name: Tenant
+  schema: Tenant
+  key: tenantId
+  fields: [tenantId, organizationId, organizationName, shortKey, globalSegment, fqdn]
+  summary: The Immuta SaaS tenant an object belongs to; carries the global segment
+    (na/eu/ap) and the tenant FQDN.
+- name: DataProduct
+  schema: DataProduct
+  key: id
+  fields: [id, name, description, domains, suspended, createdBy, createdAt, updatedAt,
+    status, expiration, stats, requestId, sourceTypes, metadata, dataAccessPolicy,
+    maskingExceptionPolicy]
+  summary: The central publishable unit of the Request app — a curated bundle of data
+    sources with its own access policy and masking-exception policy.
+- name: Asset
+  schema: AssetDto
+  key: id
+  summary: A catalog asset (from Alation, Atlan or another catalog) that can be requested
+    through Immuta alongside data products.
+- name: DataSource
+  schema: ImmutaDataSource
+  key: id
+  summary: A registered Immuta data source — the object a data product exposes and
+    a policy is enforced on.
+- name: AccessRequest
+  schema: HydratedAccessRequest
+  key: id
+  fields: [id, requestingUser, user, formVersion, form, type, metadata, status, expiration,
+    createdAt, updatedAt, dataProduct, asset]
+  summary: A request for access to a data product or asset, of type access or masking-exception,
+    carrying the submitted request-form response.
+- name: ApprovalRecord
+  schema: ApprovalRecord
+  key: id
+  summary: One reviewer determination on an access request.
+- name: RequestForm
+  schema: RequestForm
+  key: id
+  fields: [id, name, fields, policy, dataUseAgreements, version, createdBy, createdAt,
+    updatedBy, updatedAt]
+  summary: A versioned questionnaire attached to a data product or asset; data products
+    may carry separate access and masking-exception forms.
+- name: DataUseAgreement
+  schema: DataUseAgreement
+  key: id
+  fields: [id, name, body, createdBy, createdAt, updatedBy, updatedAt]
+  summary: Legal text a requester must accept; attached to request forms.
+- name: Domain
+  schema: ImmutaDomain
+  key: id
+  fields: [id, name, description]
+  summary: An Immuta domain, the governance boundary data sources and products are
+    assigned to.
+- name: User
+  schema: UserWithPermissionsAndEntitlements
+  key: globalUserId
+  summary: An Immuta identity with its permissions and entitlements.
+- name: PersonalAccessToken
+  schema: PersonalAccessToken
+  key: tokenId
+  summary: The bearer JWT credential used to call the Marketplace API.
+- name: Webhook
+  schema: Webhook
+  key: id
+  fields: [id, url, verifyTls, signingKey, suppressed]
+  summary: A Request app webhook target, with a signing key and TLS verification flag.
+- name: InboxMessage
+  schema: InboxMessage
+  key: id
+  fields: [id, notificationId, notificationType, message, subject, createdAt, readAt,
+    data]
+  summary: An in-app notification delivered to a user's inbox.
+- name: Tag
+  schema: ImmutaTagSearchResponse
+  summary: An Immuta tag applied to data sources and columns; drives policy targeting.
+relationships:
+- {from: DataProduct, to: Domain, kind: has_many, via: domains}
+- {from: DataProduct, to: DataSource, kind: has_many, via: updateDataSources/searchDataSources}
+- {from: DataProduct, to: RequestForm, kind: has_many, via: dataAccessRequestFormId
+    + maskingExceptionRequestFormId}
+- {from: DataProduct, to: AccessRequest, kind: has_many, via: dataProductId}
+- {from: DataProduct, to: User, kind: has_many, via: searchDataProductMembers}
+- {from: AccessRequest, to: DataProduct, kind: belongs_to, via: dataProduct}
+- {from: AccessRequest, to: Asset, kind: belongs_to, via: asset}
+- {from: AccessRequest, to: RequestForm, kind: belongs_to, via: formVersion}
+- {from: AccessRequest, to: User, kind: belongs_to, via: requestingUser}
+- {from: AccessRequest, to: ApprovalRecord, kind: has_many, via: dataAccessRequestId}
+- {from: RequestForm, to: DataUseAgreement, kind: has_many, via: dataUseAgreementIds}
+- {from: RequestForm, to: DataProduct, kind: has_many, via: LinkedDataProducts}
+- {from: RequestForm, to: Asset, kind: has_many, via: LinkedAssets}
+- {from: Asset, to: DataSource, kind: has_many, via: AssetDataSourceSearchResponse}
+- {from: Domain, to: DataSource, kind: has_many, via: getDomainDataSources}
+- {from: InboxMessage, to: User, kind: belongs_to, via: recipientId}
+- {from: PersonalAccessToken, to: User, kind: belongs_to, via: userId}
+- {from: Webhook, to: Tenant, kind: belongs_to, via: tenantId}
+identifiers:
+  style: opaque string/uuid ids in an `id` field; no typed id prefixes are published
+  cross_reference_fields: [dataProductId, dataSourceId, dataObjectId, requestFormId,
+    dataAccessRequestFormId, maskingExceptionRequestFormId, dataUseAgreementIds, dataAccessRequestId,
+    notificationId, domainId, tenantId, organizationId, globalUserId, requesteeGlobalUserId,
+    tokenId, recipientId, trackingId]

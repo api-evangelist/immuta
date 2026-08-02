@@ -1,0 +1,55 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Immuta Data Marketplace API
+  version: 1.0.0
+extends: openapi/immuta-marketplace-api-openapi.yml
+x-generated: '2026-08-01'
+x-method: generated
+x-source: openapi/immuta-marketplace-api-openapi.yml
+x-note: 'Captures API Evangelist enrichment of the harvested spec without mutating
+  it. The two content fixes below are corrections to real defects observed in the published
+  document: the health operationIds are emitted as liveness[0] / liveness[1], which
+  are not valid operationId tokens for most tooling, and no security requirement is
+  applied at the document level even though every operation requires the declared bearer
+  JWT scheme.'
+actions:
+- target: $.info
+  update:
+    x-apievangelist-slug: immuta
+    x-apievangelist-api: immuta:marketplace-api
+    x-apievangelist-harvested: '2026-08-01'
+    x-apievangelist-source: https://openapi.gitbook.com/o/8hhKnYZrfOSd79qII2UJ/spec/immuta-marketplace-api.yaml
+    x-apievangelist-artifacts:
+      authentication: authentication/immuta-authentication.yml
+      conventions: conventions/immuta-conventions.yml
+      errors: errors/immuta-problem-types.yml
+      data_model: data-model/immuta-data-model.yml
+      lifecycle: lifecycle/immuta-lifecycle.yml
+      webhooks: asyncapi/immuta-webhooks.yml
+      skills: skills/_index.yml
+- target: $
+  update:
+    security:
+    - bearer: []
+- target: $.paths['/health'].get
+  update:
+    operationId: healthCheck
+    x-apievangelist-original-operationId: liveness[0]
+- target: $.paths['/health/live'].get
+  update:
+    operationId: livenessCheck
+    x-apievangelist-original-operationId: liveness[1]
+- target: $.paths['/api/data-product'].post
+  update:
+    x-agentic-consequence: write
+    x-apievangelist-note: Creating a data product publishes a governed access surface;
+      409 on duplicate name is the only declared failure.
+- target: $.paths['/api/data-product/{id}/request'].post
+  update:
+    x-agentic-consequence: write
+    x-apievangelist-note: Submits an access request against a data product; the human
+      approval workflow is the control point.
+- target: $.paths['/api/data-product/{id}/request/{requestId}'].delete
+  update:
+    x-agentic-consequence: write
+    x-apievangelist-note: Revokes granted access — destructive for the affected user.

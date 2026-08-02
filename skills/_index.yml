@@ -1,0 +1,39 @@
+generated: '2026-08-01'
+method: generated
+source: openapi/immuta-marketplace-api-openapi.yml + conventions/immuta-conventions.yml
+  + errors/immuta-problem-types.yml + asyncapi/immuta-webhooks.yml
+note: 'Every operationId referenced by these skills was verified verbatim against the
+  published Immuta Data Marketplace OpenAPI on 2026-08-01. Immuta published no skills
+  or AGENTS.md of its own; these are API Evangelist-generated operating instructions,
+  not provider-authored.'
+skills:
+- file: immuta-request-access-to-a-data-product.md
+  name: Request access to an Immuta data product
+  api: openapi/immuta-marketplace-api-openapi.yml
+  operations: [user, searchDataProducts, getDataProductById, searchDataSources, getRequestForms,
+    requestAccess, searchDataProductAccessRequests, getAccessRequestById, getAccessRequestRecords,
+    cancelAccessRequest]
+- file: immuta-review-and-approve-access-requests.md
+  name: Review and determine Immuta access requests
+  api: openapi/immuta-marketplace-api-openapi.yml
+  operations: [user, searchAccessRequests, getAccessRequestById, getRiskAssessment,
+    getAccessRequestRecords, recentDeterminations, searchDataProductMembers, updateApprovalRecord,
+    revokeAccess]
+- file: immuta-publish-a-data-product.md
+  name: Publish an Immuta data product
+  api: openapi/immuta-marketplace-api-openapi.yml
+  operations: [user, getAvailableDomains, getImmutaTags, createDataProduct, updateDataProduct,
+    updateDataSources, searchDataSources, getAllDataSources, searchDataProductColumns,
+    createDataUseAgreement, createRequestForm, searchRequestForms, getRequestForms,
+    getDataProductById]
+- file: immuta-request-a-masking-exception.md
+  name: Request an Immuta masking exception
+  api: openapi/immuta-marketplace-api-openapi.yml
+  operations: [user, getDataProductById, searchDataProductColumns, getRequestForms,
+    requestMaskingException, searchAccessRequestMaskingExceptionColumns, getApprovedMaskingExceptionColumns,
+    getAccessRequestById, cancelAccessRequest]
+- file: immuta-subscribe-to-immuta-events.md
+  name: Subscribe to Immuta events with webhooks
+  api: openapi/immuta-marketplace-api-openapi.yml
+  operations: [user, getWebhooks, createWebhook, getWebhook, updateWebhook, testWebhookConfig,
+    testWebhook, getWebhookHistory, deleteWebhook]

@@ -1,0 +1,65 @@
+generated: '2026-08-01'
+method: searched
+source: 'https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/installation
+  ; https://github.com/immuta ; registry probes of npm, PyPI, Terraform Registry'
+summary:
+  official_language_sdks: 0
+  note: 'Immuta does not publish a first-party language SDK to any public package registry.
+    Its shipped client tooling is the Immuta CLI (pre-built Go binaries distributed
+    from an Immuta S3 bucket, not from a package manager) and a first-party Terraform
+    provider that lives on GitHub but has never been published to the Terraform Registry
+    (no releases, no registry namespace). Registry probes: PyPI immuta / immuta-cli
+    / pyimmuta / tap-immuta all 404; npm "immuta" exists but is an unrelated
+    third-party immutable-data library, not Immuta; the Terraform Registry has no
+    immuta namespace and no provider named immuta.'
+packages:
+- language: go
+  registry: none
+  distribution: direct-binary
+  name: immuta CLI
+  official: true
+  url: https://documentation.immuta.com/saas/developer-guides/the-immuta-cli/installation
+  artifacts:
+  - platform: linux/amd64
+    url: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_linux_amd64
+  - platform: linux/arm64
+    url: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_linux_arm64
+  - platform: darwin/amd64
+    url: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_darwin_amd64
+  - platform: darwin/arm64
+    url: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_darwin_arm64
+  - platform: windows/amd64
+    url: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_windows_amd64
+  checksums: https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_SHA256SUMS
+  install: curl -Lo immuta https://immuta-platform-artifacts.s3.amazonaws.com/cli/latest/immuta_cli_linux_amd64
+    && chmod +x immuta
+  release_notes: https://documentation.immuta.com/saas/releases/immuta-cli-release-notes
+- language: go
+  registry: github
+  name: terraform-provider-immuta
+  official: true
+  url: https://github.com/immuta/terraform-provider-immuta
+  published_to_registry: false
+  registry_status: 'not published — registry.terraform.io has no immuta namespace and
+    no provider named immuta (probed 2026-08-01, HTTP 404 / provider not found); the
+    GitHub repository carries no tagged releases and was last pushed 2024-09-17'
+  install: null
+- language: python
+  registry: github
+  name: tap-immuta
+  official: true
+  url: https://github.com/immuta/tap-immuta
+  description: Singer.io tap for extracting data from the Immuta API
+  published_to_registry: false
+  registry_status: 'not on PyPI (probed 2026-08-01, HTTP 404)'
+  install: null
+not_found:
+- {registry: pypi, name: immuta, status: 404}
+- {registry: pypi, name: immuta-cli, status: 404}
+- {registry: pypi, name: pyimmuta, status: 404}
+- {registry: pypi, name: tap-immuta, status: 404}
+- {registry: npm, name: '@immuta/sdk', status: 404}
+- {registry: npm, name: immuta-cli, status: 404}
+- {registry: npm, name: immuta, status: 200, note: 'third-party immutable-data library,
+    not Immuta — not recorded as an official package'}
+- {registry: terraform, name: immuta/immuta, status: 404}

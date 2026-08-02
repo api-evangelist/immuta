@@ -1,23 +1,187 @@
 aid: immuta
 name: Immuta
-description: 'Immuta is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Immuta is a data security and access-governance platform that lets organizations
+  register their cloud data platforms — Snowflake, Databricks (Unity Catalog, Lakebase,
+  Spark), Amazon Redshift and Redshift Spectrum, Amazon S3, AWS Lake Formation, Google
+  BigQuery, Azure Synapse Analytics, Starburst (Trino) and Teradata — and then author,
+  enforce and audit subscription, data and write policies against that data from a
+  single control plane. The platform is split into the Govern, Provision (Request)
+  and Comply apps, with attribute-based access control, sensitive data discovery and
+  tagging, dynamic masking and row-level filtering, purpose-based restrictions, data
+  products and an access-request workflow, plus agentic data access controls for governing
+  how AI agents and LLMs query sensitive data. Immuta exposes this surface through
+  several REST APIs: the Data Marketplace / Request app API (published as OpenAPI 3.0),
+  the Govern V1 and V2 APIs, the integrations API and the connections API, alongside
+  the Immuta CLI, a webhook event surface and a Terraform provider.'
+image: https://www.immuta.com/wp-content/uploads/2024/10/favicon.png
 url: https://raw.githubusercontent.com/api-evangelist/immuta/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment
 specificationVersion: '0.20'
 created: '2026-08-01'
 modified: '2026-08-01'
 tags:
 - Company
-apis: []
+- Data Governance
+- Data Access Control
+- Data Security
+- Data Privacy
+- Policy Management
+- Data Marketplace
+- Compliance
+- Snowflake
+- Databricks
+- Analytics
+- Agentic Data Access
+apis:
+- aid: immuta:marketplace-api
+  name: Immuta Data Marketplace API
+  description: 'The Immuta Data Marketplace API — the REST surface behind the Immuta
+    Request (Provision) app. It supports discovery and management of data products,
+    the data sources and assets attached to them, request forms and data use agreements,
+    and the full access-request lifecycle including approvals, masking-exception requests,
+    determinations and revocation. Published by Immuta as an OpenAPI 3.0 document with
+    83 operations across 11 tags, authenticated with a bearer JWT personal access token,
+    and served per global segment (na, eu, ap) from api.immutacloud.com.'
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Data Marketplace
+  - Data Products
+  - Access Requests
+  - Data Governance
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-marketplace-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: Overlay
+    url: overlays/immuta-marketplace-api-overlay.yaml
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:govern-api
+  name: Immuta Govern API
+  description: 'The Immuta Govern app API — the tenant-hosted REST surface for registering
+    data sources and connections, authoring data, subscription and write policies,
+    managing domains, projects, purposes, tags, frameworks, identities (bim), licenses,
+    jobs, search filters and webhooks, and generating governance reports. It is documented
+    in three layers: the V2 API (declarative policy-as-code, JSON or YAML, same endpoint
+    for create and update), the V1 API (full endpoint reference), and the integrations
+    and connections APIs for wiring remote data platforms into Immuta. Authenticated
+    with an Immuta API key or a bearer token exchanged at /bim/apikey/authenticate.
+    The base URL is the customer''s own Immuta SaaS tenant host.'
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro
+  baseURL: https://your-immuta-url.immuta.com
+  x-tenant-scoped: true
+  x-base-url-note: 'Immuta SaaS is multi-tenant; the Govern API base URL is the customer''s
+    own tenant host (https://<your-tenant>.immuta.com). The value here is the host
+    Immuta uses verbatim in its own documented curl examples.'
+  tags:
+  - Data Governance
+  - Policy Management
+  - Data Access Control
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro
+  - type: APIReference
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/immuta-v1-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: Webhooks
+    url: asyncapi/immuta-webhooks.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+x-enrichment:
+  date: '2026-08-01'
+  status: enriched
+  artifacts_added: 22
+  pass: local-v1
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/immuta-agentic-access.yml
 - type: Website
-  url: https://forgeglobal.com/immuta_stock/
+  url: https://www.immuta.com/
+- type: DeveloperPortal
+  url: https://documentation.immuta.com/saas/developer-guides/api-intro
+- type: Documentation
+  url: https://documentation.immuta.com/saas
+- type: APIReference
+  url: https://documentation.immuta.com/saas/developer-guides/api-intro
+- type: GettingStarted
+  url: https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/getting-started
+- type: Support
+  url: https://support.immuta.com/en/customer-portal
+- type: Blog
+  url: https://www.immuta.com/blog/
+- type: GitHubOrganization
+  url: https://github.com/immuta
+- type: ChangeLog
+  url: https://changelog.immuta.com/en
+- type: ChangeLog
+  url: changelog/immuta-changelog.yml
+- type: StatusPage
+  url: https://status.immuta.com/
+- type: Deprecation
+  url: https://documentation.immuta.com/saas/releases/deprecations
+- type: Lifecycle
+  url: lifecycle/immuta-lifecycle.yml
+- type: TermsOfService
+  url: https://www.immuta.com/terms-of-service/
+- type: PrivacyPolicy
+  url: https://www.immuta.com/legal/privacy-policy/
+- type: Login
+  url: https://app.immutacloud.com/
+- type: TrustCenter
+  url: security/immuta-trust-center.yml
+- type: Trust
+  url: https://www.immuta.com/trust/
+- type: Compliance
+  url: https://www.immuta.com/trust/
+- type: Security
+  url: https://bugcrowd.com/61d7ba4d-be53-4704-9a73-761d6f108df9/external/report
+- type: VulnerabilityDisclosure
+  url: security/immuta-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/immuta-domain-security.yml
+- type: Conformance
+  url: conformance/immuta-conformance.yml
+- type: Authentication
+  url: authentication/immuta-authentication.yml
+- type: Conventions
+  url: conventions/immuta-conventions.yml
+- type: Idempotency
+  url: conventions/immuta-conventions.yml
+- type: Packages
+  url: packages/immuta-packages.yml
+- type: CLI
+  url: cli/immuta-cli.yml
+- type: MCPServer
+  url: mcp/immuta-mcp.yml
+- type: ToolCrosswalk
+  url: mcp/immuta-tool-crosswalk.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Webhooks
+  url: asyncapi/immuta-webhooks.yml
+- type: LLMsTxt
+  url: llms/immuta-llms.txt
+- type: SLA
+  url: https://www.immuta.com/wp-content/uploads/2025/01/Immuta-Support-Policy-SLA-February-2025.pdf
+- type: LinkedIn
+  url: https://www.linkedin.com/company/immuta/
+- type: Twitter
+  url: https://x.com/immuta
+- type: YouTube
+  url: https://www.youtube.com/c/Immuta

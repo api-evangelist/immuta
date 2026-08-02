@@ -1,0 +1,33 @@
+generated: '2026-08-01'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.immuta.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Sep 16 01:01:50 2026 GMT
+  hsts: false
+- host: documentation.immuta.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 17:41:15 2026 GMT
+  hsts: true
+  hsts_max_age: 31536000
+- host: na.api.immutacloud.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct 19 22:57:53 2026 GMT
+  hsts: null
+domains:
+- domain: immuta.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject
+- domain: immutacloud.com
+  dnssec: false
+  caa: []
+  spf: false
+  dmarc: true
+  dmarc_policy: reject
