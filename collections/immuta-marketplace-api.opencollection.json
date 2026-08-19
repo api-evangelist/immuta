@@ -1,0 +1,2333 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Immuta Data Marketplace",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "liveness[0]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/health"
+          }
+        },
+        {
+          "info": {
+            "name": "liveness[1]",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/health/live"
+          }
+        },
+        {
+          "info": {
+            "name": "readiness",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/health/ready"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Product",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search data products across the marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product",
+            "params": [
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token to fetch the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "statusFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "roleFilter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration",
+                "value": "",
+                "type": "query",
+                "description": "Filter data products by whether data access has an expiration."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search data products in the marketplace using the provided filters"
+        },
+        {
+          "info": {
+            "name": "Add new data products to the marketplace",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add one or more data products to the marketplace"
+        },
+        {
+          "info": {
+            "name": "Get data product by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get data product metadata for the specified data product ID"
+        },
+        {
+          "info": {
+            "name": "Update an existing data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing data product by ID"
+        },
+        {
+          "info": {
+            "name": "Delete data product by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the specified data product from the system"
+        },
+        {
+          "info": {
+            "name": "Get data product by name",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:name/byName",
+            "params": [
+              {
+                "name": "name",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get data product metadata for the specified data product name"
+        },
+        {
+          "info": {
+            "name": "Search all data sources in the data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/datasources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "nextToken",
+                "value": "",
+                "type": "query",
+                "description": "Pagination token to fetch the next page of results"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The number of items to return per page"
+              },
+              {
+                "name": "user",
+                "value": "",
+                "type": "query",
+                "description": "The global user ID to search data source access status for"
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Data source name to filter by"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search all data sources for the data product using the provided filters"
+        },
+        {
+          "info": {
+            "name": "Update the data product's data sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/datasources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the data sources associated with the data product. Any currently associated data sources not included in the payload will be removed."
+        },
+        {
+          "info": {
+            "name": "Search all access requests for the data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/request",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeTemporary",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include temporary access requests"
+              },
+              {
+                "name": "expiration",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by whether it has an expiration"
+              },
+              {
+                "name": "dataProductId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the data product to filter requests by"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the asset to filter requests by"
+              },
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)"
+              },
+              {
+                "name": "targetType",
+                "value": "",
+                "type": "query",
+                "description": "Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)"
+              },
+              {
+                "name": "reviewStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by review status"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search all access requests for the data product using the provided filters"
+        },
+        {
+          "info": {
+            "name": "Request access to a data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/request",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new data access request for the specified data product"
+        },
+        {
+          "info": {
+            "name": "Search all access requests for the data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/members",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "expiration",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by whether it has an expiration"
+              },
+              {
+                "name": "dataProductId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the data product to filter requests by"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the asset to filter requests by"
+              },
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)"
+              },
+              {
+                "name": "targetType",
+                "value": "",
+                "type": "query",
+                "description": "Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)"
+              },
+              {
+                "name": "reviewStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by review status"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search all approved access requests for the data product"
+        },
+        {
+          "info": {
+            "name": "Request masking exception to columns in a data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/request/masking-exception",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new masking exception request for specific columns in the specified data product"
+        },
+        {
+          "info": {
+            "name": "Revoke access to a data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/request/:requestId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the specified access request to revoked and revokes access to data sources associated with the data product"
+        },
+        {
+          "info": {
+            "name": "Get all data sources in the data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/datasources/all",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all data sources in the data product"
+        },
+        {
+          "info": {
+            "name": "Returns 5 most recent manual access determinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/recent-determinations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns 5 most recent data access requests with a terminal status as well as the approval records which contributed to that status."
+        },
+        {
+          "info": {
+            "name": "View all request forms for a data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/request-forms",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get all the request forms for the specified data product"
+        },
+        {
+          "info": {
+            "name": "Search columns in data product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-product/:id/columns",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text to filter data source columns"
+              },
+              {
+                "name": "maskedOnly",
+                "value": "",
+                "type": "query",
+                "description": "Whether to filter columns that have a masking policy applied to them"
+              },
+              {
+                "name": "tagIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dir",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataSourceIds",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search and filter columns in the data product using the provided filters"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Access Request",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search access requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request",
+            "params": [
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "userIds",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "includeTemporary",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include temporary access requests"
+              },
+              {
+                "name": "expiration",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by whether it has an expiration"
+              },
+              {
+                "name": "role",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dataProductId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the data product to filter requests by"
+              },
+              {
+                "name": "assetId",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the asset to filter requests by"
+              },
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)"
+              },
+              {
+                "name": "targetType",
+                "value": "",
+                "type": "query",
+                "description": "Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)"
+              },
+              {
+                "name": "reviewStatus",
+                "value": "",
+                "type": "query",
+                "description": "Filter access requests by review status"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search and filter access requests the current user can manage"
+        },
+        {
+          "info": {
+            "name": "Get the list of approved masking exception columns for the specified user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/approved-masking-exception-columns",
+            "params": [
+              {
+                "name": "userId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the list of approved masking exception columns for the specified user"
+        },
+        {
+          "info": {
+            "name": "Get individual access request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns specific details for a specific access request"
+        },
+        {
+          "info": {
+            "name": "Cancel a pending access request",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Cancel the specified pending access request by ID, cascading the cancellation to any pending and blocked approval records."
+        },
+        {
+          "info": {
+            "name": "Get approval records associated with the a request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/:id/records",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns all approval records associated with a specific access request"
+        },
+        {
+          "info": {
+            "name": "Get the risk assessment for a specific access request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/:id/risk-assessment",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the risk assessment for a specific access request"
+        },
+        {
+          "info": {
+            "name": "Search masking exception columns associated with the masking exception request",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/access-request/:id/masking-exception-columns",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search masking exception columns associated with a specific masking exception request"
+        },
+        {
+          "info": {
+            "name": "Approve or reject an approval record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/approval-record/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Modify a pending approval record as an approver"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Metadata",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get available Immuta Domains",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/domain",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search Immuta domains that can be used to create a data product in the marketplace"
+        },
+        {
+          "info": {
+            "name": "Search data sources in domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/domain/:id/datasources",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "Search text to filter data sources"
+              },
+              {
+                "name": "dataSourceIds",
+                "value": "",
+                "type": "query",
+                "description": "Array of ids to filter data sources"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search data sources within the selected domain that can be included in a data product"
+        },
+        {
+          "info": {
+            "name": "Get the specified domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/domain/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns the Immuta domain specified in the request"
+        },
+        {
+          "info": {
+            "name": "Search Immuta users",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/users",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "globalUserId",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search across all users in Immuta"
+        },
+        {
+          "info": {
+            "name": "Search Immuta groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/groups",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search across all groups in Immuta"
+        },
+        {
+          "info": {
+            "name": "Search Immuta attributes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/attributes",
+            "params": [
+              {
+                "name": "search",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search across all attributes in Immuta"
+        },
+        {
+          "info": {
+            "name": "Search Immuta tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/tags",
+            "params": [
+              {
+                "name": "searchText",
+                "value": "",
+                "type": "query",
+                "description": "A string used to filter returned tags based on name."
+              },
+              {
+                "name": "fuzzySearch",
+                "value": "",
+                "type": "query",
+                "description": "Whether to perform a fuzzy search."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of search results that will be returned."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search across all tags in Immuta"
+        },
+        {
+          "info": {
+            "name": "Search applied tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/metadata/tags/applied/search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for the applied tags across multiple data sources."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Notification",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/user-preferences",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the user preferences for notifications"
+        },
+        {
+          "info": {
+            "name": "Update user preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/user-preferences",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the user preferences for notifications"
+        },
+        {
+          "info": {
+            "name": "updateUserProviderConfigs",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/user-provider-configs",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          }
+        },
+        {
+          "info": {
+            "name": "Get inbox messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/inbox/messages",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "read",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of inbox messages for the current user, with optional filters for read status."
+        },
+        {
+          "info": {
+            "name": "Get inbox message by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/inbox/messages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the details of a specific inbox message by ID."
+        },
+        {
+          "info": {
+            "name": "Set inbox message read status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/inbox/messages/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the read status of a specific inbox message by ID."
+        },
+        {
+          "info": {
+            "name": "Bulk update inbox message read status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/inbox/messages/update-bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the read status of multiple inbox messages by their IDs."
+        },
+        {
+          "info": {
+            "name": "Get webhooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get a list of webhooks."
+        },
+        {
+          "info": {
+            "name": "Create webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new webhook."
+        },
+        {
+          "info": {
+            "name": "Get webhook by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the details of a specific webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Update webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the details of a specific webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Delete webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a specific webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Get webhook history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/:id/history",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the history of a specific webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Test webhook",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/:id/test",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Test a specific webhook by ID."
+        },
+        {
+          "info": {
+            "name": "Test webhook configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/webhook/test",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Test all webhook configurations."
+        },
+        {
+          "info": {
+            "name": "Get Slack notifications configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/slack/configuration",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the Slack notifications configuration."
+        },
+        {
+          "info": {
+            "name": "Delete Slack notifications configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/slack/configuration",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the Slack notifications configuration."
+        },
+        {
+          "info": {
+            "name": "Test Slack notifications configuration",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/notification/slack/test",
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Test the Slack notifications configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Asset",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get asset by metadata",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/byMetadata",
+            "params": [
+              {
+                "name": "fullyQualifiedName",
+                "value": "",
+                "type": "query",
+                "description": "Dot-delimited fully qualified name of the asset."
+              },
+              {
+                "name": "assetType",
+                "value": "",
+                "type": "query",
+                "description": "Asset type to help narrow down the search if there are multiple assets with the same fullyQualifiedName."
+              },
+              {
+                "name": "host",
+                "value": "",
+                "type": "query",
+                "description": "Hostname or IP address of the asset."
+              },
+              {
+                "name": "port",
+                "value": "",
+                "type": "query",
+                "description": "Port to narrow connection matching."
+              },
+              {
+                "name": "technology",
+                "value": "",
+                "type": "query",
+                "description": "Technology of the asset."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search for assets by their metadata."
+        },
+        {
+          "info": {
+            "name": "Get asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search assets by ID."
+        },
+        {
+          "info": {
+            "name": "Update asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update an existing asset by ID"
+        },
+        {
+          "info": {
+            "name": "Partially update asset by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Partially update an existing asset by ID. Only provided fields will be updated. Use null to clear request forms or review flows."
+        },
+        {
+          "info": {
+            "name": "Get request forms for an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id/request-forms",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the request forms assigned to the asset."
+        },
+        {
+          "info": {
+            "name": "Get review flows for an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id/review-flows",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the review flows configured for the asset."
+        },
+        {
+          "info": {
+            "name": "Request access or masking exception for an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id/request",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new access or masking exception request for the specified asset."
+        },
+        {
+          "info": {
+            "name": "Revoke access to an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id/request/:requestId",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "requestId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Updates the specified access request to revoked and revokes access to data source(s) associated with the asset."
+        },
+        {
+          "info": {
+            "name": "Returns 5 most recent manual access determinations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/asset/:id/recent-determinations",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Returns 5 most recent data access requests with a terminal status as well as the approval records which contributed to that status."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Data Use Agreement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search data use agreements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by data use agreement name"
+              },
+              {
+                "name": "exactMatch",
+                "value": "",
+                "type": "query",
+                "description": "Whether the filter should be an exact match"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search data use agreements in the marketplace using the provided filters"
+        },
+        {
+          "info": {
+            "name": "Create data use agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a new data use agreement"
+        },
+        {
+          "info": {
+            "name": "Get data use agreement by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get data use agreement by ID"
+        },
+        {
+          "info": {
+            "name": "Update data use agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a data use agreement"
+        },
+        {
+          "info": {
+            "name": "Delete data use agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete the specified data use agreement"
+        },
+        {
+          "info": {
+            "name": "Get request forms associated with a data use agreement",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/data-use-agreement/:id/request-forms",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get request forms associated with a data use agreement."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Auth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/auth/user"
+          }
+        },
+        {
+          "info": {
+            "name": "getToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/auth/tokens/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "deleteToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/auth/tokens/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "listTokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/auth/tokens"
+          }
+        },
+        {
+          "info": {
+            "name": "createToken",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/auth/tokens",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Settings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Frontend Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/settings/frontend"
+          },
+          "docs": "Get the settings for the frontend marketplace application."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Request Form",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search request forms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form",
+            "params": [
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sortBy",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "nameFilter",
+                "value": "",
+                "type": "query",
+                "description": "Filter results by request form name"
+              },
+              {
+                "name": "exactMatch",
+                "value": "",
+                "type": "query",
+                "description": "Whether the filter should be an exact match"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Search request forms in the marketplace using the provided filters"
+        },
+        {
+          "info": {
+            "name": "Create request form",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Create a request form"
+        },
+        {
+          "info": {
+            "name": "Get request form by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get request form by ID"
+        },
+        {
+          "info": {
+            "name": "Update request form by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update a request form"
+        },
+        {
+          "info": {
+            "name": "Delete request form by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Delete a request form"
+        },
+        {
+          "info": {
+            "name": "Get request form by version",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/version/:version",
+            "params": [
+              {
+                "name": "version",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get request form by its version"
+        },
+        {
+          "info": {
+            "name": "Get data products assigned to the request form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/:id/data-products",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the data products assigned to the request form"
+        },
+        {
+          "info": {
+            "name": "Get assets assigned to the request form",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{global-segment}.api.immutacloud.com/marketplace/api/request-form/:id/assets",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the assets assigned to the request form"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

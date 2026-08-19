@@ -13,7 +13,7 @@ server:
   provider: GitBook (hosted on Immuta's own documentation host)
   verified:
     fetched: '2026-08-01'
-    method: 'POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+    method: POST {"jsonrpc":"2.0","id":1,"method":"tools/list"}
     http_status: 200
     content_type: text/event-stream
     tools_returned: 4
@@ -21,35 +21,45 @@ server:
 tools:
 - name: searchDocumentation
   title: Search documentation
-  description: Search across the Immuta SaaS documentation to find relevant information,
-    code examples, API references and guides; returns contextual content with titles
-    and direct links.
-  input: {query: string}
+  description: Search across the Immuta SaaS documentation to find relevant information, code examples,
+    API references and guides; returns contextual content with titles and direct links.
+  input:
+    query: string
   read_only: true
 - name: getPage
   title: Get page content
-  description: Fetch the full markdown content of a specific Immuta documentation page
-    by URL.
-  input: {url: string}
+  description: Fetch the full markdown content of a specific Immuta documentation page by URL.
+  input:
+    url: string
   read_only: true
 - name: askQuestion
   title: Ask a question
-  description: Ask a natural-language question about the Immuta SaaS documentation
-    and get a synthesized answer with links to the source pages.
-  input: {question: string, goal: string}
+  description: Ask a natural-language question about the Immuta SaaS documentation and get a synthesized
+    answer with links to the source pages.
+  input:
+    question: string
+    goal: string
   read_only: true
 - name: sendFeedback
   title: Send feedback
-  description: Report an issue in the Immuta documentation so the docs team can fix
-    it.
-  input: {content: string, pageUrl: string, goal: string}
+  description: Report an issue in the Immuta documentation so the docs team can fix it.
+  input:
+    content: string
+    pageUrl: string
+    goal: string
   read_only: false
-notes: 'This is a documentation MCP server — it exposes Immuta''s docs corpus to agents,
-  not the Immuta control plane. It is served from Immuta''s own documentation host
-  and is provided by the GitBook docs platform Immuta publishes on. Immuta separately
-  markets "Immuta AI" with MCP exposure of its data-access decisioning
-  (https://www.immuta.com/resources/immuta-ai-and-model-context-protocol-mcp/), but
-  publishes no endpoint URL, tool list or configuration guidance for that server —
-  as of 2026-08-01 there is no publicly callable Immuta product MCP endpoint to record.
-  The documentation also ships a GitBook agent-query affordance that is not MCP: any
-  docs page can be queried with GET <page>.md?ask=<question>&goal=<goal>.'
+notes: 'This is a documentation MCP server — it exposes Immuta''s docs corpus to agents, not the Immuta
+  control plane. It is served from Immuta''s own documentation host and is provided by the GitBook docs
+  platform Immuta publishes on. Immuta separately markets "Immuta AI" with MCP exposure of its data-access
+  decisioning (https://www.immuta.com/resources/immuta-ai-and-model-context-protocol-mcp/), but publishes
+  no endpoint URL, tool list or configuration guidance for that server — as of 2026-08-01 there is no
+  publicly callable Immuta product MCP endpoint to record. The documentation also ships a GitBook agent-query
+  affordance that is not MCP: any docs page can be queried with GET <page>.md?ask=<question>&goal=<goal>.'
+deployment:
+  mode: remote
+  endpoint: https://documentation.immuta.com/saas/~gitbook/mcp
+  verified: probed
+  probe: live
+  tools: 4
+  checked: '2026-08-12'
+  source: catalog MCP census
