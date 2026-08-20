@@ -50,6 +50,11 @@ apis:
   tags:
   - Data Marketplace
   - Data Products
+  - AccessRequests
+  - Data Governance
+  tags_raw:
+  - Data Marketplace
+  - Data Products
   - Access Requests
   - Data Governance
   properties:
@@ -83,6 +88,11 @@ apis:
     own tenant host (https://<your-tenant>.immuta.com). The value here is the host
     Immuta uses verbatim in its own documented curl examples.'
   tags:
+  - Data Governance
+  - Policy Management
+  - Data Access Control
+  - Webhook
+  tags_raw:
   - Data Governance
   - Policy Management
   - Data Access Control
