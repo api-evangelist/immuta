@@ -36,57 +36,23 @@ tags:
 - Analytics
 - Agentic Data Access
 apis:
-- aid: immuta:marketplace-api
-  name: Immuta Data Marketplace API
-  description: 'The Immuta Data Marketplace API — the REST surface behind the Immuta
-    Request (Provision) app. It supports discovery and management of data products,
-    the data sources and assets attached to them, request forms and data use agreements,
-    and the full access-request lifecycle including approvals, masking-exception requests,
-    determinations and revocation. Published by Immuta as an OpenAPI 3.0 document with
-    83 operations across 11 tags, authenticated with a bearer JWT personal access token,
-    and served per global segment (na, eu, ap) from api.immutacloud.com.'
-  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
-  baseURL: https://na.api.immutacloud.com/marketplace
-  tags:
-  - Data Marketplace
-  - Data Products
-  - AccessRequests
-  - Data Governance
-  tags_raw:
-  - Data Marketplace
-  - Data Products
-  - Access Requests
-  - Data Governance
-  properties:
-  - type: OpenAPI
-    url: openapi/immuta-marketplace-api-openapi.yml
-  - type: Documentation
-    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
-  - type: Authentication
-    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
-  - type: Overlay
-    url: overlays/immuta-marketplace-api-overlay.yaml
-  - type: DataModel
-    url: data-model/immuta-data-model.yml
-  - type: ErrorCatalog
-    url: errors/immuta-problem-types.yml
 - aid: immuta:govern-api
   name: Immuta Govern API
-  description: 'The Immuta Govern app API — the tenant-hosted REST surface for registering
-    data sources and connections, authoring data, subscription and write policies,
-    managing domains, projects, purposes, tags, frameworks, identities (bim), licenses,
-    jobs, search filters and webhooks, and generating governance reports. It is documented
-    in three layers: the V2 API (declarative policy-as-code, JSON or YAML, same endpoint
-    for create and update), the V1 API (full endpoint reference), and the integrations
-    and connections APIs for wiring remote data platforms into Immuta. Authenticated
-    with an Immuta API key or a bearer token exchanged at /bim/apikey/authenticate.
-    The base URL is the customer''s own Immuta SaaS tenant host.'
+  description: >-
+    The Immuta Govern app API — the tenant-hosted REST surface for registering data sources and connections,
+    authoring data, subscription and write policies, managing domains, projects, purposes, tags, frameworks,
+    identities (bim), licenses, jobs, search filters and webhooks, and generating governance reports.
+    It is documented in three layers: the V2 API (declarative policy-as-code, JSON or YAML, same endpoint
+    for create and update), the V1 API (full endpoint reference), and the integrations and connections
+    APIs for wiring remote data platforms into Immuta. Authenticated with an Immuta API key or a bearer
+    token exchanged at /bim/apikey/authenticate. The base URL is the customer's own Immuta SaaS tenant
+    host.
   humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro
   baseURL: https://your-immuta-url.immuta.com
   x-tenant-scoped: true
-  x-base-url-note: 'Immuta SaaS is multi-tenant; the Govern API base URL is the customer''s
-    own tenant host (https://<your-tenant>.immuta.com). The value here is the host
-    Immuta uses verbatim in its own documented curl examples.'
+  x-base-url-note: >-
+    Immuta SaaS is multi-tenant; the Govern API base URL is the customer's own tenant host (https://<your-tenant>.immuta.com).
+    The value here is the host Immuta uses verbatim in its own documented curl examples.
   tags:
   - Data Governance
   - Policy Management
@@ -108,6 +74,204 @@ apis:
     url: asyncapi/immuta-webhooks.yml
   - type: ErrorCatalog
     url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-access-request-api
+  name: Immuta Access Request API
+  description: APIs for managing data access
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Access Request
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-access-request-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-asset-api
+  name: Immuta Asset API
+  description: APIs for managing assets
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Asset
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-asset-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-auth-api
+  name: Immuta Auth API
+  description: The Auth API from Immuta — 3 operation(s) for auth.
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Auth
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-auth-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-data-product-api
+  name: Immuta Data Product API
+  description: APIs for managing data products
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Data Product
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-data-product-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-data-source-api
+  name: Immuta Data Source API
+  description: APIs for managing data sources
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Data Source
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-data-source-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-data-use-agreement-api
+  name: Immuta Data Use Agreement API
+  description: APIs for managing data use agreements
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Data Use Agreement
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-data-use-agreement-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-health-api
+  name: Immuta Health API
+  description: APIs for checking the health of the service
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-health-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-metadata-api
+  name: Immuta Metadata API
+  description: APIs used to retrieve metadata from Immuta to enrich the marketplace
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Metadata
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-metadata-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-notification-api
+  name: Immuta Notification API
+  description: APIs for managing notifications
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Notification
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-notification-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-request-form-api
+  name: Immuta Request Form API
+  description: APIs for managing request forms
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Request Form
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-request-form-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
+- aid: immuta:immuta-settings-api
+  name: Immuta Settings API
+  description: APIs used to retrieve metadata settings
+  humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  baseURL: https://na.api.immutacloud.com/marketplace
+  tags:
+  - Settings
+  properties:
+  - type: OpenAPI
+    url: openapi/immuta-settings-api-openapi.yml
+  - type: Documentation
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
+  - type: Authentication
+    url: https://documentation.immuta.com/saas/developer-guides/api-intro/authentication
+  - type: DataModel
+    url: data-model/immuta-data-model.yml
+  - type: ErrorCatalog
+    url: errors/immuta-problem-types.yml
 x-enrichment:
   date: '2026-08-01'
   status: enriched
@@ -119,6 +283,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/immuta-marketplace-api-overlay.yaml
 - type: AgenticAccess
   url: agentic-access/immuta-agentic-access.yml
 - type: Website
