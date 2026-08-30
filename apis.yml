@@ -128,6 +128,8 @@ apis:
   humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
   baseURL: https://na.api.immutacloud.com/marketplace
   tags:
+  - Authentication
+  tags_raw:
   - Auth
   properties:
   - type: OpenAPI
@@ -164,6 +166,8 @@ apis:
   humanURL: https://documentation.immuta.com/saas/developer-guides/api-intro/marketplace-api
   baseURL: https://na.api.immutacloud.com/marketplace
   tags:
+  - DataSource
+  tags_raw:
   - Data Source
   properties:
   - type: OpenAPI
