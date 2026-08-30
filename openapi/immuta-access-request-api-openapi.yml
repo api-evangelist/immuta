@@ -1,0 +1,2316 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Access Request API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Access Request
+  description: APIs for managing data access
+paths:
+  /api/data-product/{id}/request:
+    get:
+      description: Search all access requests for the data product using the provided filters
+      operationId: searchDataProductAccessRequests
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: searchText
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: status
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - APPROVED
+            - CANCELED
+            - DENIED
+            - PENDING
+            - NONE
+            - PUBLISHER
+            - REVOKED
+            - EXPIRED
+            example: PENDING
+      - name: type
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_ACCESS
+            - MASKING_EXCEPTION
+            example: DATA_ACCESS
+      - name: userIds
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: includeTemporary
+        required: false
+        in: query
+        description: Whether to include temporary access requests
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - name: expiration
+        required: false
+        in: query
+        description: Filter access requests by whether it has an expiration
+        schema:
+          type: boolean
+      - name: dataProductId
+        required: false
+        in: query
+        description: The ID of the data product to filter requests by
+        schema:
+          oneOf:
+          - type: string
+            format: cuid
+            description: The ID of the data product to filter requests by
+          - type: string
+            format: uuid
+      - name: assetId
+        required: false
+        in: query
+        description: The ID of the asset to filter requests by
+        schema:
+          format: uuid
+          type: string
+      - name: assetType
+        required: false
+        in: query
+        description: Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_PRODUCT
+            - DATA_OBJECT
+      - name: targetType
+        required: false
+        in: query
+        description: Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: reviewStatus
+        required: false
+        in: query
+        description: Filter access requests by review status
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - noReviews
+            - reviewedByYou
+            - awaitingReviewFromYou
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: sortOrder
+        required: false
+        in: query
+        schema:
+          default: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          default: createdAt
+          type: string
+          enum:
+          - status
+          - dataProduct
+          - createdAt
+          - updatedAt
+          - expiration
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccessRequest'
+      security:
+      - bearer: []
+      summary: Search all access requests for the data product
+      tags:
+      - Access Request
+    post:
+      description: Create a new data access request for the specified data product
+      operationId: requestAccess
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAccessRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HydratedAccessRequest'
+      security:
+      - bearer: []
+      summary: Request access to a data product
+      tags:
+      - Access Request
+  /api/data-product/{id}/members:
+    get:
+      description: Search all approved access requests for the data product
+      operationId: searchDataProductMembers
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: searchText
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: status
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - APPROVED
+            - CANCELED
+            - DENIED
+            - PENDING
+            - NONE
+            - PUBLISHER
+            - REVOKED
+            - EXPIRED
+            example: PENDING
+      - name: type
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_ACCESS
+            - MASKING_EXCEPTION
+            example: DATA_ACCESS
+      - name: userIds
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: expiration
+        required: false
+        in: query
+        description: Filter access requests by whether it has an expiration
+        schema:
+          type: boolean
+      - name: dataProductId
+        required: false
+        in: query
+        description: The ID of the data product to filter requests by
+        schema:
+          oneOf:
+          - type: string
+            format: cuid
+            description: The ID of the data product to filter requests by
+          - type: string
+            format: uuid
+      - name: assetId
+        required: false
+        in: query
+        description: The ID of the asset to filter requests by
+        schema:
+          format: uuid
+          type: string
+      - name: assetType
+        required: false
+        in: query
+        description: Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_PRODUCT
+            - DATA_OBJECT
+      - name: targetType
+        required: false
+        in: query
+        description: Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: reviewStatus
+        required: false
+        in: query
+        description: Filter access requests by review status
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - noReviews
+            - reviewedByYou
+            - awaitingReviewFromYou
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: sortOrder
+        required: false
+        in: query
+        schema:
+          default: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          default: createdAt
+          type: string
+          enum:
+          - status
+          - dataProduct
+          - createdAt
+          - updatedAt
+          - expiration
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccessRequest'
+      security:
+      - bearer: []
+      summary: Search all access requests for the data product
+      tags:
+      - Access Request
+  /api/data-product/{id}/request/masking-exception:
+    post:
+      description: Create a new masking exception request for specific columns in the specified data product
+      operationId: requestMaskingException
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMaskingExceptionRequest'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HydratedAccessRequest'
+      security:
+      - bearer: []
+      summary: Request masking exception to columns in a data product
+      tags:
+      - Access Request
+  /api/data-product/{id}/request/{requestId}:
+    delete:
+      description: Updates the specified access request to revoked and revokes access to data sources associated with the data product
+      operationId: revokeAccess
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: requestId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      summary: Revoke access to a data product
+      tags:
+      - Access Request
+  /api/data-product/{id}/recent-determinations:
+    get:
+      description: Returns 5 most recent data access requests with a terminal status as well as the approval records which contributed to that status.
+      operationId: recentDeterminations
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        schema:
+          default: DATA_ACCESS
+          type: string
+          enum:
+          - DATA_ACCESS
+          - MASKING_EXCEPTION
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecentDeterminations'
+      security:
+      - bearer: []
+      summary: Returns 5 most recent manual access determinations
+      tags:
+      - Access Request
+  /api/access-request:
+    get:
+      description: Search and filter access requests the current user can manage
+      operationId: searchAccessRequests
+      parameters:
+      - name: searchText
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: status
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - APPROVED
+            - CANCELED
+            - DENIED
+            - PENDING
+            - NONE
+            - PUBLISHER
+            - REVOKED
+            - EXPIRED
+            example: PENDING
+      - name: type
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_ACCESS
+            - MASKING_EXCEPTION
+            example: DATA_ACCESS
+      - name: userIds
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: includeTemporary
+        required: false
+        in: query
+        description: Whether to include temporary access requests
+        deprecated: true
+        schema:
+          default: false
+          type: boolean
+      - name: expiration
+        required: false
+        in: query
+        description: Filter access requests by whether it has an expiration
+        schema:
+          type: boolean
+      - name: role
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          default:
+          - requestor
+          - manager
+          - steward
+          type: array
+          items:
+            type: string
+            enum:
+            - requestor
+            - manager
+            - steward
+      - name: dataProductId
+        required: false
+        in: query
+        description: The ID of the data product to filter requests by
+        schema:
+          oneOf:
+          - type: string
+            format: cuid
+            description: The ID of the data product to filter requests by
+          - type: string
+            format: uuid
+      - name: assetId
+        required: false
+        in: query
+        description: The ID of the asset to filter requests by
+        schema:
+          format: uuid
+          type: string
+      - name: assetType
+        required: false
+        in: query
+        description: Filter access requests by asset type (DATA_OBJECT or DATA_PRODUCT)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - DATA_PRODUCT
+            - DATA_OBJECT
+      - name: targetType
+        required: false
+        in: query
+        description: Target type filter selections (DATA_PRODUCT, COLUMNS, or legacy type strings like table/view/schema)
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      - name: reviewStatus
+        required: false
+        in: query
+        description: Filter access requests by review status
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+            enum:
+            - noReviews
+            - reviewedByYou
+            - awaitingReviewFromYou
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: sortOrder
+        required: false
+        in: query
+        schema:
+          default: desc
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          default: createdAt
+          type: string
+          enum:
+          - status
+          - dataProduct
+          - createdAt
+          - updatedAt
+          - expiration
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAccessRequest'
+      security:
+      - bearer: []
+      summary: Search access requests
+      tags:
+      - Access Request
+  /api/access-request/approved-masking-exception-columns:
+    get:
+      description: Returns the list of approved masking exception columns for the specified user
+      operationId: getApprovedMaskingExceptionColumns
+      parameters:
+      - name: userId
+        required: true
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RequestedMaskingExceptionColumns'
+      security:
+      - bearer: []
+      summary: Get the list of approved masking exception columns for the specified user
+      tags:
+      - Access Request
+  /api/access-request/{id}:
+    get:
+      description: Returns specific details for a specific access request
+      operationId: getAccessRequestById
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HydratedAccessRequest'
+      security:
+      - bearer: []
+      summary: Get individual access request
+      tags:
+      - Access Request
+    delete:
+      description: Cancel the specified pending access request by ID, cascading the cancellation to any pending and blocked approval records.
+      operationId: cancelAccessRequest
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      summary: Cancel a pending access request
+      tags:
+      - Access Request
+  /api/access-request/{id}/records:
+    get:
+      description: Returns all approval records associated with a specific access request
+      operationId: getAccessRequestRecords
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalRecords'
+      security:
+      - bearer: []
+      summary: Get approval records associated with the a request
+      tags:
+      - Access Request
+  /api/access-request/{id}/risk-assessment:
+    get:
+      description: Returns the risk assessment for a specific access request
+      operationId: getRiskAssessment
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RiskAssessmentResponse'
+      security:
+      - bearer: []
+      summary: Get the risk assessment for a specific access request
+      tags:
+      - Access Request
+  /api/access-request/{id}/masking-exception-columns:
+    get:
+      description: Search masking exception columns associated with a specific masking exception request
+      operationId: searchAccessRequestMaskingExceptionColumns
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMaskingExceptionColumns'
+      security:
+      - bearer: []
+      summary: Search masking exception columns associated with the masking exception request
+      tags:
+      - Access Request
+  /api/asset/{id}/request/{requestId}:
+    delete:
+      description: Updates the specified access request to revoked and revokes access to data source(s) associated with the asset.
+      operationId: revokeAssetRequest
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: requestId
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      summary: Revoke access to an asset
+      tags:
+      - Access Request
+  /api/approval-record/{id}:
+    put:
+      description: Modify a pending approval record as an approver
+      operationId: updateApprovalRecord
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateApprovalRecordRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApprovalRecord'
+      security:
+      - bearer: []
+      summary: Approve or reject an approval record
+      tags:
+      - Access Request
+components:
+  schemas:
+    RiskAssessmentResponse:
+      oneOf:
+      - type: object
+        properties:
+          conflictDetected:
+            type: boolean
+          approvalRisk:
+            type: string
+            enum:
+            - HIGH
+            - MODERATE
+            - LOW
+            - INDETERMINATE
+            - PENDING
+          recommendation:
+            oneOf:
+            - type: string
+              enum:
+              - APPROVED
+              - BLOCKED
+              - CANCELED
+              - DENIED
+              - PENDING
+            - type: string
+              enum:
+              - NONE
+          nAllowed:
+            type: number
+          nDenied:
+            type: number
+          riskValue:
+            type: number
+          cohort:
+            type: object
+            properties:
+              literals:
+                type: array
+                items:
+                  allOf:
+                  - oneOf:
+                    - type: object
+                      properties:
+                        name:
+                          type: string
+                        value:
+                          type: string
+                      required:
+                      - name
+                      - value
+                    - type: object
+                      properties:
+                        name:
+                          type: string
+                      required:
+                      - name
+                    - type: object
+                      properties:
+                        label:
+                          type: string
+                        similarRequests:
+                          type: object
+                          additionalProperties:
+                            type: string
+                      required:
+                      - label
+                  - type: object
+                    properties:
+                      negation:
+                        type: boolean
+            required:
+            - literals
+          medianApprovalTimeWindowInDays:
+            oneOf:
+            - type: number
+          explanation:
+            type: string
+          approvalReasons:
+            type: array
+            items:
+              type: string
+          denialReasons:
+            type: array
+            items:
+              type: string
+        required:
+        - conflictDetected
+        - approvalRisk
+        - recommendation
+        - nAllowed
+        - nDenied
+        - riskValue
+        - cohort
+        - explanation
+        - approvalReasons
+        - denialReasons
+      - type: object
+        properties:
+          approvalRisk:
+            type: string
+            enum:
+            - HIGH
+            - MODERATE
+            - LOW
+            - INDETERMINATE
+            - PENDING
+        required:
+        - approvalRisk
+    HydratedAccessRequest:
+      type: object
+      properties:
+        id:
+          type: string
+          format: cuid
+        requestingUser:
+          type: object
+          properties:
+            id:
+              type: number
+            iamId:
+              type: string
+              description: ID of the IAM the user is associated with
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            username:
+              type: string
+              description: Username/login name for the user
+            name:
+              type: string
+              description: Display name
+            email:
+              type:
+              - string
+              - 'null'
+              description: Email address
+            authorizations:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+          required:
+          - id
+          - iamId
+          - globalUserId
+          - username
+          - name
+          title: Immuta User
+        user:
+          type: object
+          properties:
+            id:
+              type: number
+            iamId:
+              type: string
+              description: ID of the IAM the user is associated with
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            username:
+              type: string
+              description: Username/login name for the user
+            name:
+              type: string
+              description: Display name
+            email:
+              type:
+              - string
+              - 'null'
+              description: Email address
+            authorizations:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+          required:
+          - id
+          - iamId
+          - globalUserId
+          - username
+          - name
+          title: Immuta User
+        formVersion:
+          type: string
+        form:
+          description: The request form submission
+        type:
+          type: string
+          enum:
+          - DATA_ACCESS
+          - MASKING_EXCEPTION
+          example: DATA_ACCESS
+        metadata:
+          description: Metadata associated with the access request
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - CANCELED
+          - DENIED
+          - PENDING
+          - NONE
+          - PUBLISHER
+          - REVOKED
+          - EXPIRED
+          example: PENDING
+        expiration:
+          type: string
+          format: date-time
+          description: When the temporary access will expire
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        dataProduct:
+          type: object
+          properties:
+            id:
+              oneOf:
+              - type: string
+                format: cuid
+              - type: string
+                format: uuid
+            name:
+              type: string
+              minLength: 1
+              maxLength: 255
+              pattern: ^[\p{L}\p{M}\p{N})(\-_/\\\s]*$
+              description: Data product name
+            description:
+              oneOf:
+              - type: string
+                description: Data product description
+                example: All sales records from the current fiscal year
+              description: Data product description
+          required:
+          - id
+          - name
+        asset:
+          type: object
+          properties:
+            id:
+              oneOf:
+              - type: string
+                format: cuid
+              - type: string
+                format: uuid
+            type:
+              type: string
+              enum:
+              - DATA_OBJECT
+            name:
+              type: string
+              minLength: 1
+              description: Asset name
+            metadata:
+              type: object
+              properties:
+                subjectMatterExperts:
+                  default: []
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: Immuta global user ID of the subject matter expert
+                      username:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - id
+                objectPath:
+                  type: array
+                  items:
+                    type: string
+                technology:
+                  type: string
+                  enum:
+                  - Snowflake
+                  - PostgreSQL
+                  - Databricks
+                  - Glue
+                  - MySQL
+                  - Teradata
+                  - MariaDB
+                  - Oracle
+                  - SQLServer
+                  - Trino
+                  - Redshift
+                  - BigQuery
+                host:
+                  type: string
+                port:
+                  type: integer
+                  minimum: 1
+                  maximum: 65535
+                legacyType:
+                  type: string
+                dataSourceId:
+                  type: number
+                description:
+                  oneOf:
+                  - type: string
+                externalLink:
+                  oneOf:
+                  - type: string
+              required:
+              - objectPath
+              description: Data object asset metadata
+          required:
+          - id
+          - type
+          - name
+          - metadata
+      required:
+      - id
+      - requestingUser
+      - user
+      - formVersion
+      - type
+      - status
+      - createdAt
+      - updatedAt
+      title: Hydrated Access Request
+      description: Access request with user and data product metadata
+    RecentDeterminations:
+      type: object
+      properties:
+        determinations:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: cuid
+              requestingUser:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+              user:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+              actionBy:
+                type:
+                - object
+                - 'null'
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+              reason:
+                type: string
+              status:
+                type: string
+                enum:
+                - APPROVED
+                - BLOCKED
+                - CANCELED
+                - DENIED
+                - PENDING
+                example: PENDING
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              expiration:
+                type: string
+                format: date-time
+            required:
+            - id
+            - requestingUser
+            - user
+            - actionBy
+            - status
+            - createdAt
+            - updatedAt
+      required:
+      - determinations
+      title: Recent Data Product Manual Determinations
+    ApprovalRecords:
+      type: object
+      properties:
+        approvalRecords:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: cuid
+              dataAccessRequestId:
+                type: string
+                format: cuid
+              approvers:
+                type: array
+                items:
+                  oneOf:
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - USER
+                        description: Entity type
+                      id:
+                        type: string
+                        description: Entity ID
+                      displayName:
+                        type: string
+                        description: Entity display name
+                    required:
+                    - type
+                    - id
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - GROUP
+                        description: Entity type
+                      id:
+                        type: number
+                        description: Entity ID
+                      iamId:
+                        type: string
+                        description: IAM ID
+                      name:
+                        type: string
+                        description: Entity display name
+                    required:
+                    - type
+                    - name
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - PERMISSION
+                      permission:
+                        type: string
+                        enum:
+                        - GOVERNANCE
+                        - USER_ADMIN
+                        - AUDIT
+                        description: Global permission
+                    required:
+                    - type
+                    - permission
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - DOMAIN PERMISSION
+                      permission:
+                        type: string
+                        enum:
+                        - Manage Policies
+                        - Audit Activity
+                        - Manage Data Products
+                        - Manage Identifiers
+                        description: Domain permission
+                      domainId:
+                        type: string
+                        description: Domain ID
+                    required:
+                    - type
+                    - permission
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - ATTRIBUTE
+                      key:
+                        type: string
+                        description: Attribute key
+                      value:
+                        type: string
+                        description: Attribute value
+                    required:
+                    - type
+                    - key
+                    - value
+                  - type: object
+                    properties:
+                      type:
+                        type: string
+                        enum:
+                        - CATALOG PERMISSION
+                    required:
+                    - type
+              prerequisites:
+                type: array
+                items:
+                  type: string
+              actionBy:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+                description: The user who took action on this approval record
+              status:
+                type: string
+                enum:
+                - APPROVED
+                - BLOCKED
+                - CANCELED
+                - DENIED
+                - PENDING
+                example: PENDING
+              reason:
+                type: string
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              approverCriteriaMet:
+                oneOf:
+                - type: array
+                  items:
+                    oneOf:
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - USER
+                          description: Entity type
+                        id:
+                          type: string
+                          description: Entity ID
+                        displayName:
+                          type: string
+                          description: Entity display name
+                      required:
+                      - type
+                      - id
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - GROUP
+                          description: Entity type
+                        id:
+                          type: number
+                          description: Entity ID
+                        iamId:
+                          type: string
+                          description: IAM ID
+                        name:
+                          type: string
+                          description: Entity display name
+                      required:
+                      - type
+                      - name
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - PERMISSION
+                        permission:
+                          type: string
+                          enum:
+                          - GOVERNANCE
+                          - USER_ADMIN
+                          - AUDIT
+                          description: Global permission
+                      required:
+                      - type
+                      - permission
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - DOMAIN PERMISSION
+                        permission:
+                          type: string
+                          enum:
+                          - Manage Policies
+                          - Audit Activity
+                          - Manage Data Products
+                          - Manage Identifiers
+                          description: Domain permission
+                        domainId:
+                          type: string
+                          description: Domain ID
+                      required:
+                      - type
+                      - permission
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - ATTRIBUTE
+                        key:
+                          type: string
+                          description: Attribute key
+                        value:
+                          type: string
+                          description: Attribute value
+                      required:
+                      - type
+                      - key
+                      - value
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - CATALOG PERMISSION
+                      required:
+                      - type
+              duration:
+                oneOf:
+                - type: number
+              durationUnit:
+                oneOf:
+                - type: string
+            required:
+            - id
+            - dataAccessRequestId
+            - approvers
+            - prerequisites
+            - status
+            - createdAt
+            - updatedAt
+            - approverCriteriaMet
+            - duration
+            - durationUnit
+      required:
+      - approvalRecords
+    PaginatedMaskingExceptionColumns:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Name of the column
+              sourceId:
+                type: string
+                description: The ID of the data source containing the column
+              sourceName:
+                type: string
+                description: The name of the data source containing the column
+              tags:
+                type: array
+                items:
+                  type: string
+                description: Tags associated with the column
+              type:
+                type: string
+                description: The data source technology/platform type
+              globalPolicyInfo:
+                type:
+                - object
+                - 'null'
+                properties:
+                  maskingType:
+                    type: string
+                    description: The type of masking policy that was applied
+                  matchingTag:
+                    type:
+                    - string
+                    - 'null'
+                    description: The tag that caused the global masking policy to be applied
+                  matchingRegex:
+                    type:
+                    - string
+                    - 'null'
+                    description: The regex that caused the global masking policy to be applied
+                required:
+                - maskingType
+            required:
+            - name
+            - sourceId
+            - sourceName
+            - tags
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    ApprovalRecord:
+      type: object
+      properties:
+        id:
+          type: string
+          format: cuid
+        dataAccessRequestId:
+          type: string
+          format: cuid
+        approvers:
+          type: array
+          items:
+            oneOf:
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - USER
+                  description: Entity type
+                id:
+                  type: string
+                  description: Entity ID
+                displayName:
+                  type: string
+                  description: Entity display name
+              required:
+              - type
+              - id
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - GROUP
+                  description: Entity type
+                id:
+                  type: number
+                  description: Entity ID
+                iamId:
+                  type: string
+                  description: IAM ID
+                name:
+                  type: string
+                  description: Entity display name
+              required:
+              - type
+              - name
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - PERMISSION
+                permission:
+                  type: string
+                  enum:
+                  - GOVERNANCE
+                  - USER_ADMIN
+                  - AUDIT
+                  description: Global permission
+              required:
+              - type
+              - permission
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - DOMAIN PERMISSION
+                permission:
+                  type: string
+                  enum:
+                  - Manage Policies
+                  - Audit Activity
+                  - Manage Data Products
+                  - Manage Identifiers
+                  description: Domain permission
+                domainId:
+                  type: string
+                  description: Domain ID
+              required:
+              - type
+              - permission
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - ATTRIBUTE
+                key:
+                  type: string
+                  description: Attribute key
+                value:
+                  type: string
+                  description: Attribute value
+              required:
+              - type
+              - key
+              - value
+            - type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - CATALOG PERMISSION
+              required:
+              - type
+        prerequisites:
+          type: array
+          items:
+            type: string
+        actionBy:
+          type: object
+          properties:
+            id:
+              type: number
+            iamId:
+              type: string
+              description: ID of the IAM the user is associated with
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            username:
+              type: string
+              description: Username/login name for the user
+            name:
+              type: string
+              description: Display name
+            email:
+              type:
+              - string
+              - 'null'
+              description: Email address
+            authorizations:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+          required:
+          - id
+          - iamId
+          - globalUserId
+          - username
+          - name
+          title: Immuta User
+          description: The user who took action on this approval record
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - BLOCKED
+          - CANCELED
+          - DENIED
+          - PENDING
+          example: PENDING
+        reason:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        approverCriteriaMet:
+          oneOf:
+          - type: array
+            items:
+              oneOf:
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - USER
+                    description: Entity type
+                  id:
+                    type: string
+                    description: Entity ID
+                  displayName:
+                    type: string
+                    description: Entity display name
+                required:
+                - type
+                - id
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - GROUP
+                    description: Entity type
+                  id:
+                    type: number
+                    description: Entity ID
+                  iamId:
+                    type: string
+                    description: IAM ID
+                  name:
+                    type: string
+                    description: Entity display name
+                required:
+                - type
+                - name
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - PERMISSION
+                  permission:
+                    type: string
+                    enum:
+                    - GOVERNANCE
+                    - USER_ADMIN
+                    - AUDIT
+                    description: Global permission
+                required:
+                - type
+                - permission
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - DOMAIN PERMISSION
+                  permission:
+                    type: string
+                    enum:
+                    - Manage Policies
+                    - Audit Activity
+                    - Manage Data Products
+                    - Manage Identifiers
+                    description: Domain permission
+                  domainId:
+                    type: string
+                    description: Domain ID
+                required:
+                - type
+                - permission
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - ATTRIBUTE
+                  key:
+                    type: string
+                    description: Attribute key
+                  value:
+                    type: string
+                    description: Attribute value
+                required:
+                - type
+                - key
+                - value
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - CATALOG PERMISSION
+                required:
+                - type
+        duration:
+          oneOf:
+          - type: number
+        durationUnit:
+          oneOf:
+          - type: string
+      required:
+      - id
+      - dataAccessRequestId
+      - approvers
+      - prerequisites
+      - status
+      - createdAt
+      - updatedAt
+      - approverCriteriaMet
+      - duration
+      - durationUnit
+    UpdateApprovalRecordRequest:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - APPROVED
+          - BLOCKED
+          - CANCELED
+          - DENIED
+          - PENDING
+          example: PENDING
+        reason:
+          type: string
+        duration:
+          type: number
+          minimum: 1
+        durationUnit:
+          type: string
+          enum:
+          - HOURS
+          - DAYS
+          - WEEKS
+          - MONTHS
+          - YEARS
+      required:
+      - status
+      additionalProperties: false
+    CreateMaskingExceptionRequest:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          description: Immuta global user ID of the user for whom access is being requested
+        form:
+          description: The request form submission
+        columns:
+          type: array
+          items:
+            type: object
+            properties:
+              columnName:
+                type: string
+                description: The name of the column to request masking exception for
+              sourceId:
+                type: string
+                description: The ID of the data source this column belongs to
+            required:
+            - columnName
+            - sourceId
+            description: Column in the data source to request masking exception for
+          description: List of columns to request masking exception for
+      required:
+      - user
+      - columns
+    CreateAccessRequest:
+      type: object
+      properties:
+        user:
+          type: string
+          format: uuid
+          description: Immuta global user ID of the user for whom access is being requested
+        form:
+          description: The request form submission
+      required:
+      - user
+    PaginatedAccessRequest:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: cuid
+              requestingUser:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+              user:
+                type: object
+                properties:
+                  id:
+                    type: number
+                  iamId:
+                    type: string
+                    description: ID of the IAM the user is associated with
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  username:
+                    type: string
+                    description: Username/login name for the user
+                  name:
+                    type: string
+                    description: Display name
+                  email:
+                    type:
+                    - string
+                    - 'null'
+                    description: Email address
+                  authorizations:
+                    type: object
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - id
+                - iamId
+                - globalUserId
+                - username
+                - name
+                title: Immuta User
+              formVersion:
+                type: string
+              form:
+                description: The request form submission
+              type:
+                type: string
+                enum:
+                - DATA_ACCESS
+                - MASKING_EXCEPTION
+                example: DATA_ACCESS
+              metadata:
+                description: Metadata associated with the access request
+              status:
+                type: string
+                enum:
+                - APPROVED
+                - CANCELED
+                - DENIED
+                - PENDING
+                - NONE
+                - PUBLISHER
+                - REVOKED
+                - EXPIRED
+                example: PENDING
+              expiration:
+                type: string
+                format: date-time
+                description: When the temporary access will expire
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+              dataProduct:
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type: string
+                      format: cuid
+                    - type: string
+                      format: uuid
+                  name:
+                    type: string
+                    minLength: 1
+                    maxLength: 255
+                    pattern: ^[\p{L}\p{M}\p{N})(\-_/\\\s]*$
+                    description: Data product name
+                  description:
+                    oneOf:
+                    - type: string
+                      description: Data product description
+                      example: All sales records from the current fiscal year
+                    description: Data product description
+                required:
+                - id
+                - name
+              asset:
+                type: object
+                properties:
+                  id:
+                    oneOf:
+                    - type: string
+                      format: cuid
+                    - type: string
+                      format: uuid
+                  type:
+                    type: string
+                    enum:
+                    - DATA_OBJECT
+                  name:
+                    type: string
+                    minLength: 1
+                    description: Asset name
+                  metadata:
+                    type: object
+                    properties:
+                      subjectMatterExperts:
+                        default: []
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              format: uuid
+                              description: Immuta global user ID of the subject matter expert
+                            username:
+                              type: string
+                            name:
+                              type: string
+                          required:
+                          - id
+                      objectPath:
+                        type: array
+                        items:
+                          type: string
+                      technology:
+                        type: string
+                        enum:
+                        - Snowflake
+                        - PostgreSQL
+                        - Databricks
+                        - Glue
+                        - MySQL
+                        - Teradata
+                        - MariaDB
+                        - Oracle
+                        - SQLServer
+                        - Trino
+                        - Redshift
+                        - BigQuery
+                      host:
+                        type: string
+                      port:
+                        type: integer
+                        minimum: 1
+                        maximum: 65535
+                      legacyType:
+                        type: string
+                      dataSourceId:
+                        type: number
+                      description:
+                        oneOf:
+                        - type: string
+                      externalLink:
+                        oneOf:
+                        - type: string
+                    required:
+                    - objectPath
+                    description: Data object asset metadata
+                required:
+                - id
+                - type
+                - name
+                - metadata
+            required:
+            - id
+            - requestingUser
+            - user
+            - formVersion
+            - type
+            - status
+            - createdAt
+            - updatedAt
+            title: Hydrated Access Request
+            description: Access request with user and data product metadata
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    RequestedMaskingExceptionColumns:
+      type: array
+      items:
+        type: object
+        properties:
+          columnName:
+            type: string
+            description: The name of the column to request masking exception for
+          sourceId:
+            type: string
+            description: The ID of the data source this column belongs to
+        required:
+        - columnName
+        - sourceId
+        description: Column in the data source to request masking exception for
+      description: List of columns that have been requested for masking exception
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

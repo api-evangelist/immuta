@@ -1,0 +1,382 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Health API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Health
+  description: APIs for checking the health of the service
+paths:
+  /health:
+    get:
+      operationId: liveness[0]
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      tags:
+      - Health
+  /health/live:
+    get:
+      operationId: liveness[1]
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      tags:
+      - Health
+  /health/ready:
+    get:
+      operationId: readiness
+      parameters: []
+      responses:
+        '200':
+          description: The Health Check is successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example: {}
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+        '503':
+          description: The Health Check is not successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: error
+                  info:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      database:
+                        status: up
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  error:
+                    type:
+                    - object
+                    - 'null'
+                    example:
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+                  details:
+                    type: object
+                    example:
+                      database:
+                        status: up
+                      redis:
+                        status: down
+                        message: Could not connect
+                    additionalProperties:
+                      type: object
+                      required:
+                      - status
+                      properties:
+                        status:
+                          type: string
+                      additionalProperties: true
+      tags:
+      - Health
+components:
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

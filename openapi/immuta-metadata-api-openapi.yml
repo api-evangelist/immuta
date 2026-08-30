@@ -1,0 +1,642 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Metadata API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Metadata
+  description: APIs used to retrieve metadata from Immuta to enrich the marketplace
+paths:
+  /api/metadata/domain:
+    get:
+      description: Search Immuta domains that can be used to create a data product in the marketplace
+      operationId: getAvailableDomains
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaDomainSchemaResponse'
+      security:
+      - bearer: []
+      summary: Get available Immuta Domains
+      tags:
+      - Metadata
+  /api/metadata/domain/{id}/datasources:
+    get:
+      description: Search data sources within the selected domain that can be included in a data product
+      operationId: getDomainDataSources
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: searchText
+        required: false
+        in: query
+        description: Search text to filter data sources
+        schema:
+          type: string
+      - name: dataSourceIds
+        required: false
+        in: query
+        description: Array of ids to filter data sources
+        schema:
+          type: array
+          items:
+            type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedImmutaDataSource'
+      security:
+      - bearer: []
+      summary: Search data sources in domain
+      tags:
+      - Metadata
+  /api/metadata/domain/{id}:
+    get:
+      description: Returns the Immuta domain specified in the request
+      operationId: getDomain
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaDomain'
+      security:
+      - bearer: []
+      summary: Get the specified domain
+      tags:
+      - Metadata
+  /api/metadata/users:
+    get:
+      description: Search across all users in Immuta
+      operationId: getImmutaUsers
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        schema:
+          default: 100
+          type: number
+      - name: filter
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: globalUserId
+        required: false
+        in: query
+        schema:
+          minItems: 0
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaUserList'
+      security:
+      - bearer: []
+      summary: Search Immuta users
+      tags:
+      - Metadata
+  /api/metadata/groups:
+    get:
+      description: Search across all groups in Immuta
+      operationId: getImmutaGroups
+      parameters:
+      - name: limit
+        required: false
+        in: query
+        schema:
+          default: 100
+          type: number
+      - name: filter
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaGroupList'
+      security:
+      - bearer: []
+      summary: Search Immuta groups
+      tags:
+      - Metadata
+  /api/metadata/attributes:
+    get:
+      description: Search across all attributes in Immuta
+      operationId: getImmutaAttributes
+      parameters:
+      - name: search
+        required: false
+        in: query
+        schema:
+          type: string
+      - name: type
+        required: false
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaAttributeList'
+      security:
+      - bearer: []
+      summary: Search Immuta attributes
+      tags:
+      - Metadata
+  /api/metadata/tags:
+    get:
+      description: Search across all tags in Immuta
+      operationId: getImmutaTags
+      parameters:
+      - name: searchText
+        required: false
+        in: query
+        description: A string used to filter returned tags based on name.
+        schema:
+          type: string
+      - name: fuzzySearch
+        required: false
+        in: query
+        description: Whether to perform a fuzzy search.
+        schema:
+          type: boolean
+      - name: limit
+        required: false
+        in: query
+        description: The maximum number of search results that will be returned.
+        schema:
+          maximum: 200
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImmutaTagSearchResponse'
+      security:
+      - bearer: []
+      summary: Search Immuta tags
+      tags:
+      - Metadata
+  /api/metadata/tags/applied/search:
+    post:
+      description: Search for the applied tags across multiple data sources.
+      operationId: searchAppliedTags
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppliedTagSearchRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AppliedTagSearchResponse'
+      security:
+      - bearer: []
+      summary: Search applied tags
+      tags:
+      - Metadata
+components:
+  schemas:
+    AppliedTagSearchRequest:
+      type: object
+      properties:
+        dataProductId:
+          type: string
+          description: Data product ID to search for applied tags across all its data sources
+        dataObjectId:
+          type: string
+          format: uuid
+          description: Data object ID to search for applied tags across all its child data sources
+        dataSourceIds:
+          type: array
+          items:
+            type: integer
+          description: Array of data source IDs to search for applied tags
+        searchText:
+          type: string
+          description: A string used to filter returned tags based on name.
+        fuzzySearch:
+          type: boolean
+          description: If true, the search will be more forgiving when tags with escaped periods are involved.
+        modelType:
+          default:
+          - datasource
+          - column
+          oneOf:
+          - type: string
+            enum:
+            - datasource
+            - column
+          - type: array
+            items:
+              type: string
+              enum:
+              - datasource
+              - column
+            minItems: 1
+          description: Filter by model type. Can be a single model type or an array of model types.
+        excludedHierarchies:
+          type: array
+          items:
+            type: string
+          description: Array of tag hierarchies to exclude from the search.
+        offset:
+          default: 0
+          type: integer
+          minimum: 0
+          description: The number of results to skip
+        limit:
+          default: 10
+          type: integer
+          minimum: 1
+          description: The maximum number of search results that will be returned
+    ImmutaAttributeList:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: string
+            required:
+            - type
+            - value
+            title: Immuta Attribute
+      required:
+      - attributes
+    ImmutaGroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Immuta group ID
+              iamId:
+                type:
+                - string
+                - 'null'
+                description: ID of the IAM the group is associated with
+              name:
+                type: string
+                description: Group name
+              email:
+                type:
+                - string
+                - 'null'
+                format: email
+                description: Email address
+            required:
+            - id
+            - iamId
+            - name
+            - email
+            title: Immuta Group
+      required:
+      - groups
+    ImmutaUserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              iamId:
+                type: string
+                description: ID of the IAM the user is associated with
+              globalUserId:
+                type: string
+                format: uuid
+                description: Immuta global user ID
+              username:
+                type: string
+                description: Username/login name for the user
+              name:
+                type: string
+                description: Display name
+              email:
+                type:
+                - string
+                - 'null'
+                description: Email address
+              authorizations:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - id
+            - iamId
+            - globalUserId
+            - username
+            - name
+            title: Immuta User
+      required:
+      - users
+    AppliedTagSearchResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              tagId:
+                type: integer
+                description: The tag ID
+              name:
+                type: string
+              displayName:
+                type:
+                - string
+                - 'null'
+              color:
+                type:
+                - string
+                - 'null'
+              source:
+                type: string
+              description:
+                type:
+                - string
+                - 'null'
+              protected:
+                type: boolean
+              deleted:
+                type: boolean
+              systemCreated:
+                type: boolean
+              createdBy:
+                type:
+                - integer
+                - 'null'
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+            - tagId
+            - name
+            - displayName
+            - color
+            - source
+            - description
+            - protected
+            - deleted
+            - systemCreated
+            - createdBy
+        total:
+          type: integer
+          description: Total number of results
+      required:
+      - data
+      - total
+    PaginatedImmutaDataSource:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              dataSourceId:
+                type: number
+              name:
+                type: string
+                description: Data source name
+                example: November 2023 Online
+              platform:
+                type: string
+                description: Data source technology
+                example: Databricks
+              createdAt:
+                type: string
+                format: date-time
+              prefix:
+                oneOf:
+                - type: string
+                  description: The native S3 prefix
+                description: The native S3 prefix
+              hostname:
+                oneOf:
+                - type: string
+                  description: Data source hostname
+                description: Data source hostname
+              database:
+                oneOf:
+                - type: string
+                  description: Data source database name
+                description: Data source database name
+              schema:
+                oneOf:
+                - type: string
+                  description: Data source schema name
+                description: Data source schema name
+              table:
+                oneOf:
+                - type: string
+                  description: Data source table name
+                description: Data source table name
+            required:
+            - dataSourceId
+            - name
+            - platform
+            - createdAt
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    ImmutaDomainSchemaResponse:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+                description: Domain name
+                example: North American Sales
+              description:
+                type: string
+                description: Domain description
+                example: A collection of data sources relevant to North American sales
+            required:
+            - id
+            - name
+            - description
+      required:
+      - domains
+    ImmutaDomain:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Domain name
+          example: North American Sales
+        description:
+          type: string
+          description: Domain description
+          example: A collection of data sources relevant to North American sales
+      required:
+      - id
+      - name
+      - description
+    ImmutaTagSearchResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          addedBy:
+            type: number
+          color:
+            type: string
+          context:
+            type: string
+          createdAt:
+            type: string
+          createdBy:
+            type: number
+          dataProductName:
+            type: string
+          deleted:
+            type: boolean
+          description:
+            type: string
+          displayName:
+            type: string
+          hasLeafNodes:
+            type: boolean
+          id:
+            type: number
+          name:
+            type: string
+          protected:
+            type: boolean
+          source:
+            type: string
+          systemCreated:
+            type: boolean
+          updatedAt:
+            type: string
+        required:
+        - name
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

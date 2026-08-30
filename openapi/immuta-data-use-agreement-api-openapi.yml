@@ -1,0 +1,409 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Data Use Agreement API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Data Use Agreement
+  description: APIs for managing data use agreements
+paths:
+  /api/data-use-agreement:
+    post:
+      description: Create a new data use agreement
+      operationId: createDataUseAgreement
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateDataUseAgreement'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataUseAgreement'
+        '409':
+          description: There is already a data use agreement with this name.
+      security:
+      - bearer: []
+      summary: Create data use agreement
+      tags:
+      - Data Use Agreement
+    get:
+      description: Search data use agreements in the marketplace using the provided filters
+      operationId: searchDataUseAgreements
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: sortOrder
+        required: false
+        in: query
+        schema:
+          default: asc
+          type: string
+          enum:
+          - asc
+          - desc
+      - name: sortBy
+        required: false
+        in: query
+        schema:
+          default: name
+          type: string
+          enum:
+          - name
+          - createdAt
+          - updatedAt
+      - name: nameFilter
+        required: false
+        in: query
+        description: Filter results by data use agreement name
+        schema:
+          default: ''
+          type: string
+      - name: exactMatch
+        required: false
+        in: query
+        description: Whether the filter should be an exact match
+        schema:
+          default: false
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDataUseAgreement'
+      security:
+      - bearer: []
+      summary: Search data use agreements
+      tags:
+      - Data Use Agreement
+  /api/data-use-agreement/{id}:
+    delete:
+      description: Delete the specified data use agreement
+      operationId: deleteDataUseAgreement
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      summary: Delete data use agreement
+      tags:
+      - Data Use Agreement
+    put:
+      description: Update a data use agreement
+      operationId: updateDataUseAgreement
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDataUseAgreement'
+      responses:
+        '201':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataUseAgreement'
+        '409':
+          description: There is already a data use agreement with this name.
+      security:
+      - bearer: []
+      summary: Update data use agreement
+      tags:
+      - Data Use Agreement
+    get:
+      description: Get data use agreement by ID
+      operationId: getDataUseAgreementById
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataUseAgreement'
+      security:
+      - bearer: []
+      summary: Get data use agreement by ID
+      tags:
+      - Data Use Agreement
+  /api/data-use-agreement/{id}/request-forms:
+    get:
+      description: Get request forms associated with a data use agreement.
+      operationId: getAssociatedRequestForms
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssociatedRequestForms'
+      security:
+      - bearer: []
+      summary: Get request forms associated with a data use agreement
+      tags:
+      - Data Use Agreement
+components:
+  schemas:
+    CreateDataUseAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+      required:
+      - name
+      - body
+    PaginatedDataUseAgreement:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              name:
+                type: string
+                description: The name of data use agreement
+              body:
+                type: string
+                description: The contents of data use agreement
+              createdBy:
+                type: object
+                properties:
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  name:
+                    type: string
+                    description: Display name
+                required:
+                - globalUserId
+                - name
+                description: The user who originally created the data use agreement
+              createdAt:
+                oneOf:
+                - type: string
+                  format: date-time
+                - type: string
+                  format: date-time
+              updatedBy:
+                type: object
+                properties:
+                  globalUserId:
+                    type: string
+                    format: uuid
+                    description: Immuta global user ID
+                  name:
+                    type: string
+                    description: Display name
+                required:
+                - globalUserId
+                - name
+                description: The user who last updated the data use agreement
+              updatedAt:
+                oneOf:
+                - type: string
+                  format: date-time
+                - type: string
+                  format: date-time
+            required:
+            - id
+            - name
+            - body
+            - createdBy
+            - createdAt
+            - updatedBy
+            - updatedAt
+            title: Data Use Agreement
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    DataUseAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+        createdBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who originally created the data use agreement
+        createdAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+        updatedBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who last updated the data use agreement
+        updatedAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+      required:
+      - id
+      - name
+      - body
+      - createdBy
+      - createdAt
+      - updatedBy
+      - updatedAt
+      title: Data Use Agreement
+    AssociatedRequestForms:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          name:
+            type: string
+            description: The name of the request form
+        required:
+        - id
+        - name
+      description: The request forms associated with the data use agreement
+    UpdateDataUseAgreement:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

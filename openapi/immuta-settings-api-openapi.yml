@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Settings API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Settings
+  description: APIs used to retrieve metadata settings
+paths:
+  /api/settings/frontend:
+    get:
+      description: Get the settings for the frontend marketplace application.
+      operationId: getFrontendSettings
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrontendSettings'
+      summary: Frontend Settings
+      tags:
+      - Settings
+components:
+  schemas:
+    FrontendSettings:
+      type: object
+      properties:
+        theme:
+          type: object
+          properties:
+            primaryColor:
+              type: string
+            accentColor:
+              type: string
+            lightModeImage:
+              oneOf:
+              - type: string
+            darkModeImage:
+              oneOf:
+              - type: string
+        featureFlags:
+          type: object
+          properties:
+            statsigClientKey:
+              oneOf:
+              - type: string
+            statsigEnvironment:
+              oneOf:
+              - type: string
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

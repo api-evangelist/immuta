@@ -1,0 +1,258 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Auth API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Auth
+paths:
+  /api/auth/user:
+    get:
+      operationId: user
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithPermissionsAndEntitlements'
+      tags:
+      - Auth
+  /api/auth/tokens/{id}:
+    get:
+      operationId: getToken
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalAccessToken'
+      tags:
+      - Auth
+    delete:
+      operationId: deleteToken
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+      tags:
+      - Auth
+  /api/auth/tokens:
+    get:
+      operationId: listTokens
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PersonalAccessToken'
+      tags:
+      - Auth
+    post:
+      operationId: createToken
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePersonalAccessToken'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePersonalAccessTokenResponse'
+      tags:
+      - Auth
+components:
+  schemas:
+    PersonalAccessToken:
+      type: object
+      properties:
+        tokenId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        tenantId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        active:
+          type: boolean
+        creationDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+      required:
+      - tokenId
+      - userId
+      - tenantId
+      - description
+      - active
+    CreatePersonalAccessTokenResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+          format: uuid
+        token:
+          type: string
+      required:
+      - tokenId
+      - token
+    CreatePersonalAccessToken:
+      type: object
+      properties:
+        description:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+      required:
+      - description
+    UserWithPermissionsAndEntitlements:
+      type: object
+      properties:
+        displayName:
+          type: string
+        username:
+          type: string
+        expiration:
+          type: number
+        globalUserId:
+          type: string
+        trackingId:
+          type: string
+        tenantInfo:
+          type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            fqdn:
+              type: string
+            organizationId:
+              type: string
+            organizationName:
+              type: string
+            globalSegment:
+              type: string
+          required:
+          - id
+        email:
+          oneOf:
+          - type: string
+            format: email
+        globalPermissions:
+          default: []
+          type: array
+          items:
+            type: string
+        collectionPermissions:
+          default: {}
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                createdAt:
+                  type: string
+                  format: date-time
+                collectionId:
+                  type: string
+                permission:
+                  type: string
+                profileId:
+                  oneOf:
+                  - oneOf:
+                    - type: number
+                    - {}
+                groupId:
+                  oneOf:
+                  - oneOf:
+                    - type: number
+                    - {}
+              required:
+              - id
+              - createdAt
+              - collectionId
+              - permission
+              title: User Collection Permission
+          description: Collection permissions indexed by collection ID
+        authorizations:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+        groups:
+          type: array
+          items:
+            type: string
+        chameleonUID:
+          type: string
+      required:
+      - displayName
+      - username
+      - expiration
+      - globalUserId
+      - trackingId
+      - tenantInfo
+      - authorizations
+      - groups
+      title: User With Permissions
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/

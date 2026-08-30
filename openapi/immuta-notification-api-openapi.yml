@@ -1,0 +1,847 @@
+openapi: 3.2.0
+info:
+  title: Immuta Data Marketplace Notification API
+  description: This is the API for the Immuta Data Marketplace based on the OpenAPI 3.0 specification. The API supports the discovery and management of data products as well as access to those products including both the request and approval process.
+  version: '1.0'
+  contact:
+    name: Support
+    url: https://support.immuta.com
+    email: support@immuta.com
+  termsOfService: https://www.immuta.com/terms-of-service
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+servers:
+- url: https://{global-segment}.api.immutacloud.com/marketplace
+  description: Marketplace API Endpoint
+  variables:
+    global-segment:
+      default: na
+      enum:
+      - na
+      - eu
+      - ap
+      description: Marketplace API global segment
+tags:
+- name: Notification
+  description: APIs for managing notifications
+paths:
+  /api/notification/user-preferences:
+    get:
+      operationId: getUserPreferences
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserPreferencesResponse'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+      description: Get the user preferences for notifications
+      summary: Get user preferences
+    put:
+      operationId: updateUserPreferences
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserPreferencesRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserPreferencesResponse'
+      description: Update the user preferences for notifications
+      summary: Update user preferences
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/user-provider-configs:
+    put:
+      operationId: updateUserProviderConfigs
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserProviderConfigsRequest'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateUserProviderConfigsResponse'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/inbox/messages:
+    get:
+      description: Get a list of inbox messages for the current user, with optional filters for read status.
+      summary: Get inbox messages
+      operationId: getInboxMessages
+      parameters:
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      - name: read
+        required: false
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedInboxMessages'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/inbox/messages/{id}:
+    get:
+      description: Get the details of a specific inbox message by ID.
+      summary: Get inbox message by ID
+      operationId: getInboxMessage
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxMessage'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+    patch:
+      description: Update the read status of a specific inbox message by ID.
+      summary: Set inbox message read status
+      operationId: setInboxMessageReadStatus
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateInboxMessage'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InboxMessage'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/inbox/messages/update-bulk:
+    patch:
+      description: Update the read status of multiple inbox messages by their IDs.
+      summary: Bulk update inbox message read status
+      operationId: batchUpdateInboxMessage
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BatchUpdateInboxMessage'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InboxMessage'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/webhook:
+    get:
+      description: Get a list of webhooks.
+      summary: Get webhooks
+      operationId: getWebhooks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Webhook'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+    post:
+      description: Create a new webhook.
+      summary: Create webhook
+      operationId: createWebhook
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhook'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/webhook/{id}:
+    get:
+      description: Get the details of a specific webhook by ID.
+      summary: Get webhook by ID
+      operationId: getWebhook
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+    put:
+      description: Update the details of a specific webhook by ID.
+      summary: Update webhook
+      operationId: updateWebhook
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateWebhook'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Webhook'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+    delete:
+      description: Delete a specific webhook by ID.
+      summary: Delete webhook
+      operationId: deleteWebhook
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/webhook/{id}/history:
+    get:
+      description: Get the history of a specific webhook by ID.
+      summary: Get webhook history
+      operationId: getWebhookHistory
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      - name: offset
+        required: false
+        in: query
+        schema:
+          minimum: 0
+          default: 0
+          type: number
+      - name: limit
+        required: false
+        in: query
+        schema:
+          minimum: 1
+          default: 10
+          type: number
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedWebhookHistory'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/webhook/{id}/test:
+    post:
+      description: Test a specific webhook by ID.
+      summary: Test webhook
+      operationId: testWebhook
+      parameters:
+      - name: id
+        required: true
+        in: path
+        schema:
+          type: string
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookTestResult'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/webhook/test:
+    post:
+      description: Test all webhook configurations.
+      summary: Test webhook configuration
+      operationId: testWebhookConfig
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWebhook'
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WebhookTestResult'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/slack/configuration:
+    get:
+      description: Get the Slack notifications configuration.
+      summary: Get Slack notifications configuration
+      operationId: getSlackConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSlackConfigurationResponse'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+    delete:
+      description: Delete the Slack notifications configuration.
+      summary: Delete Slack notifications configuration
+      operationId: deleteSlackConfiguration
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      security:
+      - bearer: []
+      tags:
+      - Notification
+  /api/notification/slack/test:
+    get:
+      description: Test the Slack notifications configuration.
+      summary: Test Slack notifications configuration
+      operationId: testSlackConnection
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TestSlackConnectionResponse'
+      security:
+      - bearer: []
+      tags:
+      - Notification
+components:
+  schemas:
+    WebhookTestResult:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - UNSPECIFIED
+          - SUCCESS
+          - FAILED
+          - 0
+          - 1
+          - 2
+        httpStatusCode:
+          type: number
+        errorMessage:
+          type: string
+      required:
+      - status
+      - httpStatusCode
+    GetSlackConfigurationResponse:
+      type: object
+      properties:
+        isConfigured:
+          type: boolean
+        configuration:
+          type: object
+          properties:
+            teamName:
+              type: string
+            teamId:
+              type: string
+            botUserId:
+              type: string
+            enterpriseName:
+              type: string
+            enterpriseId:
+              type: string
+      required:
+      - isConfigured
+      - configuration
+    CreateWebhook:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          type: string
+      required:
+      - url
+    UpdateWebhook:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          type: string
+    UpdateUserPreferencesResponse:
+      type: object
+      properties:
+        recipientId:
+          type: string
+          format: uuid
+        preferences:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              typePreferences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    notificationType:
+                      type: string
+                    enabled:
+                      type: boolean
+                  required:
+                  - notificationType
+                  - enabled
+            required:
+            - provider
+            - typePreferences
+      required:
+      - recipientId
+      - preferences
+    UpdateUserPreferencesRequest:
+      type: object
+      properties:
+        preferences:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              typePreferences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    notificationType:
+                      type: string
+                    enabled:
+                      type: boolean
+                  required:
+                  - notificationType
+                  - enabled
+            required:
+            - provider
+            - typePreferences
+      required:
+      - preferences
+    PaginatedInboxMessages:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              notificationId:
+                type: string
+                format: uuid
+              notificationType:
+                type: string
+              message:
+                type: string
+              subject:
+                type: string
+              createdAt:
+                type: string
+                format: iso_format
+                example: '2025-01-09T12:34:56.000Z'
+              readAt:
+                type: string
+                format: iso_format
+                example: '2025-01-09T12:34:56.000Z'
+              data:
+                type: object
+                properties:
+                  actionLink:
+                    type: string
+                    format: uri
+            required:
+            - id
+            - notificationId
+            - notificationType
+            - message
+            - subject
+            - createdAt
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    InboxMessage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        notificationId:
+          type: string
+          format: uuid
+        notificationType:
+          type: string
+        message:
+          type: string
+        subject:
+          type: string
+        createdAt:
+          type: string
+          format: iso_format
+          example: '2025-01-09T12:34:56.000Z'
+        readAt:
+          type: string
+          format: iso_format
+          example: '2025-01-09T12:34:56.000Z'
+        data:
+          type: object
+          properties:
+            actionLink:
+              type: string
+              format: uri
+      required:
+      - id
+      - notificationId
+      - notificationType
+      - message
+      - subject
+      - createdAt
+    TestSlackConnectionResponse:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+        errorMessage:
+          type: string
+      required:
+      - isValid
+    UpdateUserProviderConfigsResponse:
+      type: object
+      properties:
+        recipientId:
+          type: string
+          format: uuid
+        configs:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              enabled:
+                type: boolean
+            required:
+            - provider
+            - enabled
+      required:
+      - recipientId
+      - configs
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          default: false
+          type: boolean
+        suppressed:
+          default: false
+          type: boolean
+      required:
+      - id
+      - url
+    PaginatedWebhookHistory:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              webhookId:
+                type: string
+                format: uuid
+              deliveryId:
+                type: string
+                format: uuid
+              status:
+                type: string
+              httpStatusCode:
+                type: number
+              createdAt:
+                type: string
+                format: iso_format
+                example: '2025-01-09T12:34:56.000Z'
+              message:
+                type: string
+            required:
+            - webhookId
+            - deliveryId
+            - status
+            - httpStatusCode
+            - createdAt
+            - message
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
+    GetUserPreferencesResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          provider:
+            type: string
+          enabled:
+            type: boolean
+          typePreferences:
+            type: array
+            items:
+              type: object
+              properties:
+                notificationType:
+                  type: string
+                enabled:
+                  type: boolean
+              required:
+              - notificationType
+              - enabled
+          metadata:
+            type: object
+            properties:
+              authVerified:
+                type: boolean
+              teamsStoreUrl:
+                type: string
+                format: uri
+        required:
+        - provider
+        - enabled
+        - typePreferences
+    UpdateUserProviderConfigsRequest:
+      type: object
+      properties:
+        configs:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              enabled:
+                type: boolean
+            required:
+            - provider
+            - enabled
+      required:
+      - configs
+    BatchUpdateInboxMessage:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          read:
+            type: boolean
+        required:
+        - id
+        - read
+    UpdateInboxMessage:
+      type: object
+      properties:
+        read:
+          type: boolean
+      required:
+      - read
+  securitySchemes:
+    bearer:
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+externalDocs:
+  description: Find out more about Immuta
+  url: https://documentation.immuta.com/SaaS/
