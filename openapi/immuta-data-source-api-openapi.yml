@@ -111,7 +111,6 @@ paths:
       - Data Source
   /api/data-product/{id}/datasources/all:
     get:
-      description: Get all data sources in the data product
       operationId: getAllDataSources
       parameters:
       - name: id
@@ -133,81 +132,6 @@ paths:
       - Data Source
 components:
   schemas:
-    PaginatedDataSourceWithStatus:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: cuid
-              name:
-                type: string
-                example: Web Sales 2024
-              type:
-                type: string
-              sourceId:
-                type: string
-              hostname:
-                oneOf:
-                - type: string
-                  description: Data source hostname
-                description: Data source hostname
-              database:
-                oneOf:
-                - type: string
-                  description: Data source database name
-                description: Data source database name
-              schema:
-                oneOf:
-                - type: string
-                  description: Data source schema name
-                description: Data source schema name
-              table:
-                oneOf:
-                - type: string
-                  description: Data source table name
-                description: Data source table name
-              prefix:
-                oneOf:
-                - type: string
-                  description: The native S3 prefix
-                description: The native S3 prefix
-              status:
-                type: string
-                enum:
-                - NONE
-                - RESTRICTED
-                - SUBSCRIBED
-                description: Govern app subscription status
-            required:
-            - id
-            - name
-            - type
-            - sourceId
-            - status
-        meta:
-          type: object
-          properties:
-            nextToken:
-              oneOf:
-              - type: string
-                description: Pagination token to fetch the next page of results, or null if there are no more pages.
-              description: Pagination token to fetch the next page of results, or null if there are no more pages.
-            limit:
-              default: 10
-              type: number
-              minimum: 1
-              maximum: 100
-              description: The number of items to return per page
-          required:
-          - nextToken
-      required:
-      - data
-      - meta
     DataProduct:
       type: object
       properties:
@@ -1521,20 +1445,6 @@ components:
       - createdAt
       - updatedAt
       - metadata
-    AllDataSources:
-      type: object
-      properties:
-        dataSources:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceId:
-                type: string
-            required:
-            - sourceId
-      required:
-      - dataSources
     UpdateDataSources:
       type: object
       properties:
@@ -1549,6 +1459,95 @@ components:
             - sourceId
       required:
       - dataSources
+    AllDataSources:
+      type: object
+      properties:
+        dataSources:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceId:
+                type: string
+            required:
+            - sourceId
+      required:
+      - dataSources
+    PaginatedDataSourceWithStatus:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: cuid
+              name:
+                type: string
+                example: Web Sales 2024
+              type:
+                type: string
+              sourceId:
+                type: string
+              hostname:
+                oneOf:
+                - type: string
+                  description: Data source hostname
+                description: Data source hostname
+              database:
+                oneOf:
+                - type: string
+                  description: Data source database name
+                description: Data source database name
+              schema:
+                oneOf:
+                - type: string
+                  description: Data source schema name
+                description: Data source schema name
+              table:
+                oneOf:
+                - type: string
+                  description: Data source table name
+                description: Data source table name
+              prefix:
+                oneOf:
+                - type: string
+                  description: The native S3 prefix
+                description: The native S3 prefix
+              status:
+                type: string
+                enum:
+                - NONE
+                - RESTRICTED
+                - SUBSCRIBED
+                description: Govern app subscription status
+            required:
+            - id
+            - name
+            - type
+            - sourceId
+            - status
+        meta:
+          type: object
+          properties:
+            nextToken:
+              oneOf:
+              - type: string
+                description: Pagination token to fetch the next page of results, or null if there are no more pages.
+              description: Pagination token to fetch the next page of results, or null if there are no more pages.
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+              maximum: 100
+              description: The number of items to return per page
+          required:
+          - nextToken
+      required:
+      - data
+      - meta
   securitySchemes:
     bearer:
       scheme: bearer

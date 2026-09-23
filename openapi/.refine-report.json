@@ -1,0 +1,41 @@
+{
+  "provider": "immuta",
+  "sources": [
+    "_original/immuta-marketplace-api-openapi.yml"
+  ],
+  "outputs": [
+    "immuta-access-request-api-openapi.yml",
+    "immuta-asset-api-openapi.yml",
+    "immuta-auth-api-openapi.yml",
+    "immuta-data-product-api-openapi.yml",
+    "immuta-data-source-api-openapi.yml",
+    "immuta-data-use-agreement-api-openapi.yml",
+    "immuta-health-api-openapi.yml",
+    "immuta-metadata-api-openapi.yml",
+    "immuta-notification-api-openapi.yml",
+    "immuta-request-form-api-openapi.yml",
+    "immuta-settings-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "immuta-marketplace-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "immuta-marketplace-api-openapi.yml: declared missing tag: Auth",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "immuta-access-request-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-asset-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-data-product-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-data-source-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-data-use-agreement-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-health-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-metadata-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-notification-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-request-form-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "immuta-settings-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

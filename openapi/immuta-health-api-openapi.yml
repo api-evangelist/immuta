@@ -141,6 +141,8 @@ paths:
                       additionalProperties: true
       tags:
       - Health
+      summary: Liveness[0]
+      x-summary-source: derived
   /health/live:
     get:
       operationId: liveness[1]
@@ -256,6 +258,8 @@ paths:
                       additionalProperties: true
       tags:
       - Health
+      summary: Liveness[1]
+      x-summary-source: derived
   /health/ready:
     get:
       operationId: readiness
@@ -371,6 +375,8 @@ paths:
                       additionalProperties: true
       tags:
       - Health
+      summary: Readiness
+      x-summary-source: derived
 components:
   securitySchemes:
     bearer:
