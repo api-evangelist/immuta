@@ -267,6 +267,148 @@ paths:
       - Metadata
 components:
   schemas:
+    AppliedTagSearchRequest:
+      type: object
+      properties:
+        dataProductId:
+          type: string
+          description: Data product ID to search for applied tags across all its data sources
+        dataObjectId:
+          type: string
+          format: uuid
+          description: Data object ID to search for applied tags across all its child data sources
+        dataSourceIds:
+          type: array
+          items:
+            type: integer
+          description: Array of data source IDs to search for applied tags
+        searchText:
+          type: string
+          description: A string used to filter returned tags based on name.
+        fuzzySearch:
+          type: boolean
+          description: If true, the search will be more forgiving when tags with escaped periods are involved.
+        modelType:
+          default:
+          - datasource
+          - column
+          oneOf:
+          - type: string
+            enum:
+            - datasource
+            - column
+          - type: array
+            items:
+              type: string
+              enum:
+              - datasource
+              - column
+            minItems: 1
+          description: Filter by model type. Can be a single model type or an array of model types.
+        excludedHierarchies:
+          type: array
+          items:
+            type: string
+          description: Array of tag hierarchies to exclude from the search.
+        offset:
+          default: 0
+          type: integer
+          minimum: 0
+          description: The number of results to skip
+        limit:
+          default: 10
+          type: integer
+          minimum: 1
+          description: The maximum number of search results that will be returned
+    ImmutaDomain:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+          description: Domain name
+          example: North American Sales
+        description:
+          type: string
+          description: Domain description
+          example: A collection of data sources relevant to North American sales
+      required:
+      - id
+      - name
+      - description
+    ImmutaGroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Immuta group ID
+              iamId:
+                type:
+                - string
+                - 'null'
+                description: ID of the IAM the group is associated with
+              name:
+                type: string
+                description: Group name
+              email:
+                type:
+                - string
+                - 'null'
+                format: email
+                description: Email address
+            required:
+            - id
+            - iamId
+            - name
+            - email
+            title: Immuta Group
+      required:
+      - groups
+    ImmutaTagSearchResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          addedBy:
+            type: number
+          color:
+            type: string
+          context:
+            type: string
+          createdAt:
+            type: string
+          createdBy:
+            type: number
+          dataProductName:
+            type: string
+          deleted:
+            type: boolean
+          description:
+            type: string
+          displayName:
+            type: string
+          hasLeafNodes:
+            type: boolean
+          id:
+            type: number
+          name:
+            type: string
+          protected:
+            type: boolean
+          source:
+            type: string
+          systemCreated:
+            type: boolean
+          updatedAt:
+            type: string
+        required:
+        - name
     PaginatedImmutaDataSource:
       type: object
       properties:
@@ -405,59 +547,6 @@ components:
       required:
       - data
       - total
-    AppliedTagSearchRequest:
-      type: object
-      properties:
-        dataProductId:
-          type: string
-          description: Data product ID to search for applied tags across all its data sources
-        dataObjectId:
-          type: string
-          format: uuid
-          description: Data object ID to search for applied tags across all its child data sources
-        dataSourceIds:
-          type: array
-          items:
-            type: integer
-          description: Array of data source IDs to search for applied tags
-        searchText:
-          type: string
-          description: A string used to filter returned tags based on name.
-        fuzzySearch:
-          type: boolean
-          description: If true, the search will be more forgiving when tags with escaped periods are involved.
-        modelType:
-          default:
-          - datasource
-          - column
-          oneOf:
-          - type: string
-            enum:
-            - datasource
-            - column
-          - type: array
-            items:
-              type: string
-              enum:
-              - datasource
-              - column
-            minItems: 1
-          description: Filter by model type. Can be a single model type or an array of model types.
-        excludedHierarchies:
-          type: array
-          items:
-            type: string
-          description: Array of tag hierarchies to exclude from the search.
-        offset:
-          default: 0
-          type: integer
-          minimum: 0
-          description: The number of results to skip
-        limit:
-          default: 10
-          type: integer
-          minimum: 1
-          description: The maximum number of search results that will be returned
     ImmutaUserList:
       type: object
       properties:
@@ -501,62 +590,6 @@ components:
             title: Immuta User
       required:
       - users
-    ImmutaTagSearchResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          addedBy:
-            type: number
-          color:
-            type: string
-          context:
-            type: string
-          createdAt:
-            type: string
-          createdBy:
-            type: number
-          dataProductName:
-            type: string
-          deleted:
-            type: boolean
-          description:
-            type: string
-          displayName:
-            type: string
-          hasLeafNodes:
-            type: boolean
-          id:
-            type: number
-          name:
-            type: string
-          protected:
-            type: boolean
-          source:
-            type: string
-          systemCreated:
-            type: boolean
-          updatedAt:
-            type: string
-        required:
-        - name
-    ImmutaDomain:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-          description: Domain name
-          example: North American Sales
-        description:
-          type: string
-          description: Domain description
-          example: A collection of data sources relevant to North American sales
-      required:
-      - id
-      - name
-      - description
     ImmutaAttributeList:
       type: object
       properties:
@@ -575,39 +608,6 @@ components:
             title: Immuta Attribute
       required:
       - attributes
-    ImmutaGroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-                description: Immuta group ID
-              iamId:
-                type:
-                - string
-                - 'null'
-                description: ID of the IAM the group is associated with
-              name:
-                type: string
-                description: Group name
-              email:
-                type:
-                - string
-                - 'null'
-                format: email
-                description: Email address
-            required:
-            - id
-            - iamId
-            - name
-            - email
-            title: Immuta Group
-      required:
-      - groups
     ImmutaDomainSchemaResponse:
       type: object
       properties:

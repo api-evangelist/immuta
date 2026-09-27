@@ -205,36 +205,6 @@ paths:
       - Data Use Agreement
 components:
   schemas:
-    AssociatedRequestForms:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-          name:
-            type: string
-            description: The name of the request form
-        required:
-        - id
-        - name
-      description: The request forms associated with the data use agreement
-    CreateDataUseAgreement:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: The name of data use agreement
-        body:
-          type: string
-          description: The contents of data use agreement
-      required:
-      - name
-      - body
     DataUseAgreement:
       type: object
       properties:
@@ -296,6 +266,21 @@ components:
       - updatedBy
       - updatedAt
       title: Data Use Agreement
+    CreateDataUseAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+      required:
+      - name
+      - body
     UpdateDataUseAgreement:
       type: object
       properties:
@@ -305,6 +290,21 @@ components:
         body:
           type: string
           description: The contents of data use agreement
+    AssociatedRequestForms:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          name:
+            type: string
+            description: The name of the request form
+        required:
+        - id
+        - name
+      description: The request forms associated with the data use agreement
     PaginatedDataUseAgreement:
       type: object
       properties:
