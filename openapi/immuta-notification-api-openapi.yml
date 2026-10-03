@@ -434,187 +434,6 @@ paths:
       - Notification
 components:
   schemas:
-    UpdateInboxMessage:
-      type: object
-      properties:
-        read:
-          type: boolean
-      required:
-      - read
-    UpdateUserPreferencesRequest:
-      type: object
-      properties:
-        preferences:
-          type: array
-          items:
-            type: object
-            properties:
-              provider:
-                type: string
-              typePreferences:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    notificationType:
-                      type: string
-                    enabled:
-                      type: boolean
-                  required:
-                  - notificationType
-                  - enabled
-            required:
-            - provider
-            - typePreferences
-      required:
-      - preferences
-    Webhook:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        url:
-          type: string
-          format: uri
-        verifyTls:
-          default: true
-          type: boolean
-        signingKey:
-          default: false
-          type: boolean
-        suppressed:
-          default: false
-          type: boolean
-      required:
-      - id
-      - url
-    UpdateUserProviderConfigsRequest:
-      type: object
-      properties:
-        configs:
-          type: array
-          items:
-            type: object
-            properties:
-              provider:
-                type: string
-              enabled:
-                type: boolean
-            required:
-            - provider
-            - enabled
-      required:
-      - configs
-    TestSlackConnectionResponse:
-      type: object
-      properties:
-        isValid:
-          type: boolean
-        errorMessage:
-          type: string
-      required:
-      - isValid
-    PaginatedWebhookHistory:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              webhookId:
-                type: string
-                format: uuid
-              deliveryId:
-                type: string
-                format: uuid
-              status:
-                type: string
-              httpStatusCode:
-                type: number
-              createdAt:
-                type: string
-                format: iso_format
-                example: '2025-01-09T12:34:56.000Z'
-              message:
-                type: string
-            required:
-            - webhookId
-            - deliveryId
-            - status
-            - httpStatusCode
-            - createdAt
-            - message
-        meta:
-          type: object
-          properties:
-            offset:
-              default: 0
-              type: number
-              minimum: 0
-            limit:
-              default: 10
-              type: number
-              minimum: 1
-            totalCount:
-              type: number
-            pageCount:
-              type: number
-            currentPage:
-              type: number
-            totalPages:
-              type: number
-          required:
-          - totalCount
-          - pageCount
-          - currentPage
-          - totalPages
-      required:
-      - data
-      - meta
-    UpdateWebhook:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        verifyTls:
-          default: true
-          type: boolean
-        signingKey:
-          type: string
-    UpdateUserPreferencesResponse:
-      type: object
-      properties:
-        recipientId:
-          type: string
-          format: uuid
-        preferences:
-          type: array
-          items:
-            type: object
-            properties:
-              provider:
-                type: string
-              typePreferences:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    notificationType:
-                      type: string
-                    enabled:
-                      type: boolean
-                  required:
-                  - notificationType
-                  - enabled
-            required:
-            - provider
-            - typePreferences
-      required:
-      - recipientId
-      - preferences
     PaginatedInboxMessages:
       type: object
       properties:
@@ -683,19 +502,23 @@ components:
       required:
       - data
       - meta
-    BatchUpdateInboxMessage:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-          read:
-            type: boolean
-        required:
-        - id
-        - read
+    UpdateUserProviderConfigsRequest:
+      type: object
+      properties:
+        configs:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              enabled:
+                type: boolean
+            required:
+            - provider
+            - enabled
+      required:
+      - configs
     WebhookTestResult:
       type: object
       properties:
@@ -728,6 +551,26 @@ components:
           type: string
       required:
       - url
+    TestSlackConnectionResponse:
+      type: object
+      properties:
+        isValid:
+          type: boolean
+        errorMessage:
+          type: string
+      required:
+      - isValid
+    UpdateWebhook:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          type: string
     GetUserPreferencesResponse:
       type: array
       items:
@@ -761,6 +604,205 @@ components:
         - provider
         - enabled
         - typePreferences
+    Webhook:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          default: false
+          type: boolean
+        suppressed:
+          default: false
+          type: boolean
+      required:
+      - id
+      - url
+    UpdateInboxMessage:
+      type: object
+      properties:
+        read:
+          type: boolean
+      required:
+      - read
+    BatchUpdateInboxMessage:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          read:
+            type: boolean
+        required:
+        - id
+        - read
+    GetSlackConfigurationResponse:
+      type: object
+      properties:
+        isConfigured:
+          type: boolean
+        configuration:
+          type: object
+          properties:
+            teamName:
+              type: string
+            teamId:
+              type: string
+            botUserId:
+              type: string
+            enterpriseName:
+              type: string
+            enterpriseId:
+              type: string
+      required:
+      - isConfigured
+      - configuration
+    UpdateUserPreferencesRequest:
+      type: object
+      properties:
+        preferences:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              typePreferences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    notificationType:
+                      type: string
+                    enabled:
+                      type: boolean
+                  required:
+                  - notificationType
+                  - enabled
+            required:
+            - provider
+            - typePreferences
+      required:
+      - preferences
+    UpdateUserProviderConfigsResponse:
+      type: object
+      properties:
+        recipientId:
+          type: string
+          format: uuid
+        configs:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              enabled:
+                type: boolean
+            required:
+            - provider
+            - enabled
+      required:
+      - recipientId
+      - configs
+    UpdateUserPreferencesResponse:
+      type: object
+      properties:
+        recipientId:
+          type: string
+          format: uuid
+        preferences:
+          type: array
+          items:
+            type: object
+            properties:
+              provider:
+                type: string
+              typePreferences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    notificationType:
+                      type: string
+                    enabled:
+                      type: boolean
+                  required:
+                  - notificationType
+                  - enabled
+            required:
+            - provider
+            - typePreferences
+      required:
+      - recipientId
+      - preferences
+    PaginatedWebhookHistory:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              webhookId:
+                type: string
+                format: uuid
+              deliveryId:
+                type: string
+                format: uuid
+              status:
+                type: string
+              httpStatusCode:
+                type: number
+              createdAt:
+                type: string
+                format: iso_format
+                example: '2025-01-09T12:34:56.000Z'
+              message:
+                type: string
+            required:
+            - webhookId
+            - deliveryId
+            - status
+            - httpStatusCode
+            - createdAt
+            - message
+        meta:
+          type: object
+          properties:
+            offset:
+              default: 0
+              type: number
+              minimum: 0
+            limit:
+              default: 10
+              type: number
+              minimum: 1
+            totalCount:
+              type: number
+            pageCount:
+              type: number
+            currentPage:
+              type: number
+            totalPages:
+              type: number
+          required:
+          - totalCount
+          - pageCount
+          - currentPage
+          - totalPages
+      required:
+      - data
+      - meta
     InboxMessage:
       type: object
       properties:
@@ -797,48 +839,6 @@ components:
       - message
       - subject
       - createdAt
-    UpdateUserProviderConfigsResponse:
-      type: object
-      properties:
-        recipientId:
-          type: string
-          format: uuid
-        configs:
-          type: array
-          items:
-            type: object
-            properties:
-              provider:
-                type: string
-              enabled:
-                type: boolean
-            required:
-            - provider
-            - enabled
-      required:
-      - recipientId
-      - configs
-    GetSlackConfigurationResponse:
-      type: object
-      properties:
-        isConfigured:
-          type: boolean
-        configuration:
-          type: object
-          properties:
-            teamName:
-              type: string
-            teamId:
-              type: string
-            botUserId:
-              type: string
-            enterpriseName:
-              type: string
-            enterpriseId:
-              type: string
-      required:
-      - isConfigured
-      - configuration
   securitySchemes:
     bearer:
       scheme: bearer

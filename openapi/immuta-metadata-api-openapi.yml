@@ -267,6 +267,141 @@ paths:
       - Metadata
 components:
   schemas:
+    AppliedTagSearchResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              tagId:
+                type: integer
+                description: The tag ID
+              name:
+                type: string
+              displayName:
+                type:
+                - string
+                - 'null'
+              color:
+                type:
+                - string
+                - 'null'
+              source:
+                type: string
+              description:
+                type:
+                - string
+                - 'null'
+              protected:
+                type: boolean
+              deleted:
+                type: boolean
+              systemCreated:
+                type: boolean
+              createdBy:
+                type:
+                - integer
+                - 'null'
+              createdAt:
+                type: string
+                format: date-time
+              updatedAt:
+                type: string
+                format: date-time
+            required:
+            - tagId
+            - name
+            - displayName
+            - color
+            - source
+            - description
+            - protected
+            - deleted
+            - systemCreated
+            - createdBy
+        total:
+          type: integer
+          description: Total number of results
+      required:
+      - data
+      - total
+    ImmutaDomainSchemaResponse:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+                description: Domain name
+                example: North American Sales
+              description:
+                type: string
+                description: Domain description
+                example: A collection of data sources relevant to North American sales
+            required:
+            - id
+            - name
+            - description
+      required:
+      - domains
+    ImmutaGroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Immuta group ID
+              iamId:
+                type:
+                - string
+                - 'null'
+                description: ID of the IAM the group is associated with
+              name:
+                type: string
+                description: Group name
+              email:
+                type:
+                - string
+                - 'null'
+                format: email
+                description: Email address
+            required:
+            - id
+            - iamId
+            - name
+            - email
+            title: Immuta Group
+      required:
+      - groups
+    ImmutaAttributeList:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: string
+            required:
+            - type
+            - value
+            title: Immuta Attribute
+      required:
+      - attributes
     AppliedTagSearchRequest:
       type: object
       properties:
@@ -337,39 +472,6 @@ components:
       - id
       - name
       - description
-    ImmutaGroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-                description: Immuta group ID
-              iamId:
-                type:
-                - string
-                - 'null'
-                description: ID of the IAM the group is associated with
-              name:
-                type: string
-                description: Group name
-              email:
-                type:
-                - string
-                - 'null'
-                format: email
-                description: Email address
-            required:
-            - id
-            - iamId
-            - name
-            - email
-            title: Immuta Group
-      required:
-      - groups
     ImmutaTagSearchResponse:
       type: array
       items:
@@ -487,66 +589,6 @@ components:
       required:
       - data
       - meta
-    AppliedTagSearchResponse:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              tagId:
-                type: integer
-                description: The tag ID
-              name:
-                type: string
-              displayName:
-                type:
-                - string
-                - 'null'
-              color:
-                type:
-                - string
-                - 'null'
-              source:
-                type: string
-              description:
-                type:
-                - string
-                - 'null'
-              protected:
-                type: boolean
-              deleted:
-                type: boolean
-              systemCreated:
-                type: boolean
-              createdBy:
-                type:
-                - integer
-                - 'null'
-              createdAt:
-                type: string
-                format: date-time
-              updatedAt:
-                type: string
-                format: date-time
-            required:
-            - tagId
-            - name
-            - displayName
-            - color
-            - source
-            - description
-            - protected
-            - deleted
-            - systemCreated
-            - createdBy
-        total:
-          type: integer
-          description: Total number of results
-      required:
-      - data
-      - total
     ImmutaUserList:
       type: object
       properties:
@@ -590,48 +632,6 @@ components:
             title: Immuta User
       required:
       - users
-    ImmutaAttributeList:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              value:
-                type: string
-            required:
-            - type
-            - value
-            title: Immuta Attribute
-      required:
-      - attributes
-    ImmutaDomainSchemaResponse:
-      type: object
-      properties:
-        domains:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-                description: Domain name
-                example: North American Sales
-              description:
-                type: string
-                description: Domain description
-                example: A collection of data sources relevant to North American sales
-            required:
-            - id
-            - name
-            - description
-      required:
-      - domains
   securitySchemes:
     bearer:
       scheme: bearer

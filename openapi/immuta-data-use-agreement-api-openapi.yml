@@ -205,82 +205,6 @@ paths:
       - Data Use Agreement
 components:
   schemas:
-    DataUseAgreement:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: The name of data use agreement
-        body:
-          type: string
-          description: The contents of data use agreement
-        createdBy:
-          type: object
-          properties:
-            globalUserId:
-              type: string
-              format: uuid
-              description: Immuta global user ID
-            name:
-              type: string
-              description: Display name
-          required:
-          - globalUserId
-          - name
-          description: The user who originally created the data use agreement
-        createdAt:
-          oneOf:
-          - type: string
-            format: date-time
-          - type: string
-            format: date-time
-        updatedBy:
-          type: object
-          properties:
-            globalUserId:
-              type: string
-              format: uuid
-              description: Immuta global user ID
-            name:
-              type: string
-              description: Display name
-          required:
-          - globalUserId
-          - name
-          description: The user who last updated the data use agreement
-        updatedAt:
-          oneOf:
-          - type: string
-            format: date-time
-          - type: string
-            format: date-time
-      required:
-      - id
-      - name
-      - body
-      - createdBy
-      - createdAt
-      - updatedBy
-      - updatedAt
-      title: Data Use Agreement
-    CreateDataUseAgreement:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-          description: The name of data use agreement
-        body:
-          type: string
-          description: The contents of data use agreement
-      required:
-      - name
-      - body
     UpdateDataUseAgreement:
       type: object
       properties:
@@ -290,21 +214,6 @@ components:
         body:
           type: string
           description: The contents of data use agreement
-    AssociatedRequestForms:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-          name:
-            type: string
-            description: The name of the request form
-        required:
-        - id
-        - name
-      description: The request forms associated with the data use agreement
     PaginatedDataUseAgreement:
       type: object
       properties:
@@ -398,6 +307,97 @@ components:
       required:
       - data
       - meta
+    CreateDataUseAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+      required:
+      - name
+      - body
+    DataUseAgreement:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+          description: The name of data use agreement
+        body:
+          type: string
+          description: The contents of data use agreement
+        createdBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who originally created the data use agreement
+        createdAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+        updatedBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who last updated the data use agreement
+        updatedAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+      required:
+      - id
+      - name
+      - body
+      - createdBy
+      - createdAt
+      - updatedBy
+      - updatedAt
+      title: Data Use Agreement
+    AssociatedRequestForms:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+          name:
+            type: string
+            description: The name of the request form
+        required:
+        - id
+        - name
+      description: The request forms associated with the data use agreement
   securitySchemes:
     bearer:
       scheme: bearer

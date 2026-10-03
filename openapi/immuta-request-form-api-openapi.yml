@@ -988,7 +988,729 @@ components:
       - name
       - fields
       - policy
-    DataProductRequestForm:
+    LinkedAssets:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            oneOf:
+            - type: string
+              format: cuid
+            - type: string
+              format: uuid
+          name:
+            type: string
+            minLength: 1
+            description: Asset name
+          type:
+            type: string
+            enum:
+            - DATA_PRODUCT
+            - DATA_OBJECT
+          requestType:
+            type: string
+            enum:
+            - DATA_ACCESS
+            - MASKING_EXCEPTION
+        required:
+        - id
+        - name
+        - type
+        - requestType
+      description: The assets linked to the request form
+    UpdateRequestForm:
+      type: object
+      properties:
+        name:
+          type: string
+        fields:
+          type: array
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - DROPDOWN
+                  - CHECKBOXES
+                label:
+                  type: string
+                required:
+                  default: true
+                  type: boolean
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                    required:
+                    - value
+              required:
+              - id
+              - type
+              - label
+              - options
+              title: Selection Form Field
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - SHORT_ANSWER
+                label:
+                  type: string
+                required:
+                  default: true
+                  type: boolean
+              required:
+              - id
+              - type
+              - label
+              title: Short Answer Form Field
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - ACCESS_DURATION
+                label:
+                  type: string
+                  enum:
+                  - How long do you need access to this data?
+                required:
+                  type: boolean
+                  enum:
+                  - true
+              required:
+              - id
+              - type
+              - label
+              - required
+              title: Access Duration Form Field
+          title: RequestFormFields
+        policy:
+          type: object
+          properties:
+            version:
+              type: string
+              description: Policy schema version
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  conditions:
+                    oneOf:
+                    - type: object
+                      properties:
+                        all:
+                          type: array
+                          items: {}
+                      required:
+                      - all
+                      additionalProperties: false
+                    - type: object
+                      properties:
+                        any:
+                          type: array
+                          items: {}
+                      required:
+                      - any
+                      additionalProperties: false
+                    - type: object
+                      properties:
+                        not: {}
+                      required:
+                      - not
+                      additionalProperties: false
+                  event:
+                    discriminator:
+                      propertyName: type
+                    oneOf:
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - approve
+                        params:
+                          type: object
+                          properties:
+                            comment:
+                              type: string
+                            duration:
+                              type: number
+                              minimum: 1
+                            durationUnit:
+                              type: string
+                              enum:
+                              - HOURS
+                              - DAYS
+                              - WEEKS
+                              - MONTHS
+                              - YEARS
+                          additionalProperties: false
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - deny
+                        params:
+                          type: object
+                          properties:
+                            comment:
+                              type: string
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - review
+                        params:
+                          type: object
+                          properties:
+                            stages:
+                              type: array
+                              items:
+                                oneOf:
+                                - type: object
+                                  properties:
+                                    all:
+                                      type: array
+                                      items:
+                                        oneOf:
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - USER
+                                              description: Entity type
+                                            id:
+                                              type: string
+                                              description: Entity ID
+                                            displayName:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - id
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - GROUP
+                                              description: Entity type
+                                            id:
+                                              type: number
+                                              description: Entity ID
+                                            iamId:
+                                              type: string
+                                              description: IAM ID
+                                            name:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - name
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - GOVERNANCE
+                                              - USER_ADMIN
+                                              - AUDIT
+                                              description: Global permission
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - DOMAIN PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - Manage Policies
+                                              - Audit Activity
+                                              - Manage Data Products
+                                              - Manage Identifiers
+                                              description: Domain permission
+                                            domainId:
+                                              type: string
+                                              description: Domain ID
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - ATTRIBUTE
+                                            key:
+                                              type: string
+                                              description: Attribute key
+                                            value:
+                                              type: string
+                                              description: Attribute value
+                                          required:
+                                          - type
+                                          - key
+                                          - value
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - CATALOG PERMISSION
+                                          required:
+                                          - type
+                                      minItems: 1
+                                  required:
+                                  - all
+                                - type: object
+                                  properties:
+                                    any:
+                                      type: array
+                                      items:
+                                        oneOf:
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - USER
+                                              description: Entity type
+                                            id:
+                                              type: string
+                                              description: Entity ID
+                                            displayName:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - id
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - GROUP
+                                              description: Entity type
+                                            id:
+                                              type: number
+                                              description: Entity ID
+                                            iamId:
+                                              type: string
+                                              description: IAM ID
+                                            name:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - name
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - GOVERNANCE
+                                              - USER_ADMIN
+                                              - AUDIT
+                                              description: Global permission
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - DOMAIN PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - Manage Policies
+                                              - Audit Activity
+                                              - Manage Data Products
+                                              - Manage Identifiers
+                                              description: Domain permission
+                                            domainId:
+                                              type: string
+                                              description: Domain ID
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - ATTRIBUTE
+                                            key:
+                                              type: string
+                                              description: Attribute key
+                                            value:
+                                              type: string
+                                              description: Attribute value
+                                          required:
+                                          - type
+                                          - key
+                                          - value
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - CATALOG PERMISSION
+                                          required:
+                                          - type
+                                      minItems: 1
+                                  required:
+                                  - any
+                              description: Array of stages for manual review
+                          required:
+                          - stages
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - dataProductPolicy
+                      required:
+                      - type
+                required:
+                - conditions
+                - event
+            defaultEvent:
+              discriminator:
+                propertyName: type
+              oneOf:
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - approve
+                  params:
+                    type: object
+                    properties:
+                      comment:
+                        type: string
+                      duration:
+                        type: number
+                        minimum: 1
+                      durationUnit:
+                        type: string
+                        enum:
+                        - HOURS
+                        - DAYS
+                        - WEEKS
+                        - MONTHS
+                        - YEARS
+                    additionalProperties: false
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - deny
+                  params:
+                    type: object
+                    properties:
+                      comment:
+                        type: string
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - review
+                  params:
+                    type: object
+                    properties:
+                      stages:
+                        type: array
+                        items:
+                          oneOf:
+                          - type: object
+                            properties:
+                              all:
+                                type: array
+                                items:
+                                  oneOf:
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - USER
+                                        description: Entity type
+                                      id:
+                                        type: string
+                                        description: Entity ID
+                                      displayName:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - id
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - GROUP
+                                        description: Entity type
+                                      id:
+                                        type: number
+                                        description: Entity ID
+                                      iamId:
+                                        type: string
+                                        description: IAM ID
+                                      name:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - name
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - GOVERNANCE
+                                        - USER_ADMIN
+                                        - AUDIT
+                                        description: Global permission
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - DOMAIN PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - Manage Policies
+                                        - Audit Activity
+                                        - Manage Data Products
+                                        - Manage Identifiers
+                                        description: Domain permission
+                                      domainId:
+                                        type: string
+                                        description: Domain ID
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - ATTRIBUTE
+                                      key:
+                                        type: string
+                                        description: Attribute key
+                                      value:
+                                        type: string
+                                        description: Attribute value
+                                    required:
+                                    - type
+                                    - key
+                                    - value
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - CATALOG PERMISSION
+                                    required:
+                                    - type
+                                minItems: 1
+                            required:
+                            - all
+                          - type: object
+                            properties:
+                              any:
+                                type: array
+                                items:
+                                  oneOf:
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - USER
+                                        description: Entity type
+                                      id:
+                                        type: string
+                                        description: Entity ID
+                                      displayName:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - id
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - GROUP
+                                        description: Entity type
+                                      id:
+                                        type: number
+                                        description: Entity ID
+                                      iamId:
+                                        type: string
+                                        description: IAM ID
+                                      name:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - name
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - GOVERNANCE
+                                        - USER_ADMIN
+                                        - AUDIT
+                                        description: Global permission
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - DOMAIN PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - Manage Policies
+                                        - Audit Activity
+                                        - Manage Data Products
+                                        - Manage Identifiers
+                                        description: Domain permission
+                                      domainId:
+                                        type: string
+                                        description: Domain ID
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - ATTRIBUTE
+                                      key:
+                                        type: string
+                                        description: Attribute key
+                                      value:
+                                        type: string
+                                        description: Attribute value
+                                    required:
+                                    - type
+                                    - key
+                                    - value
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - CATALOG PERMISSION
+                                    required:
+                                    - type
+                                minItems: 1
+                            required:
+                            - any
+                        description: Array of stages for manual review
+                    required:
+                    - stages
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - dataProductPolicy
+                required:
+                - type
+          required:
+          - rules
+          - defaultEvent
+        id:
+          type: string
+          format: uuid
+        dataUseAgreementIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+    RequestForm:
       type: object
       properties:
         id:
@@ -1738,136 +2460,6 @@ components:
           type: string
           format: cuid
           description: The current version of the request form
-        inheritedFrom:
-          type: object
-          properties:
-            id:
-              oneOf:
-              - type: string
-                format: cuid
-              - type: string
-                format: uuid
-            name:
-              type: string
-              minLength: 1
-              description: Asset name
-            type:
-              type: string
-              enum:
-              - DATA_OBJECT
-            createdAt:
-              oneOf:
-              - type: string
-                format: date-time
-              - type: string
-                format: date-time
-            updatedAt:
-              oneOf:
-              - type: string
-                format: date-time
-              - type: string
-                format: date-time
-            dagTagId:
-              oneOf:
-              - type: number
-            requestId:
-              type: string
-              format: cuid
-              description: If requested, the ID of the access request for the asset
-            status:
-              type: string
-              enum:
-              - APPROVED
-              - CANCELED
-              - DENIED
-              - PENDING
-              - NONE
-              - PUBLISHER
-              - REVOKED
-              - EXPIRED
-              example: PENDING
-            metadata:
-              type: object
-              properties:
-                subjectMatterExperts:
-                  default: []
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      id:
-                        type: string
-                        format: uuid
-                        description: Immuta global user ID of the subject matter expert
-                      username:
-                        type: string
-                      name:
-                        type: string
-                    required:
-                    - id
-                objectPath:
-                  type: array
-                  items:
-                    type: string
-                technology:
-                  type: string
-                  enum:
-                  - Snowflake
-                  - PostgreSQL
-                  - Databricks
-                  - Glue
-                  - MySQL
-                  - Teradata
-                  - MariaDB
-                  - Oracle
-                  - SQLServer
-                  - Trino
-                  - Redshift
-                  - BigQuery
-                host:
-                  type: string
-                port:
-                  type: integer
-                  minimum: 1
-                  maximum: 65535
-                legacyType:
-                  type: string
-                dataSourceId:
-                  type: number
-                description:
-                  oneOf:
-                  - type: string
-                externalLink:
-                  oneOf:
-                  - type: string
-              required:
-              - objectPath
-              description: Data object asset metadata
-            registered:
-              default: true
-              type: boolean
-              description: Whether the asset has been registered
-            stats:
-              type: object
-              properties:
-                dataSourceCount:
-                  type: integer
-                  description: Count of data sources in the data object
-              required:
-              - dataSourceCount
-              description: Data object asset statistics
-              title: Data Object Asset Stats
-          required:
-          - id
-          - name
-          - type
-          - metadata
-          title: Data Object Asset
-        requestType:
-          type: string
-          enum:
-          - DATA_ACCESS
-          - MASKING_EXCEPTION
       required:
       - id
       - name
@@ -1878,8 +2470,8 @@ components:
       - updatedBy
       - updatedAt
       - version
-      - requestType
-    LinkedAssets:
+      title: Request Form
+    LinkedDataProducts:
       type: array
       items:
         type: object
@@ -1893,714 +2485,22 @@ components:
           name:
             type: string
             minLength: 1
-            description: Asset name
-          type:
-            type: string
-            enum:
-            - DATA_PRODUCT
-            - DATA_OBJECT
-          requestType:
-            type: string
-            enum:
-            - DATA_ACCESS
-            - MASKING_EXCEPTION
+            maxLength: 255
+            pattern: ^[\p{L}\p{M}\p{N})(\-_/\\\s]*$
+            description: Data product name
+          requestTypes:
+            type: array
+            items:
+              type: string
+              enum:
+              - DATA_ACCESS
+              - MASKING_EXCEPTION
+            description: Request types linking this data product to the request form
         required:
         - id
         - name
-        - type
-        - requestType
-      description: The assets linked to the request form
-    UpdateRequestForm:
-      type: object
-      properties:
-        name:
-          type: string
-        fields:
-          type: array
-          items:
-            discriminator:
-              propertyName: type
-            oneOf:
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - DROPDOWN
-                  - CHECKBOXES
-                label:
-                  type: string
-                required:
-                  default: true
-                  type: boolean
-                options:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      value:
-                        type: string
-                    required:
-                    - value
-              required:
-              - id
-              - type
-              - label
-              - options
-              title: Selection Form Field
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - SHORT_ANSWER
-                label:
-                  type: string
-                required:
-                  default: true
-                  type: boolean
-              required:
-              - id
-              - type
-              - label
-              title: Short Answer Form Field
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - ACCESS_DURATION
-                label:
-                  type: string
-                  enum:
-                  - How long do you need access to this data?
-                required:
-                  type: boolean
-                  enum:
-                  - true
-              required:
-              - id
-              - type
-              - label
-              - required
-              title: Access Duration Form Field
-          title: RequestFormFields
-        policy:
-          type: object
-          properties:
-            version:
-              type: string
-              description: Policy schema version
-            rules:
-              type: array
-              items:
-                type: object
-                properties:
-                  conditions:
-                    oneOf:
-                    - type: object
-                      properties:
-                        all:
-                          type: array
-                          items: {}
-                      required:
-                      - all
-                      additionalProperties: false
-                    - type: object
-                      properties:
-                        any:
-                          type: array
-                          items: {}
-                      required:
-                      - any
-                      additionalProperties: false
-                    - type: object
-                      properties:
-                        not: {}
-                      required:
-                      - not
-                      additionalProperties: false
-                  event:
-                    discriminator:
-                      propertyName: type
-                    oneOf:
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - approve
-                        params:
-                          type: object
-                          properties:
-                            comment:
-                              type: string
-                            duration:
-                              type: number
-                              minimum: 1
-                            durationUnit:
-                              type: string
-                              enum:
-                              - HOURS
-                              - DAYS
-                              - WEEKS
-                              - MONTHS
-                              - YEARS
-                          additionalProperties: false
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - deny
-                        params:
-                          type: object
-                          properties:
-                            comment:
-                              type: string
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - review
-                        params:
-                          type: object
-                          properties:
-                            stages:
-                              type: array
-                              items:
-                                oneOf:
-                                - type: object
-                                  properties:
-                                    all:
-                                      type: array
-                                      items:
-                                        oneOf:
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - USER
-                                              description: Entity type
-                                            id:
-                                              type: string
-                                              description: Entity ID
-                                            displayName:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - id
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - GROUP
-                                              description: Entity type
-                                            id:
-                                              type: number
-                                              description: Entity ID
-                                            iamId:
-                                              type: string
-                                              description: IAM ID
-                                            name:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - name
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - GOVERNANCE
-                                              - USER_ADMIN
-                                              - AUDIT
-                                              description: Global permission
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - DOMAIN PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - Manage Policies
-                                              - Audit Activity
-                                              - Manage Data Products
-                                              - Manage Identifiers
-                                              description: Domain permission
-                                            domainId:
-                                              type: string
-                                              description: Domain ID
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - ATTRIBUTE
-                                            key:
-                                              type: string
-                                              description: Attribute key
-                                            value:
-                                              type: string
-                                              description: Attribute value
-                                          required:
-                                          - type
-                                          - key
-                                          - value
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - CATALOG PERMISSION
-                                          required:
-                                          - type
-                                      minItems: 1
-                                  required:
-                                  - all
-                                - type: object
-                                  properties:
-                                    any:
-                                      type: array
-                                      items:
-                                        oneOf:
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - USER
-                                              description: Entity type
-                                            id:
-                                              type: string
-                                              description: Entity ID
-                                            displayName:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - id
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - GROUP
-                                              description: Entity type
-                                            id:
-                                              type: number
-                                              description: Entity ID
-                                            iamId:
-                                              type: string
-                                              description: IAM ID
-                                            name:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - name
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - GOVERNANCE
-                                              - USER_ADMIN
-                                              - AUDIT
-                                              description: Global permission
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - DOMAIN PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - Manage Policies
-                                              - Audit Activity
-                                              - Manage Data Products
-                                              - Manage Identifiers
-                                              description: Domain permission
-                                            domainId:
-                                              type: string
-                                              description: Domain ID
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - ATTRIBUTE
-                                            key:
-                                              type: string
-                                              description: Attribute key
-                                            value:
-                                              type: string
-                                              description: Attribute value
-                                          required:
-                                          - type
-                                          - key
-                                          - value
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - CATALOG PERMISSION
-                                          required:
-                                          - type
-                                      minItems: 1
-                                  required:
-                                  - any
-                              description: Array of stages for manual review
-                          required:
-                          - stages
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - dataProductPolicy
-                      required:
-                      - type
-                required:
-                - conditions
-                - event
-            defaultEvent:
-              discriminator:
-                propertyName: type
-              oneOf:
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - approve
-                  params:
-                    type: object
-                    properties:
-                      comment:
-                        type: string
-                      duration:
-                        type: number
-                        minimum: 1
-                      durationUnit:
-                        type: string
-                        enum:
-                        - HOURS
-                        - DAYS
-                        - WEEKS
-                        - MONTHS
-                        - YEARS
-                    additionalProperties: false
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - deny
-                  params:
-                    type: object
-                    properties:
-                      comment:
-                        type: string
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - review
-                  params:
-                    type: object
-                    properties:
-                      stages:
-                        type: array
-                        items:
-                          oneOf:
-                          - type: object
-                            properties:
-                              all:
-                                type: array
-                                items:
-                                  oneOf:
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - USER
-                                        description: Entity type
-                                      id:
-                                        type: string
-                                        description: Entity ID
-                                      displayName:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - id
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - GROUP
-                                        description: Entity type
-                                      id:
-                                        type: number
-                                        description: Entity ID
-                                      iamId:
-                                        type: string
-                                        description: IAM ID
-                                      name:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - name
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - GOVERNANCE
-                                        - USER_ADMIN
-                                        - AUDIT
-                                        description: Global permission
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - DOMAIN PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - Manage Policies
-                                        - Audit Activity
-                                        - Manage Data Products
-                                        - Manage Identifiers
-                                        description: Domain permission
-                                      domainId:
-                                        type: string
-                                        description: Domain ID
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - ATTRIBUTE
-                                      key:
-                                        type: string
-                                        description: Attribute key
-                                      value:
-                                        type: string
-                                        description: Attribute value
-                                    required:
-                                    - type
-                                    - key
-                                    - value
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - CATALOG PERMISSION
-                                    required:
-                                    - type
-                                minItems: 1
-                            required:
-                            - all
-                          - type: object
-                            properties:
-                              any:
-                                type: array
-                                items:
-                                  oneOf:
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - USER
-                                        description: Entity type
-                                      id:
-                                        type: string
-                                        description: Entity ID
-                                      displayName:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - id
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - GROUP
-                                        description: Entity type
-                                      id:
-                                        type: number
-                                        description: Entity ID
-                                      iamId:
-                                        type: string
-                                        description: IAM ID
-                                      name:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - name
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - GOVERNANCE
-                                        - USER_ADMIN
-                                        - AUDIT
-                                        description: Global permission
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - DOMAIN PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - Manage Policies
-                                        - Audit Activity
-                                        - Manage Data Products
-                                        - Manage Identifiers
-                                        description: Domain permission
-                                      domainId:
-                                        type: string
-                                        description: Domain ID
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - ATTRIBUTE
-                                      key:
-                                        type: string
-                                        description: Attribute key
-                                      value:
-                                        type: string
-                                        description: Attribute value
-                                    required:
-                                    - type
-                                    - key
-                                    - value
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - CATALOG PERMISSION
-                                    required:
-                                    - type
-                                minItems: 1
-                            required:
-                            - any
-                        description: Array of stages for manual review
-                    required:
-                    - stages
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - dataProductPolicy
-                required:
-                - type
-          required:
-          - rules
-          - defaultEvent
-        id:
-          type: string
-          format: uuid
-        dataUseAgreementIds:
-          type: array
-          items:
-            type: string
-            format: uuid
+        - requestTypes
+      description: The data products linked to the request form
     AssetRequestForms:
       type: object
       properties:
@@ -4388,797 +4288,6 @@ components:
           - requestType
       required:
       - dataAccessForm
-    RequestForm:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        name:
-          type: string
-        fields:
-          type: array
-          items:
-            discriminator:
-              propertyName: type
-            oneOf:
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - DROPDOWN
-                  - CHECKBOXES
-                label:
-                  type: string
-                required:
-                  default: true
-                  type: boolean
-                options:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      value:
-                        type: string
-                    required:
-                    - value
-              required:
-              - id
-              - type
-              - label
-              - options
-              title: Selection Form Field
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - SHORT_ANSWER
-                label:
-                  type: string
-                required:
-                  default: true
-                  type: boolean
-              required:
-              - id
-              - type
-              - label
-              title: Short Answer Form Field
-            - type: object
-              properties:
-                id:
-                  type: string
-                  format: uuid
-                type:
-                  type: string
-                  enum:
-                  - ACCESS_DURATION
-                label:
-                  type: string
-                  enum:
-                  - How long do you need access to this data?
-                required:
-                  type: boolean
-                  enum:
-                  - true
-              required:
-              - id
-              - type
-              - label
-              - required
-              title: Access Duration Form Field
-          title: RequestFormFields
-        policy:
-          type: object
-          properties:
-            version:
-              type: string
-              description: Policy schema version
-            rules:
-              type: array
-              items:
-                type: object
-                properties:
-                  conditions:
-                    oneOf:
-                    - type: object
-                      properties:
-                        all:
-                          type: array
-                          items: {}
-                      required:
-                      - all
-                      additionalProperties: false
-                    - type: object
-                      properties:
-                        any:
-                          type: array
-                          items: {}
-                      required:
-                      - any
-                      additionalProperties: false
-                    - type: object
-                      properties:
-                        not: {}
-                      required:
-                      - not
-                      additionalProperties: false
-                  event:
-                    discriminator:
-                      propertyName: type
-                    oneOf:
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - approve
-                        params:
-                          type: object
-                          properties:
-                            comment:
-                              type: string
-                            duration:
-                              type: number
-                              minimum: 1
-                            durationUnit:
-                              type: string
-                              enum:
-                              - HOURS
-                              - DAYS
-                              - WEEKS
-                              - MONTHS
-                              - YEARS
-                          additionalProperties: false
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - deny
-                        params:
-                          type: object
-                          properties:
-                            comment:
-                              type: string
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - review
-                        params:
-                          type: object
-                          properties:
-                            stages:
-                              type: array
-                              items:
-                                oneOf:
-                                - type: object
-                                  properties:
-                                    all:
-                                      type: array
-                                      items:
-                                        oneOf:
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - USER
-                                              description: Entity type
-                                            id:
-                                              type: string
-                                              description: Entity ID
-                                            displayName:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - id
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - GROUP
-                                              description: Entity type
-                                            id:
-                                              type: number
-                                              description: Entity ID
-                                            iamId:
-                                              type: string
-                                              description: IAM ID
-                                            name:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - name
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - GOVERNANCE
-                                              - USER_ADMIN
-                                              - AUDIT
-                                              description: Global permission
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - DOMAIN PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - Manage Policies
-                                              - Audit Activity
-                                              - Manage Data Products
-                                              - Manage Identifiers
-                                              description: Domain permission
-                                            domainId:
-                                              type: string
-                                              description: Domain ID
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - ATTRIBUTE
-                                            key:
-                                              type: string
-                                              description: Attribute key
-                                            value:
-                                              type: string
-                                              description: Attribute value
-                                          required:
-                                          - type
-                                          - key
-                                          - value
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - CATALOG PERMISSION
-                                          required:
-                                          - type
-                                      minItems: 1
-                                  required:
-                                  - all
-                                - type: object
-                                  properties:
-                                    any:
-                                      type: array
-                                      items:
-                                        oneOf:
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - USER
-                                              description: Entity type
-                                            id:
-                                              type: string
-                                              description: Entity ID
-                                            displayName:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - id
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - GROUP
-                                              description: Entity type
-                                            id:
-                                              type: number
-                                              description: Entity ID
-                                            iamId:
-                                              type: string
-                                              description: IAM ID
-                                            name:
-                                              type: string
-                                              description: Entity display name
-                                          required:
-                                          - type
-                                          - name
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - GOVERNANCE
-                                              - USER_ADMIN
-                                              - AUDIT
-                                              description: Global permission
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - DOMAIN PERMISSION
-                                            permission:
-                                              type: string
-                                              enum:
-                                              - Manage Policies
-                                              - Audit Activity
-                                              - Manage Data Products
-                                              - Manage Identifiers
-                                              description: Domain permission
-                                            domainId:
-                                              type: string
-                                              description: Domain ID
-                                          required:
-                                          - type
-                                          - permission
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - ATTRIBUTE
-                                            key:
-                                              type: string
-                                              description: Attribute key
-                                            value:
-                                              type: string
-                                              description: Attribute value
-                                          required:
-                                          - type
-                                          - key
-                                          - value
-                                        - type: object
-                                          properties:
-                                            type:
-                                              type: string
-                                              enum:
-                                              - CATALOG PERMISSION
-                                          required:
-                                          - type
-                                      minItems: 1
-                                  required:
-                                  - any
-                              description: Array of stages for manual review
-                          required:
-                          - stages
-                      required:
-                      - type
-                      - params
-                    - type: object
-                      properties:
-                        type:
-                          type: string
-                          enum:
-                          - dataProductPolicy
-                      required:
-                      - type
-                required:
-                - conditions
-                - event
-            defaultEvent:
-              discriminator:
-                propertyName: type
-              oneOf:
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - approve
-                  params:
-                    type: object
-                    properties:
-                      comment:
-                        type: string
-                      duration:
-                        type: number
-                        minimum: 1
-                      durationUnit:
-                        type: string
-                        enum:
-                        - HOURS
-                        - DAYS
-                        - WEEKS
-                        - MONTHS
-                        - YEARS
-                    additionalProperties: false
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - deny
-                  params:
-                    type: object
-                    properties:
-                      comment:
-                        type: string
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - review
-                  params:
-                    type: object
-                    properties:
-                      stages:
-                        type: array
-                        items:
-                          oneOf:
-                          - type: object
-                            properties:
-                              all:
-                                type: array
-                                items:
-                                  oneOf:
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - USER
-                                        description: Entity type
-                                      id:
-                                        type: string
-                                        description: Entity ID
-                                      displayName:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - id
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - GROUP
-                                        description: Entity type
-                                      id:
-                                        type: number
-                                        description: Entity ID
-                                      iamId:
-                                        type: string
-                                        description: IAM ID
-                                      name:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - name
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - GOVERNANCE
-                                        - USER_ADMIN
-                                        - AUDIT
-                                        description: Global permission
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - DOMAIN PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - Manage Policies
-                                        - Audit Activity
-                                        - Manage Data Products
-                                        - Manage Identifiers
-                                        description: Domain permission
-                                      domainId:
-                                        type: string
-                                        description: Domain ID
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - ATTRIBUTE
-                                      key:
-                                        type: string
-                                        description: Attribute key
-                                      value:
-                                        type: string
-                                        description: Attribute value
-                                    required:
-                                    - type
-                                    - key
-                                    - value
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - CATALOG PERMISSION
-                                    required:
-                                    - type
-                                minItems: 1
-                            required:
-                            - all
-                          - type: object
-                            properties:
-                              any:
-                                type: array
-                                items:
-                                  oneOf:
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - USER
-                                        description: Entity type
-                                      id:
-                                        type: string
-                                        description: Entity ID
-                                      displayName:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - id
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - GROUP
-                                        description: Entity type
-                                      id:
-                                        type: number
-                                        description: Entity ID
-                                      iamId:
-                                        type: string
-                                        description: IAM ID
-                                      name:
-                                        type: string
-                                        description: Entity display name
-                                    required:
-                                    - type
-                                    - name
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - GOVERNANCE
-                                        - USER_ADMIN
-                                        - AUDIT
-                                        description: Global permission
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - DOMAIN PERMISSION
-                                      permission:
-                                        type: string
-                                        enum:
-                                        - Manage Policies
-                                        - Audit Activity
-                                        - Manage Data Products
-                                        - Manage Identifiers
-                                        description: Domain permission
-                                      domainId:
-                                        type: string
-                                        description: Domain ID
-                                    required:
-                                    - type
-                                    - permission
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - ATTRIBUTE
-                                      key:
-                                        type: string
-                                        description: Attribute key
-                                      value:
-                                        type: string
-                                        description: Attribute value
-                                    required:
-                                    - type
-                                    - key
-                                    - value
-                                  - type: object
-                                    properties:
-                                      type:
-                                        type: string
-                                        enum:
-                                        - CATALOG PERMISSION
-                                    required:
-                                    - type
-                                minItems: 1
-                            required:
-                            - any
-                        description: Array of stages for manual review
-                    required:
-                    - stages
-                required:
-                - type
-                - params
-              - type: object
-                properties:
-                  type:
-                    type: string
-                    enum:
-                    - dataProductPolicy
-                required:
-                - type
-          required:
-          - rules
-          - defaultEvent
-        dataUseAgreements:
-          default: []
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-                format: uuid
-              name:
-                type: string
-                description: The name of data use agreement
-              body:
-                type: string
-                description: The contents of data use agreement
-            required:
-            - id
-            - name
-            - body
-          title: Request Form Data Use Agreements
-        createdBy:
-          type: object
-          properties:
-            globalUserId:
-              type: string
-              format: uuid
-              description: Immuta global user ID
-            name:
-              type: string
-              description: Display name
-          required:
-          - globalUserId
-          - name
-          description: The user who originally created the request form
-        createdAt:
-          oneOf:
-          - type: string
-            format: date-time
-          - type: string
-            format: date-time
-        updatedBy:
-          type: object
-          properties:
-            globalUserId:
-              type: string
-              format: uuid
-              description: Immuta global user ID
-            name:
-              type: string
-              description: Display name
-          required:
-          - globalUserId
-          - name
-          description: The user who last updated the request form
-        updatedAt:
-          oneOf:
-          - type: string
-            format: date-time
-          - type: string
-            format: date-time
-        version:
-          type: string
-          format: cuid
-          description: The current version of the request form
-      required:
-      - id
-      - name
-      - fields
-      - policy
-      - createdBy
-      - createdAt
-      - updatedBy
-      - updatedAt
-      - version
-      title: Request Form
-    LinkedDataProducts:
-      type: array
-      items:
-        type: object
-        properties:
-          id:
-            oneOf:
-            - type: string
-              format: cuid
-            - type: string
-              format: uuid
-          name:
-            type: string
-            minLength: 1
-            maxLength: 255
-            pattern: ^[\p{L}\p{M}\p{N})(\-_/\\\s]*$
-            description: Data product name
-          requestTypes:
-            type: array
-            items:
-              type: string
-              enum:
-              - DATA_ACCESS
-              - MASKING_EXCEPTION
-            description: Request types linking this data product to the request form
-        required:
-        - id
-        - name
-        - requestTypes
-      description: The data products linked to the request form
     PaginatedRequestForm:
       type: object
       properties:
@@ -5979,6 +5088,897 @@ components:
       required:
       - data
       - meta
+    DataProductRequestForm:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        fields:
+          type: array
+          items:
+            discriminator:
+              propertyName: type
+            oneOf:
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - DROPDOWN
+                  - CHECKBOXES
+                label:
+                  type: string
+                required:
+                  default: true
+                  type: boolean
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      value:
+                        type: string
+                    required:
+                    - value
+              required:
+              - id
+              - type
+              - label
+              - options
+              title: Selection Form Field
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - SHORT_ANSWER
+                label:
+                  type: string
+                required:
+                  default: true
+                  type: boolean
+              required:
+              - id
+              - type
+              - label
+              title: Short Answer Form Field
+            - type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                type:
+                  type: string
+                  enum:
+                  - ACCESS_DURATION
+                label:
+                  type: string
+                  enum:
+                  - How long do you need access to this data?
+                required:
+                  type: boolean
+                  enum:
+                  - true
+              required:
+              - id
+              - type
+              - label
+              - required
+              title: Access Duration Form Field
+          title: RequestFormFields
+        policy:
+          type: object
+          properties:
+            version:
+              type: string
+              description: Policy schema version
+            rules:
+              type: array
+              items:
+                type: object
+                properties:
+                  conditions:
+                    oneOf:
+                    - type: object
+                      properties:
+                        all:
+                          type: array
+                          items: {}
+                      required:
+                      - all
+                      additionalProperties: false
+                    - type: object
+                      properties:
+                        any:
+                          type: array
+                          items: {}
+                      required:
+                      - any
+                      additionalProperties: false
+                    - type: object
+                      properties:
+                        not: {}
+                      required:
+                      - not
+                      additionalProperties: false
+                  event:
+                    discriminator:
+                      propertyName: type
+                    oneOf:
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - approve
+                        params:
+                          type: object
+                          properties:
+                            comment:
+                              type: string
+                            duration:
+                              type: number
+                              minimum: 1
+                            durationUnit:
+                              type: string
+                              enum:
+                              - HOURS
+                              - DAYS
+                              - WEEKS
+                              - MONTHS
+                              - YEARS
+                          additionalProperties: false
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - deny
+                        params:
+                          type: object
+                          properties:
+                            comment:
+                              type: string
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - review
+                        params:
+                          type: object
+                          properties:
+                            stages:
+                              type: array
+                              items:
+                                oneOf:
+                                - type: object
+                                  properties:
+                                    all:
+                                      type: array
+                                      items:
+                                        oneOf:
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - USER
+                                              description: Entity type
+                                            id:
+                                              type: string
+                                              description: Entity ID
+                                            displayName:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - id
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - GROUP
+                                              description: Entity type
+                                            id:
+                                              type: number
+                                              description: Entity ID
+                                            iamId:
+                                              type: string
+                                              description: IAM ID
+                                            name:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - name
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - GOVERNANCE
+                                              - USER_ADMIN
+                                              - AUDIT
+                                              description: Global permission
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - DOMAIN PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - Manage Policies
+                                              - Audit Activity
+                                              - Manage Data Products
+                                              - Manage Identifiers
+                                              description: Domain permission
+                                            domainId:
+                                              type: string
+                                              description: Domain ID
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - ATTRIBUTE
+                                            key:
+                                              type: string
+                                              description: Attribute key
+                                            value:
+                                              type: string
+                                              description: Attribute value
+                                          required:
+                                          - type
+                                          - key
+                                          - value
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - CATALOG PERMISSION
+                                          required:
+                                          - type
+                                      minItems: 1
+                                  required:
+                                  - all
+                                - type: object
+                                  properties:
+                                    any:
+                                      type: array
+                                      items:
+                                        oneOf:
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - USER
+                                              description: Entity type
+                                            id:
+                                              type: string
+                                              description: Entity ID
+                                            displayName:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - id
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - GROUP
+                                              description: Entity type
+                                            id:
+                                              type: number
+                                              description: Entity ID
+                                            iamId:
+                                              type: string
+                                              description: IAM ID
+                                            name:
+                                              type: string
+                                              description: Entity display name
+                                          required:
+                                          - type
+                                          - name
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - GOVERNANCE
+                                              - USER_ADMIN
+                                              - AUDIT
+                                              description: Global permission
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - DOMAIN PERMISSION
+                                            permission:
+                                              type: string
+                                              enum:
+                                              - Manage Policies
+                                              - Audit Activity
+                                              - Manage Data Products
+                                              - Manage Identifiers
+                                              description: Domain permission
+                                            domainId:
+                                              type: string
+                                              description: Domain ID
+                                          required:
+                                          - type
+                                          - permission
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - ATTRIBUTE
+                                            key:
+                                              type: string
+                                              description: Attribute key
+                                            value:
+                                              type: string
+                                              description: Attribute value
+                                          required:
+                                          - type
+                                          - key
+                                          - value
+                                        - type: object
+                                          properties:
+                                            type:
+                                              type: string
+                                              enum:
+                                              - CATALOG PERMISSION
+                                          required:
+                                          - type
+                                      minItems: 1
+                                  required:
+                                  - any
+                              description: Array of stages for manual review
+                          required:
+                          - stages
+                      required:
+                      - type
+                      - params
+                    - type: object
+                      properties:
+                        type:
+                          type: string
+                          enum:
+                          - dataProductPolicy
+                      required:
+                      - type
+                required:
+                - conditions
+                - event
+            defaultEvent:
+              discriminator:
+                propertyName: type
+              oneOf:
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - approve
+                  params:
+                    type: object
+                    properties:
+                      comment:
+                        type: string
+                      duration:
+                        type: number
+                        minimum: 1
+                      durationUnit:
+                        type: string
+                        enum:
+                        - HOURS
+                        - DAYS
+                        - WEEKS
+                        - MONTHS
+                        - YEARS
+                    additionalProperties: false
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - deny
+                  params:
+                    type: object
+                    properties:
+                      comment:
+                        type: string
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - review
+                  params:
+                    type: object
+                    properties:
+                      stages:
+                        type: array
+                        items:
+                          oneOf:
+                          - type: object
+                            properties:
+                              all:
+                                type: array
+                                items:
+                                  oneOf:
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - USER
+                                        description: Entity type
+                                      id:
+                                        type: string
+                                        description: Entity ID
+                                      displayName:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - id
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - GROUP
+                                        description: Entity type
+                                      id:
+                                        type: number
+                                        description: Entity ID
+                                      iamId:
+                                        type: string
+                                        description: IAM ID
+                                      name:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - name
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - GOVERNANCE
+                                        - USER_ADMIN
+                                        - AUDIT
+                                        description: Global permission
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - DOMAIN PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - Manage Policies
+                                        - Audit Activity
+                                        - Manage Data Products
+                                        - Manage Identifiers
+                                        description: Domain permission
+                                      domainId:
+                                        type: string
+                                        description: Domain ID
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - ATTRIBUTE
+                                      key:
+                                        type: string
+                                        description: Attribute key
+                                      value:
+                                        type: string
+                                        description: Attribute value
+                                    required:
+                                    - type
+                                    - key
+                                    - value
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - CATALOG PERMISSION
+                                    required:
+                                    - type
+                                minItems: 1
+                            required:
+                            - all
+                          - type: object
+                            properties:
+                              any:
+                                type: array
+                                items:
+                                  oneOf:
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - USER
+                                        description: Entity type
+                                      id:
+                                        type: string
+                                        description: Entity ID
+                                      displayName:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - id
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - GROUP
+                                        description: Entity type
+                                      id:
+                                        type: number
+                                        description: Entity ID
+                                      iamId:
+                                        type: string
+                                        description: IAM ID
+                                      name:
+                                        type: string
+                                        description: Entity display name
+                                    required:
+                                    - type
+                                    - name
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - GOVERNANCE
+                                        - USER_ADMIN
+                                        - AUDIT
+                                        description: Global permission
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - DOMAIN PERMISSION
+                                      permission:
+                                        type: string
+                                        enum:
+                                        - Manage Policies
+                                        - Audit Activity
+                                        - Manage Data Products
+                                        - Manage Identifiers
+                                        description: Domain permission
+                                      domainId:
+                                        type: string
+                                        description: Domain ID
+                                    required:
+                                    - type
+                                    - permission
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - ATTRIBUTE
+                                      key:
+                                        type: string
+                                        description: Attribute key
+                                      value:
+                                        type: string
+                                        description: Attribute value
+                                    required:
+                                    - type
+                                    - key
+                                    - value
+                                  - type: object
+                                    properties:
+                                      type:
+                                        type: string
+                                        enum:
+                                        - CATALOG PERMISSION
+                                    required:
+                                    - type
+                                minItems: 1
+                            required:
+                            - any
+                        description: Array of stages for manual review
+                    required:
+                    - stages
+                required:
+                - type
+                - params
+              - type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - dataProductPolicy
+                required:
+                - type
+          required:
+          - rules
+          - defaultEvent
+        dataUseAgreements:
+          default: []
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+                format: uuid
+              name:
+                type: string
+                description: The name of data use agreement
+              body:
+                type: string
+                description: The contents of data use agreement
+            required:
+            - id
+            - name
+            - body
+          title: Request Form Data Use Agreements
+        createdBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who originally created the request form
+        createdAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+        updatedBy:
+          type: object
+          properties:
+            globalUserId:
+              type: string
+              format: uuid
+              description: Immuta global user ID
+            name:
+              type: string
+              description: Display name
+          required:
+          - globalUserId
+          - name
+          description: The user who last updated the request form
+        updatedAt:
+          oneOf:
+          - type: string
+            format: date-time
+          - type: string
+            format: date-time
+        version:
+          type: string
+          format: cuid
+          description: The current version of the request form
+        inheritedFrom:
+          type: object
+          properties:
+            id:
+              oneOf:
+              - type: string
+                format: cuid
+              - type: string
+                format: uuid
+            name:
+              type: string
+              minLength: 1
+              description: Asset name
+            type:
+              type: string
+              enum:
+              - DATA_OBJECT
+            createdAt:
+              oneOf:
+              - type: string
+                format: date-time
+              - type: string
+                format: date-time
+            updatedAt:
+              oneOf:
+              - type: string
+                format: date-time
+              - type: string
+                format: date-time
+            dagTagId:
+              oneOf:
+              - type: number
+            requestId:
+              type: string
+              format: cuid
+              description: If requested, the ID of the access request for the asset
+            status:
+              type: string
+              enum:
+              - APPROVED
+              - CANCELED
+              - DENIED
+              - PENDING
+              - NONE
+              - PUBLISHER
+              - REVOKED
+              - EXPIRED
+              example: PENDING
+            metadata:
+              type: object
+              properties:
+                subjectMatterExperts:
+                  default: []
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        format: uuid
+                        description: Immuta global user ID of the subject matter expert
+                      username:
+                        type: string
+                      name:
+                        type: string
+                    required:
+                    - id
+                objectPath:
+                  type: array
+                  items:
+                    type: string
+                technology:
+                  type: string
+                  enum:
+                  - Snowflake
+                  - PostgreSQL
+                  - Databricks
+                  - Glue
+                  - MySQL
+                  - Teradata
+                  - MariaDB
+                  - Oracle
+                  - SQLServer
+                  - Trino
+                  - Redshift
+                  - BigQuery
+                host:
+                  type: string
+                port:
+                  type: integer
+                  minimum: 1
+                  maximum: 65535
+                legacyType:
+                  type: string
+                dataSourceId:
+                  type: number
+                description:
+                  oneOf:
+                  - type: string
+                externalLink:
+                  oneOf:
+                  - type: string
+              required:
+              - objectPath
+              description: Data object asset metadata
+            registered:
+              default: true
+              type: boolean
+              description: Whether the asset has been registered
+            stats:
+              type: object
+              properties:
+                dataSourceCount:
+                  type: integer
+                  description: Count of data sources in the data object
+              required:
+              - dataSourceCount
+              description: Data object asset statistics
+              title: Data Object Asset Stats
+          required:
+          - id
+          - name
+          - type
+          - metadata
+          title: Data Object Asset
+        requestType:
+          type: string
+          enum:
+          - DATA_ACCESS
+          - MASKING_EXCEPTION
+      required:
+      - id
+      - name
+      - fields
+      - policy
+      - createdBy
+      - createdAt
+      - updatedBy
+      - updatedAt
+      - version
+      - requestType
   securitySchemes:
     bearer:
       scheme: bearer

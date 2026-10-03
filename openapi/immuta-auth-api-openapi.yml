@@ -114,44 +114,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreatePersonalAccessToken:
-      type: object
-      properties:
-        description:
-          type: string
-        expirationDate:
-          type: string
-          format: date-time
-      required:
-      - description
-    PersonalAccessToken:
-      type: object
-      properties:
-        tokenId:
-          type: string
-          format: uuid
-        userId:
-          type: string
-          format: uuid
-        tenantId:
-          type: string
-          format: uuid
-        description:
-          type: string
-        active:
-          type: boolean
-        creationDate:
-          type: string
-          format: date-time
-        expirationDate:
-          type: string
-          format: date-time
-      required:
-      - tokenId
-      - userId
-      - tenantId
-      - description
-      - active
     CreatePersonalAccessTokenResponse:
       type: object
       properties:
@@ -163,6 +125,16 @@ components:
       required:
       - tokenId
       - token
+    CreatePersonalAccessToken:
+      type: object
+      properties:
+        description:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+      required:
+      - description
     UserWithPermissionsAndEntitlements:
       type: object
       properties:
@@ -258,6 +230,34 @@ components:
       - authorizations
       - groups
       title: User With Permissions
+    PersonalAccessToken:
+      type: object
+      properties:
+        tokenId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        tenantId:
+          type: string
+          format: uuid
+        description:
+          type: string
+        active:
+          type: boolean
+        creationDate:
+          type: string
+          format: date-time
+        expirationDate:
+          type: string
+          format: date-time
+      required:
+      - tokenId
+      - userId
+      - tenantId
+      - description
+      - active
   securitySchemes:
     bearer:
       scheme: bearer
