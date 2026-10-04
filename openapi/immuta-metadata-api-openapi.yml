@@ -267,6 +267,87 @@ paths:
       - Metadata
 components:
   schemas:
+    ImmutaDomainSchemaResponse:
+      type: object
+      properties:
+        domains:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+                description: Domain name
+                example: North American Sales
+              description:
+                type: string
+                description: Domain description
+                example: A collection of data sources relevant to North American sales
+            required:
+            - id
+            - name
+            - description
+      required:
+      - domains
+    ImmutaAttributeList:
+      type: object
+      properties:
+        attributes:
+          type: array
+          items:
+            type: object
+            properties:
+              type:
+                type: string
+              value:
+                type: string
+            required:
+            - type
+            - value
+            title: Immuta Attribute
+      required:
+      - attributes
+    ImmutaTagSearchResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          addedBy:
+            type: number
+          color:
+            type: string
+          context:
+            type: string
+          createdAt:
+            type: string
+          createdBy:
+            type: number
+          dataProductName:
+            type: string
+          deleted:
+            type: boolean
+          description:
+            type: string
+          displayName:
+            type: string
+          hasLeafNodes:
+            type: boolean
+          id:
+            type: number
+          name:
+            type: string
+          protected:
+            type: boolean
+          source:
+            type: string
+          systemCreated:
+            type: boolean
+          updatedAt:
+            type: string
+        required:
+        - name
     AppliedTagSearchResponse:
       type: object
       properties:
@@ -327,81 +408,6 @@ components:
       required:
       - data
       - total
-    ImmutaDomainSchemaResponse:
-      type: object
-      properties:
-        domains:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: string
-              name:
-                type: string
-                description: Domain name
-                example: North American Sales
-              description:
-                type: string
-                description: Domain description
-                example: A collection of data sources relevant to North American sales
-            required:
-            - id
-            - name
-            - description
-      required:
-      - domains
-    ImmutaGroupList:
-      type: object
-      properties:
-        groups:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-                description: Immuta group ID
-              iamId:
-                type:
-                - string
-                - 'null'
-                description: ID of the IAM the group is associated with
-              name:
-                type: string
-                description: Group name
-              email:
-                type:
-                - string
-                - 'null'
-                format: email
-                description: Email address
-            required:
-            - id
-            - iamId
-            - name
-            - email
-            title: Immuta Group
-      required:
-      - groups
-    ImmutaAttributeList:
-      type: object
-      properties:
-        attributes:
-          type: array
-          items:
-            type: object
-            properties:
-              type:
-                type: string
-              value:
-                type: string
-            required:
-            - type
-            - value
-            title: Immuta Attribute
-      required:
-      - attributes
     AppliedTagSearchRequest:
       type: object
       properties:
@@ -455,6 +461,49 @@ components:
           type: integer
           minimum: 1
           description: The maximum number of search results that will be returned
+    ImmutaUserList:
+      type: object
+      properties:
+        users:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+              iamId:
+                type: string
+                description: ID of the IAM the user is associated with
+              globalUserId:
+                type: string
+                format: uuid
+                description: Immuta global user ID
+              username:
+                type: string
+                description: Username/login name for the user
+              name:
+                type: string
+                description: Display name
+              email:
+                type:
+                - string
+                - 'null'
+                description: Email address
+              authorizations:
+                type: object
+                additionalProperties:
+                  type: array
+                  items:
+                    type: string
+            required:
+            - id
+            - iamId
+            - globalUserId
+            - username
+            - name
+            title: Immuta User
+      required:
+      - users
     ImmutaDomain:
       type: object
       properties:
@@ -472,45 +521,39 @@ components:
       - id
       - name
       - description
-    ImmutaTagSearchResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          addedBy:
-            type: number
-          color:
-            type: string
-          context:
-            type: string
-          createdAt:
-            type: string
-          createdBy:
-            type: number
-          dataProductName:
-            type: string
-          deleted:
-            type: boolean
-          description:
-            type: string
-          displayName:
-            type: string
-          hasLeafNodes:
-            type: boolean
-          id:
-            type: number
-          name:
-            type: string
-          protected:
-            type: boolean
-          source:
-            type: string
-          systemCreated:
-            type: boolean
-          updatedAt:
-            type: string
-        required:
-        - name
+    ImmutaGroupList:
+      type: object
+      properties:
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: number
+                description: Immuta group ID
+              iamId:
+                type:
+                - string
+                - 'null'
+                description: ID of the IAM the group is associated with
+              name:
+                type: string
+                description: Group name
+              email:
+                type:
+                - string
+                - 'null'
+                format: email
+                description: Email address
+            required:
+            - id
+            - iamId
+            - name
+            - email
+            title: Immuta Group
+      required:
+      - groups
     PaginatedImmutaDataSource:
       type: object
       properties:
@@ -589,49 +632,6 @@ components:
       required:
       - data
       - meta
-    ImmutaUserList:
-      type: object
-      properties:
-        users:
-          type: array
-          items:
-            type: object
-            properties:
-              id:
-                type: number
-              iamId:
-                type: string
-                description: ID of the IAM the user is associated with
-              globalUserId:
-                type: string
-                format: uuid
-                description: Immuta global user ID
-              username:
-                type: string
-                description: Username/login name for the user
-              name:
-                type: string
-                description: Display name
-              email:
-                type:
-                - string
-                - 'null'
-                description: Email address
-              authorizations:
-                type: object
-                additionalProperties:
-                  type: array
-                  items:
-                    type: string
-            required:
-            - id
-            - iamId
-            - globalUserId
-            - username
-            - name
-            title: Immuta User
-      required:
-      - users
   securitySchemes:
     bearer:
       scheme: bearer

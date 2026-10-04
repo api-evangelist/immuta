@@ -434,6 +434,39 @@ paths:
       - Notification
 components:
   schemas:
+    GetUserPreferencesResponse:
+      type: array
+      items:
+        type: object
+        properties:
+          provider:
+            type: string
+          enabled:
+            type: boolean
+          typePreferences:
+            type: array
+            items:
+              type: object
+              properties:
+                notificationType:
+                  type: string
+                enabled:
+                  type: boolean
+              required:
+              - notificationType
+              - enabled
+          metadata:
+            type: object
+            properties:
+              authVerified:
+                type: boolean
+              teamsStoreUrl:
+                type: string
+                format: uri
+        required:
+        - provider
+        - enabled
+        - typePreferences
     PaginatedInboxMessages:
       type: object
       properties:
@@ -502,9 +535,48 @@ components:
       required:
       - data
       - meta
-    UpdateUserProviderConfigsRequest:
+    InboxMessage:
       type: object
       properties:
+        id:
+          type: string
+          format: uuid
+        notificationId:
+          type: string
+          format: uuid
+        notificationType:
+          type: string
+        message:
+          type: string
+        subject:
+          type: string
+        createdAt:
+          type: string
+          format: iso_format
+          example: '2025-01-09T12:34:56.000Z'
+        readAt:
+          type: string
+          format: iso_format
+          example: '2025-01-09T12:34:56.000Z'
+        data:
+          type: object
+          properties:
+            actionLink:
+              type: string
+              format: uri
+      required:
+      - id
+      - notificationId
+      - notificationType
+      - message
+      - subject
+      - createdAt
+    UpdateUserProviderConfigsResponse:
+      type: object
+      properties:
+        recipientId:
+          type: string
+          format: uuid
         configs:
           type: array
           items:
@@ -518,39 +590,8 @@ components:
             - provider
             - enabled
       required:
+      - recipientId
       - configs
-    WebhookTestResult:
-      type: object
-      properties:
-        status:
-          type: string
-          enum:
-          - UNSPECIFIED
-          - SUCCESS
-          - FAILED
-          - 0
-          - 1
-          - 2
-        httpStatusCode:
-          type: number
-        errorMessage:
-          type: string
-      required:
-      - status
-      - httpStatusCode
-    CreateWebhook:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-        verifyTls:
-          default: true
-          type: boolean
-        signingKey:
-          type: string
-      required:
-      - url
     TestSlackConnectionResponse:
       type: object
       properties:
@@ -560,50 +601,33 @@ components:
           type: string
       required:
       - isValid
-    UpdateWebhook:
+    UpdateUserPreferencesRequest:
       type: object
       properties:
-        url:
-          type: string
-          format: uri
-        verifyTls:
-          default: true
-          type: boolean
-        signingKey:
-          type: string
-    GetUserPreferencesResponse:
-      type: array
-      items:
-        type: object
-        properties:
-          provider:
-            type: string
-          enabled:
-            type: boolean
-          typePreferences:
-            type: array
-            items:
-              type: object
-              properties:
-                notificationType:
-                  type: string
-                enabled:
-                  type: boolean
-              required:
-              - notificationType
-              - enabled
-          metadata:
+        preferences:
+          type: array
+          items:
             type: object
             properties:
-              authVerified:
-                type: boolean
-              teamsStoreUrl:
+              provider:
                 type: string
-                format: uri
-        required:
-        - provider
-        - enabled
-        - typePreferences
+              typePreferences:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    notificationType:
+                      type: string
+                    enabled:
+                      type: boolean
+                  required:
+                  - notificationType
+                  - enabled
+            required:
+            - provider
+            - typePreferences
+      required:
+      - preferences
     Webhook:
       type: object
       properties:
@@ -666,39 +690,28 @@ components:
       required:
       - isConfigured
       - configuration
-    UpdateUserPreferencesRequest:
+    WebhookTestResult:
       type: object
       properties:
-        preferences:
-          type: array
-          items:
-            type: object
-            properties:
-              provider:
-                type: string
-              typePreferences:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    notificationType:
-                      type: string
-                    enabled:
-                      type: boolean
-                  required:
-                  - notificationType
-                  - enabled
-            required:
-            - provider
-            - typePreferences
-      required:
-      - preferences
-    UpdateUserProviderConfigsResponse:
-      type: object
-      properties:
-        recipientId:
+        status:
           type: string
-          format: uuid
+          enum:
+          - UNSPECIFIED
+          - SUCCESS
+          - FAILED
+          - 0
+          - 1
+          - 2
+        httpStatusCode:
+          type: number
+        errorMessage:
+          type: string
+      required:
+      - status
+      - httpStatusCode
+    UpdateUserProviderConfigsRequest:
+      type: object
+      properties:
         configs:
           type: array
           items:
@@ -712,7 +725,6 @@ components:
             - provider
             - enabled
       required:
-      - recipientId
       - configs
     UpdateUserPreferencesResponse:
       type: object
@@ -745,6 +757,30 @@ components:
       required:
       - recipientId
       - preferences
+    CreateWebhook:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          type: string
+      required:
+      - url
+    UpdateWebhook:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+        verifyTls:
+          default: true
+          type: boolean
+        signingKey:
+          type: string
     PaginatedWebhookHistory:
       type: object
       properties:
@@ -803,42 +839,6 @@ components:
       required:
       - data
       - meta
-    InboxMessage:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-        notificationId:
-          type: string
-          format: uuid
-        notificationType:
-          type: string
-        message:
-          type: string
-        subject:
-          type: string
-        createdAt:
-          type: string
-          format: iso_format
-          example: '2025-01-09T12:34:56.000Z'
-        readAt:
-          type: string
-          format: iso_format
-          example: '2025-01-09T12:34:56.000Z'
-        data:
-          type: object
-          properties:
-            actionLink:
-              type: string
-              format: uri
-      required:
-      - id
-      - notificationId
-      - notificationType
-      - message
-      - subject
-      - createdAt
   securitySchemes:
     bearer:
       scheme: bearer
