@@ -1,0 +1,12 @@
+{
+ "url": "https://openapi.gitbook.com/o/8hhKnYZrfOSd79qII2UJ/spec/immuta-marketplace-api.yaml",
+ "requested_url": "https://openapi.gitbook.com/o/8hhKnYZrfOSd79qII2UJ/spec/immuta-marketplace-api.yaml",
+ "status": 200,
+ "content_type": "application/yaml",
+ "bytes": 1578111,
+ "sha256": "ae421883f9ccce9f282d0b9f58e7dd1ad0e63cae26960b80b9e7e26bb1cb1432",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
