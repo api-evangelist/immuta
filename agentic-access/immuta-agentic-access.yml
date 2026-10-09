@@ -1,23 +1,27 @@
-generated: '2026-08-01'
+generated: '2026-09-23'
 method: generated
-source: openapi/immuta-marketplace-api-openapi.yml
+source: openapi/immuta-access-request-api-openapi.yml, openapi/immuta-asset-api-openapi.yml,
+  openapi/immuta-auth-api-openapi.yml, openapi/immuta-data-product-api-openapi.yml, openapi/immuta-data-source-api-openapi.yml,
+  openapi/immuta-data-use-agreement-api-openapi.yml, openapi/immuta-health-api-openapi.yml,
+  openapi/immuta-metadata-api-openapi.yml, openapi/immuta-notification-api-openapi.yml, openapi/immuta-request-form-api-openapi.yml,
+  openapi/immuta-settings-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 83
+  operations: 95
   by_action_class:
-    connected: 51
-    acting: 32
+    connected: 59
+    acting: 36
   by_consequence:
-    read: 51
-    write: 30
-    safety-critical: 2
-  human_in_the_loop_required: 2
+    read: 59
+    write: 32
+    safety-critical: 4
+  human_in_the_loop_required: 4
 operations:
-- path: /health
+- path: /api/data-product/{id}/request
   method: get
-  operationId: liveness[0]
+  operationId: searchDataProductAccessRequests
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -25,9 +29,25 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /health/live
+- path: /api/data-product/{id}/request
+  method: post
+  operationId: requestAccess
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/data-product/{id}/members
   method: get
-  operationId: liveness[1]
+  operationId: searchDataProductMembers
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -35,9 +55,41 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /health/ready
+- path: /api/data-product/{id}/request/masking-exception
+  method: post
+  operationId: requestMaskingException
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/data-product/{id}/request/{requestId}
+  method: delete
+  operationId: revokeAccess
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/data-product/{id}/recent-determinations
   method: get
-  operationId: readiness
+  operationId: recentDeterminations
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -45,6 +97,290 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /api/access-request
+  method: get
+  operationId: searchAccessRequests
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/access-request/approved-masking-exception-columns
+  method: get
+  operationId: getApprovedMaskingExceptionColumns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/access-request/{id}
+  method: get
+  operationId: getAccessRequestById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/access-request/{id}
+  method: delete
+  operationId: cancelAccessRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/access-request/{id}/records
+  method: get
+  operationId: getAccessRequestRecords
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/access-request/{id}/risk-assessment
+  method: get
+  operationId: getRiskAssessment
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/access-request/{id}/masking-exception-columns
+  method: get
+  operationId: searchAccessRequestMaskingExceptionColumns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/asset/{id}/request/{requestId}
+  method: delete
+  operationId: revokeAssetRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/approval-record/{id}
+  method: put
+  operationId: updateApprovalRecord
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/asset/byMetadata
+  method: get
+  operationId: getAssetByMetadata
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/asset/{id}
+  method: get
+  operationId: getAssetById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/asset/{id}
+  method: put
+  operationId: updateAsset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/asset/{id}
+  method: patch
+  operationId: patchAsset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/asset/{id}/request-forms
+  method: get
+  operationId: getAssetRequestForms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/asset/{id}/review-flows
+  method: get
+  operationId: getAssetReviewFlows
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/asset/{id}/request
+  method: post
+  operationId: requestAsset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/asset/{id}/request/{requestId}
+  method: delete
+  operationId: revokeAssetRequest
+  x-agentic-access:
+    action-class: acting
+    consequence: safety-critical
+    subject: required
+    audience: null
+    token:
+      max-ttl: 120
+      exchange: true
+      purpose-required: true
+      proof-of-possession: true
+    escalation:
+      human-in-the-loop: required
+    audit: required
+- path: /api/asset/{id}/recent-determinations
+  method: get
+  operationId: RecentAssetDeterminations
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/auth/user
+  method: get
+  operationId: user
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/auth/tokens/{id}
+  method: get
+  operationId: getToken
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/auth/tokens/{id}
+  method: delete
+  operationId: deleteToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/auth/tokens
+  method: get
+  operationId: listTokens
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/auth/tokens
+  method: post
+  operationId: createToken
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /api/data-product
   method: get
   operationId: searchDataProducts
@@ -257,39 +593,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/access-request
-  method: get
-  operationId: searchAccessRequests
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/access-request/approved-masking-exception-columns
-  method: get
-  operationId: getApprovedMaskingExceptionColumns
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/access-request/{id}
-  method: get
-  operationId: getAccessRequestById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/access-request/{id}
-  method: delete
-  operationId: cancelAccessRequest
+- path: /api/data-product/{id}/datasources
+  method: put
+  operationId: updateDataSources
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -303,9 +609,9 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /api/access-request/{id}/records
+- path: /api/data-product/{id}/datasources
   method: get
-  operationId: getAccessRequestRecords
+  operationId: searchDataSources
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -313,9 +619,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/access-request/{id}/risk-assessment
+- path: /api/data-product/{id}/datasources/all
   method: get
-  operationId: getRiskAssessment
+  operationId: getAllDataSources
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -323,9 +629,107 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/access-request/{id}/masking-exception-columns
+- path: /api/data-use-agreement
+  method: post
+  operationId: createDataUseAgreement
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/data-use-agreement
   method: get
-  operationId: searchAccessRequestMaskingExceptionColumns
+  operationId: searchDataUseAgreements
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/data-use-agreement/{id}
+  method: delete
+  operationId: deleteDataUseAgreement
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/data-use-agreement/{id}
+  method: put
+  operationId: updateDataUseAgreement
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /api/data-use-agreement/{id}
+  method: get
+  operationId: getDataUseAgreementById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/data-use-agreement/{id}/request-forms
+  method: get
+  operationId: getAssociatedRequestForms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /health
+  method: get
+  operationId: liveness[0]
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /health/live
+  method: get
+  operationId: liveness[1]
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /health/ready
+  method: get
+  operationId: readiness
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -407,18 +811,12 @@ operations:
   method: post
   operationId: searchAppliedTags
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /api/notification/user-preferences
   method: get
   operationId: getUserPreferences
@@ -659,9 +1057,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/asset/byMetadata
+- path: /api/data-product/{id}/request-forms
   method: get
-  operationId: getAssetByMetadata
+  operationId: getRequestForms
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -669,269 +1067,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /api/asset/{id}
-  method: get
-  operationId: getAssetById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/asset/{id}
-  method: put
-  operationId: updateAsset
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/asset/{id}
-  method: patch
-  operationId: patchAsset
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /api/asset/{id}/request-forms
   method: get
   operationId: getAssetRequestForms
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/asset/{id}/review-flows
-  method: get
-  operationId: getAssetReviewFlows
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/asset/{id}/request
-  method: post
-  operationId: requestAsset
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/asset/{id}/request/{requestId}
-  method: delete
-  operationId: revokeAssetRequest
-  x-agentic-access:
-    action-class: acting
-    consequence: safety-critical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 120
-      exchange: true
-      purpose-required: true
-      proof-of-possession: true
-    escalation:
-      human-in-the-loop: required
-    audit: required
-- path: /api/asset/{id}/recent-determinations
-  method: get
-  operationId: RecentAssetDeterminations
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/data-use-agreement
-  method: post
-  operationId: createDataUseAgreement
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/data-use-agreement
-  method: get
-  operationId: searchDataUseAgreements
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/data-use-agreement/{id}
-  method: delete
-  operationId: deleteDataUseAgreement
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/data-use-agreement/{id}
-  method: put
-  operationId: updateDataUseAgreement
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/data-use-agreement/{id}
-  method: get
-  operationId: getDataUseAgreementById
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/data-use-agreement/{id}/request-forms
-  method: get
-  operationId: getAssociatedRequestForms
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/approval-record/{id}
-  method: put
-  operationId: updateApprovalRecord
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/auth/user
-  method: get
-  operationId: user
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/auth/tokens/{id}
-  method: get
-  operationId: getToken
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/auth/tokens/{id}
-  method: delete
-  operationId: deleteToken
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/auth/tokens
-  method: get
-  operationId: listTokens
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /api/auth/tokens
-  method: post
-  operationId: createToken
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /api/settings/frontend
-  method: get
-  operationId: getFrontendSettings
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1030,6 +1168,16 @@ operations:
 - path: /api/request-form/{id}/assets
   method: get
   operationId: getAssets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /api/settings/frontend
+  method: get
+  operationId: getFrontendSettings
   x-agentic-access:
     action-class: connected
     consequence: read
