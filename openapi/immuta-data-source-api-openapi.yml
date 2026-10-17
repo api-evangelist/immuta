@@ -132,34 +132,6 @@ paths:
       - Data Source
 components:
   schemas:
-    AllDataSources:
-      type: object
-      properties:
-        dataSources:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceId:
-                type: string
-            required:
-            - sourceId
-      required:
-      - dataSources
-    UpdateDataSources:
-      type: object
-      properties:
-        dataSources:
-          type: array
-          items:
-            type: object
-            properties:
-              sourceId:
-                type: string
-            required:
-            - sourceId
-      required:
-      - dataSources
     DataProduct:
       type: object
       properties:
@@ -1548,6 +1520,34 @@ components:
       required:
       - data
       - meta
+    AllDataSources:
+      type: object
+      properties:
+        dataSources:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceId:
+                type: string
+            required:
+            - sourceId
+      required:
+      - dataSources
+    UpdateDataSources:
+      type: object
+      properties:
+        dataSources:
+          type: array
+          items:
+            type: object
+            properties:
+              sourceId:
+                type: string
+            required:
+            - sourceId
+      required:
+      - dataSources
   securitySchemes:
     bearer:
       scheme: bearer

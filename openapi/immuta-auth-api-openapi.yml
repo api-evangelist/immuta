@@ -114,6 +114,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreatePersonalAccessToken:
+      type: object
+      properties:
+        description:
+          type: string
+        expirationDate:
+          type: string
+          format: date-time
+      required:
+      - description
+    CreatePersonalAccessTokenResponse:
+      type: object
+      properties:
+        tokenId:
+          type: string
+          format: uuid
+        token:
+          type: string
+      required:
+      - tokenId
+      - token
     PersonalAccessToken:
       type: object
       properties:
@@ -142,27 +163,6 @@ components:
       - tenantId
       - description
       - active
-    CreatePersonalAccessTokenResponse:
-      type: object
-      properties:
-        tokenId:
-          type: string
-          format: uuid
-        token:
-          type: string
-      required:
-      - tokenId
-      - token
-    CreatePersonalAccessToken:
-      type: object
-      properties:
-        description:
-          type: string
-        expirationDate:
-          type: string
-          format: date-time
-      required:
-      - description
     UserWithPermissionsAndEntitlements:
       type: object
       properties:
