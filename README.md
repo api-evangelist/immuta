@@ -64,42 +64,141 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Immuta is a data security and access-governance platform. Organizations register their
-cloud data platforms — Snowflake, Databricks (Unity Catalog, Lakebase, Spark), Amazon
-Redshift and Redshift Spectrum, Amazon S3, AWS Lake Formation, Google BigQuery, Azure
-Synapse Analytics, Starburst (Trino) and Teradata — then author, enforce and audit
-subscription, data and write policies against that data from one control plane. The
-product is split into the Govern, Provision (Request) and Comply apps, and now includes
-agentic data access controls for governing how AI agents and LLMs query sensitive data.
+Immuta is a data security and access-governance platform that lets organizations register their cloud data platforms — Snowflake, Databricks (Unity Catalog, Lakebase, Spark), Amazon Redshift and Redshift Spectrum, Amazon S3, AWS Lake Formation, Google BigQuery, Azure Synapse Analytics, Starburst (Trino) and Teradata — and then author, enforce and audit subscription, data and write policies against that data from a single control plane. The platform is split into the Govern, Provision (Request) and Comply apps, with attribute-based access control, sensitive data discovery and tagging, dynamic masking and row-level filtering, purpose-based restrictions, data products and an access-request workflow, plus agentic data access controls for governing how AI agents and LLMs query sensitive data. Immuta exposes this surface through several REST APIs: the Data Marketplace / Request app API (published as OpenAPI 3.0), the Govern V1 and V2 APIs, the integrations API and the connections API, alongside the Immuta CLI, a webhook event surface and a Terraform provider.
 
-- Website: https://www.immuta.com/
-- Documentation: https://documentation.immuta.com/saas
-- API guides: https://documentation.immuta.com/saas/developer-guides/api-intro
-- Status: https://status.immuta.com/
-- Trust: https://www.immuta.com/trust/
+**Areas:** Company · Data Governance · Data Access Control · Data Security · Privacy · Policy Management · Data Marketplace · Compliance · Snowflake · Databricks · Analytics · Agentic Data Access
 
-## APIs
+## Immuta on APIs.io
 
-| API | Contract | Base URL |
-|---|---|---|
-| Immuta Data Marketplace (Request app) | OpenAPI 3.0, 83 operations | `https://{na\|eu\|ap}.api.immutacloud.com/marketplace` |
-| Immuta Govern (V1, V2, integrations, connections) | documented reference, no spec | the customer's own Immuta tenant host |
+Everything profiled for Immuta is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/immuta/](https://apis.io/providers/immuta/)** — or go straight to one of the APIs or properties below.
 
-## Artifacts in this repo
+### APIs (12)
 
-| Path | What it is |
+- [Immuta Govern API](https://apis.io/apis/immuta/govern-api/) — The Immuta Govern app API — the tenant-hosted REST surface for registering data sources and connections, authoring data, subscription and write policies,…
+- [Immuta Access Request API](https://apis.io/apis/immuta/immuta-access-request-api/) — APIs for managing data access
+- [Immuta Asset API](https://apis.io/apis/immuta/immuta-asset-api/) — APIs for managing assets
+- [Immuta Auth API](https://apis.io/apis/immuta/immuta-auth-api/) — The Auth API from Immuta — 3 operation(s) for auth.
+- [Immuta Data Product API](https://apis.io/apis/immuta/immuta-data-product-api/) — APIs for managing data products
+- [Immuta Data Source API](https://apis.io/apis/immuta/immuta-data-source-api/) — APIs for managing data sources
+- [Immuta Data Use Agreement API](https://apis.io/apis/immuta/immuta-data-use-agreement-api/) — APIs for managing data use agreements
+- [Immuta Health API](https://apis.io/apis/immuta/immuta-health-api/) — APIs for checking the health of the service
+- [Immuta Metadata API](https://apis.io/apis/immuta/immuta-metadata-api/) — APIs used to retrieve metadata from Immuta to enrich the marketplace
+- [Immuta Notification API](https://apis.io/apis/immuta/immuta-notification-api/) — APIs for managing notifications
+- [Immuta Request Form API](https://apis.io/apis/immuta/immuta-request-form-api/) — APIs for managing request forms
+- [Immuta Settings API](https://apis.io/apis/immuta/immuta-settings-api/) — APIs used to retrieve metadata settings
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Immuta Webhooks](https://apis.io/asyncapis/immuta/immuta-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [immuta-documentation](https://apis.io/servers/immuta/immuta-documentation/)
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Immuta Agentic Access](https://apis.io/agentic-access/immuta/immuta-agentic-access/)
+
+#### Collections (1)
+
+Postman and Open Collection request collections.
+
+- [Immuta Data Marketplace](https://apis.io/collections/immuta/open-immuta-marketplace-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Immuta Marketplace Api Overlay](https://apis.io/overlays/immuta/immuta-marketplace-api-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Immuta Authentication](https://apis.io/security/immuta/immuta-authentication/)
+- [Immuta Domain Security](https://apis.io/security/immuta/immuta-domain-security/)
+- [Immuta Trust Center](https://apis.io/security/immuta/immuta-trust-center/)
+- [Immuta Vulnerability Disclosure](https://apis.io/security/immuta/immuta-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.immuta.com/)
+- [Documentation](https://documentation.immuta.com/saas)
+- [Getting started](https://documentation.immuta.com/saas/developer-guides/api-intro/integrations-api/getting-started)
+- [API reference](https://documentation.immuta.com/saas/developer-guides/api-intro)
+- [Support](https://support.immuta.com/en/customer-portal)
+- [Changelog](https://changelog.immuta.com/en)
+- [Blog](https://www.immuta.com/blog/)
+- [Security](https://bugcrowd.com/61d7ba4d-be53-4704-9a73-761d6f108df9/external/report)
+- [Compliance](https://www.immuta.com/trust/)
+- [Terms of service](https://www.immuta.com/terms-of-service/)
+- [Privacy policy](https://www.immuta.com/legal/privacy-policy/)
+- [GitHub](https://github.com/immuta)
+- [Status](https://status.immuta.com/)
+
+## API Evangelist rating
+
+**Kin Score 54.3** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | The Immuta Data Marketplace OpenAPI 3.0, harvested verbatim from Immuta's GitBook spec host |
-| `overlays/` | API Evangelist Overlay 1.0.0 over that spec (does not mutate the original) |
-| `asyncapi/` | The webhook event surface — 73 Govern event types plus the Request app webhook API. No AsyncAPI is published |
-| `authentication/`, `conventions/`, `errors/`, `data-model/` | Auth profile, cross-cutting semantics, error catalog, entity graph |
-| `lifecycle/`, `changelog/` | Versioning, behavior-change process, deprecations, status page, SLA, recent release entries |
-| `security/` | Domain security probe, Bugcrowd vulnerability disclosure program, trust center certifications |
-| `conformance/` | Standards conformance and the published compliance program |
-| `mcp/` | The live documentation MCP server (verified `tools/list`) and the MCP↔REST tool crosswalk |
-| `packages/`, `cli/` | Client tooling — the Immuta CLI binaries, Terraform provider, Singer tap |
-| `skills/` | Five packaged Agent Skills grounded in verified operationIds |
-| `agentic-access/` | Recommended `x-agentic-access` execution contracts for all 83 operations |
-| `well-known/`, `llms/` | `/.well-known/` probe record (none published) and the harvested `llms.txt` |
+| Discoverability | 75.0 |
+| Contract quality | 58.4 |
+| Contract governance | 18.2 |
+| Operational transparency | 44.7 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 43.4 |
 
-No A2A agent card is published on any Immuta host; `a2a/` is intentionally absent.
+**Agent readiness 35.8** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | platform (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/immuta/](https://apis.io/providers/immuta/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Immuta: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/immuta/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
